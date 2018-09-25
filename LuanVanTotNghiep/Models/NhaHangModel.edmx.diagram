@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="db76d2c55ab44b69b357c2bd0777cdd8" Name="Diagram1">
+        <EntityTypeShape EntityType="QLNhaHangModel.BAN" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.CHITIETGIOHANG" Width="1.5" PointX="17.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.CHITIETHOADON" Width="1.5" PointX="17.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.CHITIETPHIEUNHAP" Width="1.5" PointX="7.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.CHUCVU" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.DONDATBAN" Width="1.5" PointX="10.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.DONVITINH" Width="1.5" PointX="12.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.DUYETGIOHANG" Width="1.5" PointX="17.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.GIOHANG" Width="1.5" PointX="15" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.HINHANH" Width="1.5" PointX="12.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.HOADON" Width="1.5" PointX="15" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.KHACHHANG" Width="1.5" PointX="12.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.LOAIKHACHHANG" Width="1.5" PointX="10.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.LOAIMONAN" Width="1.5" PointX="12.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.MONAN" Width="1.5" PointX="15" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.NHACUNGCAP" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.NHAHANG" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.NHANVIEN" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.PHIEUNHAP" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.TAIKHOAN" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.TANG" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaHangModel.THUCPHAM" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+        <AssociationConnector Association="QLNhaHangModel.FK_BAN_THUOCBAN_TANG" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_HOADON_COTRONG_BAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_CHITIETG_CHITIETGI_GIOHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_CHITIETG_CHITIETGI_MONAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_CHITIETH_CHITIETHO_HOADON" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_CHITIETH_CHITIETHO_MONAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_CHITIETP_CHITIETPH_PHIEUNHA" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_CHITIETP_CHITIETPH_TAIKHOAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_CHITIETP_CHITIETPH_THUCPHAM" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_NHANVIEN_CO_CHUCVU" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_DONDATBA_DATBAN2_KHACHHAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_DONDATBA_DUYETDATB_TAIKHOAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_KHACHHAN_DATBAN_DONDATBA" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_MONAN_CODV_DONVITIN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_DUYETGIO_DUOC_GIOHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_DUYETGIO_DUYET_TAIKHOAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_GIOHANG_DAT_KHACHHAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_MONAN_COHINHANH_HINHANH" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_HOADON_NHAP_TAIKHOAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_HOADON_TRA_KHACHHAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_KHACHHAN_CUA_LOAIKHAC" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_MONAN_THUOC_LOAIMONA" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_PHIEUNHA_CUNGCAP_NHACUNGC" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_NHANVIEN_NAMTRONG_NHAHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_TANG_O_NHAHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaHangModel.FK_TAIKHOAN_CUANV_NHANVIEN" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

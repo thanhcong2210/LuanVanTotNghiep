@@ -1,0 +1,29 @@
+﻿<div id="edit" aria-labelledby="edit" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="edit-form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="edit-modal-label">Update Employee</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="edit-firstname" class="col-sm-2 control-label">ten loai</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-tenloai" name="tenloai" placeholder="Tenloai" ng-model="TENLOAI" required>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="Close()">Close</button>
+                    <button type="submit" class="btn btn-primary" ng-click="Update()">Update</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
