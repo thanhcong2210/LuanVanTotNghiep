@@ -23,7 +23,7 @@ namespace LuanVanTotNghiep.Models
     
         public int MANHAHANG { get; set; }
         public string TENNHAHANG { get; set; }
-        public Nullable<decimal> SDT { get; set; }
+        public string SDT { get; set; }
         public string GIOITHIEU { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

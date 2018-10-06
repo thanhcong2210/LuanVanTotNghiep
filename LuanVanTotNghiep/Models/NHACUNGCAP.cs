@@ -23,7 +23,7 @@ namespace LuanVanTotNghiep.Models
         public int MANCC { get; set; }
         public string TEN_NCC { get; set; }
         public string DIACHI_NCC { get; set; }
-        public Nullable<decimal> SDT_NCC { get; set; }
+        public string SDT_NCC { get; set; }
         public string GHICHUTHEM { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -10,16 +10,9 @@
 namespace LuanVanTotNghiep.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class NHANVIEN
+    public partial class sp_InsUpdDelNhanVien_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NHANVIEN()
-        {
-            this.TAIKHOANs = new HashSet<TAIKHOAN>();
-        }
-    
         public int MANV { get; set; }
         public int MANHAHANG { get; set; }
         public int MACV { get; set; }
@@ -29,10 +22,5 @@ namespace LuanVanTotNghiep.Models
         public string EMAIL_NV { get; set; }
         public Nullable<System.DateTime> NGAYSINH_NV { get; set; }
         public Nullable<bool> GIOITINH_NV { get; set; }
-    
-        public virtual CHUCVU CHUCVU { get; set; }
-        public virtual NHAHANG NHAHANG { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TAIKHOAN> TAIKHOANs { get; set; }
     }
 }

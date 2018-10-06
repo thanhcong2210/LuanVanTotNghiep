@@ -1,0 +1,147 @@
+﻿<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Create two equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 275px; /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style> <!-- Content Header (Page header) -->
+
+<section class="content-header">
+    <h1>
+        Danh sách tài khoản
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a href="#">Nhân sự</a></li>
+        <li class="active">Danh mục tài khoản</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Danh mục tài khoản</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="thu phóng"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="đóng"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert-danger" style="width: 350px ;line-height: 50px; position:center;transition-delay:initial">
+                        <strong class="error" style="text-align:left">{{error}} </strong>
+                    </div>
+                    
+                    <form name="addtaikhoan" class="form-horizontal" style="width: 800px;">
+                        <div class="row">
+                            <div class="column">
+                                <div class="form-group">
+                                    <label for="mataikhoan" class="col-sm-3 control-label">Mã tài khoản</label>
+                                    <div class="col-sm-9 space">
+                                        <input type="text" class="form-control" id="mataikhoan" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newtk.MATAIKHOAN" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="manv" class="col-sm-3 control-label">Nhân viên</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="manv" placeholder="" ng-model="newtk.MANV" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tendangnhap" class="col-sm-3 control-label">Tên đăng nhập</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="tendangnhap" placeholder="" ng-model="newtk.TENDANGNHAP" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="matkhau" class="col-sm-3 control-label">Mật khẩu</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="matkhau" placeholder="" ng-model="newtk.MATKHAU" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="form-group">
+                                    <label for="quyensd" class="col-sm-3 control-label" style="height:30px ">Quyền sử dụng</label>
+                                    <div class="col-sm-9 space">
+                                        <input type="text" class="form-control" id="quyensd" placeholder="" ng-model="newtk.QUYENSD" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="trangthaikichhoat" class="col-sm-5 control-label">Trạng thái kích hoạt</label>
+                                    <div class="col-sm-7 space">
+                                        <input type="checkbox" ng-model="newtk.TRANGTHAIKICHHOAT" ng-true-value="'true'" ng-false-value="'false'" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group space">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="submit" value="Thêm mới" ng-click="add()" ng-show="addShow" ng-disabled="!addtaikhoan.$valid" class="btn btn-success" />
+                                <input type="submit" value="Chỉnh sửa" ng-click="update()" ng-show="updateShow" ng-disabled="!addtaikhoan.$valid" class="btn btn-primary" />
+                                <input type="button" value="Hủy bỏ" ng-click="cancel()" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" style="width: 850px; margin-left: 70px;">
+                            <tr>
+                                <th>Mã tài khoản</th>
+                                <th>Nhân viên</th>
+                                <th>Tên đăng nhập</th>
+                                <th>Mật khẩu</th>
+                                <th>Quyền sử dụng</th>
+                                <th>Trạng thái kích hoạt</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr ng-repeat="taikhoan in taikhoans">
+                                <td>
+                                    <p>{{ taikhoan.MATAIKHOAN }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ taikhoan.MANV }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ taikhoan.TENDANGNHAP }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ taikhoan.MATKHAU }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ taikhoan.QUYENSD }}</p>
+                                </td>
+                                <td>
+                                    <p><div ng-if="taikhoan.TRANGTHAIKICHHOAT == 'true'">Đã kích hoạt</div></p>
+                                </td>
+                                <td>
+                                    <p><a class="btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</section><!-- /.content -->

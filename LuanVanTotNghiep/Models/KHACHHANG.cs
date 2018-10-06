@@ -28,10 +28,10 @@ namespace LuanVanTotNghiep.Models
         public string HOTEN_KH { get; set; }
         public string DIACHI_KH { get; set; }
         public string EMAIL_KH { get; set; }
-        public Nullable<decimal> SDT_KH { get; set; }
-        public Nullable<System.DateTime> NAMSINH_KH { get; set; }
+        public string SDT_KH { get; set; }
+        public Nullable<System.DateTime> NGAYSINH_KH { get; set; }
         public Nullable<bool> GIOITINH_KH { get; set; }
-        public string TAIKHOAN_KH { get; set; }
+        public string TENDANGNHAP_KH { get; set; }
         public string MATKHAU_KH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

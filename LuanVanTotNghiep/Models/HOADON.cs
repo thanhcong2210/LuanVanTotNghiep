@@ -29,7 +29,7 @@ namespace LuanVanTotNghiep.Models
         public Nullable<System.DateTime> NGAYTHANHTOAN { get; set; }
         public Nullable<bool> TRANGTHAIHD { get; set; }
         public string GHICHU { get; set; }
-        public Nullable<decimal> GIAMGIA { get; set; }
+        public Nullable<double> GIAMGIA { get; set; }
     
         public virtual BAN BAN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

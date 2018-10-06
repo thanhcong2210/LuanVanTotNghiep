@@ -169,8 +169,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ChucVuAPIController.cs" />
+    <Compile Include="Controllers\DonViTinhAPIController.cs" />
+    <Compile Include="Controllers\HinhAnhAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoaiMonAnAPIController.cs" />
+    <Compile Include="Controllers\NhaHangAPIController.cs" />
+    <Compile Include="Controllers\NhanVienAPIController.cs" />
+    <Compile Include="Controllers\TaiKhoanAPIController.cs" />
+    <Compile Include="Controllers\TangAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,7 +253,37 @@
     <Compile Include="Models\PHIEUNHAP.cs">
       <DependentUpon>NhaHangModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_InsUpdDelBan_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_InsUpdDelChucVu_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_InsUpdDelDonViTinh_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_InsUpdDelHinhAnh_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_InsUpdDelLoaiMonAn_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_InsUpdDelMonAn_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_InsUpdDelNhaHang_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_InsUpdDelNhanVien_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_InsUpdDelTaiKhoan_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_InsUpdDelTang_Result.cs">
+      <DependentUpon>NhaHangModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_InsUpdDelThucPham_Result.cs">
       <DependentUpon>NhaHangModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TAIKHOAN.cs">
@@ -263,17 +300,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\chucVuController.js" />
     <Content Include="app\components\home\homeController.js" />
     <Content Include="app\components\home\homeView.html" />
+    <Content Include="app\hinhAnhController.js" />
+    <Content Include="app\donViTinhController.js" />
     <Content Include="app\loaiMonAnController.js" />
-    <Content Include="app\View\AddLoaiMonAn.html" />
-    <Content Include="app\View\DeletaLoaiMonAn.html" />
+    <Content Include="app\nhaHangController.js" />
+    <Content Include="app\nhanVienController.js" />
+    <Content Include="app\taiKhoanController.js" />
+    <Content Include="app\tangController.js" />
+    <Content Include="app\View\ChucVu.html" />
+    <Content Include="app\View\DonViTinh.html" />
+    <Content Include="app\View\HinhAnh.html" />
     <Content Include="app\View\LoaiMonAnList.html" />
     <Content Include="app\components\monan\monanListController.js" />
     <Content Include="app\components\monan\MonAnView.html" />
     <Content Include="app\components\nhanvien\nhanvienListController.js" />
     <Content Include="app\components\nhanvien\nhanvienListView.html" />
-    <Content Include="app\View\UpdateLoaiMonAn.html" />
+    <Content Include="app\View\NhaHang.html" />
+    <Content Include="app\View\NhanVien.html" />
+    <Content Include="app\View\TaiKhoan.html" />
+    <Content Include="app\View\Tang.html" />
     <Content Include="Assets\admin\css\AdminLTE.css" />
     <Content Include="Assets\admin\css\AdminLTE.min.css" />
     <Content Include="Assets\admin\css\skins\skin-black-light.css" />
@@ -357,6 +405,7 @@
       <LastGenOutput>NhaHangModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\js\angular.js" />
+    <Content Include="upload\admin.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

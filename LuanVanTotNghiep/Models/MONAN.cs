@@ -29,6 +29,7 @@ namespace LuanVanTotNghiep.Models
         public Nullable<double> DONGIA { get; set; }
         public string MOTA { get; set; }
         public string CACHLAM { get; set; }
+        public Nullable<System.DateTime> NGAYTAOMOI { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETGIOHANG> CHITIETGIOHANGs { get; set; }

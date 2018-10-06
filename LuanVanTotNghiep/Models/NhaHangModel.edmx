@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QLNhaHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QlNhaHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BAN">
           <Key>
             <PropertyRef Name="MABAN" />
@@ -41,7 +41,7 @@
           <Property Name="MATHUCPHAM" Type="int" Nullable="false" />
           <Property Name="MAPHIEUNHAP" Type="int" Nullable="false" />
           <Property Name="MATAIKHOAN" Type="int" Nullable="false" />
-          <Property Name="SOLUONGNHAP" Type="numeric" Precision="5" Scale="0" />
+          <Property Name="SOLUONGNHAP" Type="int" />
           <Property Name="DONGIATHUCPHAM" Type="float" />
         </EntityType>
         <EntityType Name="CHUCVU">
@@ -59,7 +59,7 @@
           <Property Name="MADATBAN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MATAIKHOAN" Type="int" Nullable="false" />
           <Property Name="MAKH" Type="int" />
-          <Property Name="SOLUONGNGUOI" Type="decimal" Precision="2" Scale="0" />
+          <Property Name="SOLUONGNGUOI" Type="int" />
           <Property Name="NGAYDEN" Type="datetime" />
           <Property Name="GIODEN" Type="datetime" />
           <Property Name="TRANGTHAIDATBAN" Type="bit" />
@@ -89,7 +89,7 @@
           <Property Name="MAKH" Type="int" Nullable="false" />
           <Property Name="NGAYDAT" Type="datetime" />
           <Property Name="TRANGTHAI" Type="bit" />
-          <Property Name="DIACHINHAN" Type="nvarchar" MaxLength="200" />
+          <Property Name="DIACHINHAN" Type="nvarchar" MaxLength="350" />
         </EntityType>
         <EntityType Name="HINHANH">
           <Key>
@@ -113,7 +113,7 @@
           <Property Name="NGAYTHANHTOAN" Type="datetime" />
           <Property Name="TRANGTHAIHD" Type="bit" />
           <Property Name="GHICHU" Type="nvarchar" MaxLength="200" />
-          <Property Name="GIAMGIA" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="GIAMGIA" Type="float" />
         </EntityType>
         <EntityType Name="KHACHHANG">
           <Key>
@@ -122,13 +122,13 @@
           <Property Name="MAKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MALOAI_KH" Type="int" Nullable="false" />
           <Property Name="MADATBAN" Type="int" />
-          <Property Name="HOTEN_KH" Type="nvarchar" MaxLength="20" />
-          <Property Name="DIACHI_KH" Type="nvarchar" MaxLength="100" />
-          <Property Name="EMAIL_KH" Type="nvarchar" MaxLength="100" />
-          <Property Name="SDT_KH" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="NAMSINH_KH" Type="datetime" />
+          <Property Name="HOTEN_KH" Type="nvarchar" MaxLength="100" />
+          <Property Name="DIACHI_KH" Type="nvarchar" MaxLength="200" />
+          <Property Name="EMAIL_KH" Type="char" MaxLength="100" />
+          <Property Name="SDT_KH" Type="char" MaxLength="11" />
+          <Property Name="NGAYSINH_KH" Type="datetime" />
           <Property Name="GIOITINH_KH" Type="bit" />
-          <Property Name="TAIKHOAN_KH" Type="varchar" MaxLength="20" />
+          <Property Name="TENDANGNHAP_KH" Type="varchar" MaxLength="20" />
           <Property Name="MATKHAU_KH" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="LOAIKHACHHANG">
@@ -156,8 +156,9 @@
           <Property Name="MAHINHANH" Type="int" Nullable="false" />
           <Property Name="TENGOI" Type="nvarchar" MaxLength="50" />
           <Property Name="DONGIA" Type="float" />
-          <Property Name="MOTA" Type="nvarchar" MaxLength="1000" />
-          <Property Name="CACHLAM" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MOTA" Type="nvarchar" MaxLength="1500" />
+          <Property Name="CACHLAM" Type="nvarchar" MaxLength="1500" />
+          <Property Name="NGAYTAOMOI" Type="datetime" />
         </EntityType>
         <EntityType Name="NHACUNGCAP">
           <Key>
@@ -166,7 +167,7 @@
           <Property Name="MANCC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TEN_NCC" Type="nvarchar" MaxLength="100" />
           <Property Name="DIACHI_NCC" Type="nvarchar" MaxLength="200" />
-          <Property Name="SDT_NCC" Type="numeric" Precision="11" Scale="0" />
+          <Property Name="SDT_NCC" Type="char" MaxLength="11" />
           <Property Name="GHICHUTHEM" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="NHAHANG">
@@ -175,7 +176,7 @@
           </Key>
           <Property Name="MANHAHANG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TENNHAHANG" Type="nvarchar" MaxLength="100" />
-          <Property Name="SDT" Type="numeric" Precision="11" Scale="0" />
+          <Property Name="SDT" Type="char" MaxLength="11" />
           <Property Name="GIOITHIEU" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="NHANVIEN">
@@ -185,12 +186,12 @@
           <Property Name="MANV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MANHAHANG" Type="int" Nullable="false" />
           <Property Name="MACV" Type="int" Nullable="false" />
-          <Property Name="HOTEN" Type="nvarchar" MaxLength="20" />
-          <Property Name="SDT_NV" Type="numeric" Precision="11" Scale="0" />
+          <Property Name="HOTEN_NV" Type="nvarchar" MaxLength="100" />
+          <Property Name="SDT_NV" Type="char" MaxLength="11" />
           <Property Name="DIACHI_NV" Type="nvarchar" MaxLength="200" />
           <Property Name="EMAIL_NV" Type="nvarchar" MaxLength="200" />
-          <Property Name="NAMSINH_NV" Type="datetime" />
-          <Property Name="GIOITINH" Type="bit" />
+          <Property Name="NGAYSINH_NV" Type="datetime" />
+          <Property Name="GIOITINH_NV" Type="bit" />
         </EntityType>
         <EntityType Name="PHIEUNHAP">
           <Key>
@@ -539,12 +540,96 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_InsUpdDelBan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maban" Type="int" Mode="In" />
+          <Parameter Name="matang" Type="int" Mode="In" />
+          <Parameter Name="tentang" Type="nvarchar" Mode="In" />
+          <Parameter Name="trangthaiban" Type="bit" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsUpdDelChucVu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="macv" Type="int" Mode="In" />
+          <Parameter Name="tencv" Type="nvarchar" Mode="In" />
+          <Parameter Name="motacv" Type="nvarchar" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsUpdDelDonViTinh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="madvtinh" Type="int" Mode="In" />
+          <Parameter Name="tendvtinh" Type="nvarchar" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsUpdDelHinhAnh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mahinhanh" Type="int" Mode="In" />
+          <Parameter Name="duongdan1" Type="char" Mode="In" />
+          <Parameter Name="duongdan2" Type="char" Mode="In" />
+          <Parameter Name="duongdan3" Type="char" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_InsUpdDelLoaiMonAn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="maloai" Type="int" Mode="In" />
           <Parameter Name="tenloai" Type="nvarchar" Mode="In" />
           <Parameter Name="type" Type="varchar" Mode="In" />
         </Function>
-        <EntityContainer Name="QLNhaHangModelStoreContainer">
+        <Function Name="sp_InsUpdDelMonAn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mamon" Type="int" Mode="In" />
+          <Parameter Name="madvtinh" Type="int" Mode="In" />
+          <Parameter Name="maloai" Type="int" Mode="In" />
+          <Parameter Name="mahinhanh" Type="int" Mode="In" />
+          <Parameter Name="tengoi" Type="nvarchar" Mode="In" />
+          <Parameter Name="dongia" Type="float" Mode="In" />
+          <Parameter Name="mota" Type="nvarchar" Mode="In" />
+          <Parameter Name="cachlam" Type="nvarchar" Mode="In" />
+          <Parameter Name="ngaytao" Type="datetime" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsUpdDelNhaHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="manhahang" Type="int" Mode="In" />
+          <Parameter Name="tennhahang" Type="nvarchar" Mode="In" />
+          <Parameter Name="sdt" Type="char" Mode="In" />
+          <Parameter Name="gioithieu" Type="nvarchar" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsUpdDelNhanVien" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="manv" Type="int" Mode="In" />
+          <Parameter Name="manhahang" Type="int" Mode="In" />
+          <Parameter Name="macv" Type="int" Mode="In" />
+          <Parameter Name="hoten_nv" Type="nvarchar" Mode="In" />
+          <Parameter Name="sdt_nv" Type="char" Mode="In" />
+          <Parameter Name="diachi_nv" Type="nvarchar" Mode="In" />
+          <Parameter Name="email_nv" Type="nvarchar" Mode="In" />
+          <Parameter Name="ngaysinh_nv" Type="datetime" Mode="In" />
+          <Parameter Name="gioitinh_nv" Type="bit" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsUpdDelTaiKhoan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mataikhoan" Type="int" Mode="In" />
+          <Parameter Name="manv" Type="int" Mode="In" />
+          <Parameter Name="tendangnhap" Type="varchar" Mode="In" />
+          <Parameter Name="matkhau" Type="varchar" Mode="In" />
+          <Parameter Name="quyensd" Type="char" Mode="In" />
+          <Parameter Name="trangthaikichhoat" Type="bit" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsUpdDelTang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="matang" Type="int" Mode="In" />
+          <Parameter Name="manhahang" Type="int" Mode="In" />
+          <Parameter Name="tentang" Type="nvarchar" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsUpdDelThucPham" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="manthucpham" Type="int" Mode="In" />
+          <Parameter Name="tenthucpham" Type="nvarchar" Mode="In" />
+          <Parameter Name="dvtinh" Type="nvarchar" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_insert_order" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="order_id" Type="int" Mode="InOut" />
+          <Parameter Name="order_date" Type="datetime" Mode="In" />
+          <Parameter Name="custom_id" Type="int" Mode="In" />
+          <Parameter Name="status" Type="bit" Mode="In" />
+          <Parameter Name="received_address" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="QlNhaHangModelStoreContainer">
           <EntitySet Name="BAN" EntityType="Self.BAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETGIOHANG" EntityType="Self.CHITIETGIOHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETHOADON" EntityType="Self.CHITIETHOADON" Schema="dbo" store:Type="Tables" />
@@ -672,11 +757,10 @@
             <End Role="TANG" EntitySet="TANG" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="QLNhaHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="QlNhaHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BAN">
           <Key>
             <PropertyRef Name="MABAN" />
@@ -719,7 +803,7 @@
           <Property Name="MATHUCPHAM" Type="Int32" Nullable="false" />
           <Property Name="MAPHIEUNHAP" Type="Int32" Nullable="false" />
           <Property Name="MATAIKHOAN" Type="Int32" Nullable="false" />
-          <Property Name="SOLUONGNHAP" Type="Decimal" Precision="5" Scale="0" />
+          <Property Name="SOLUONGNHAP" Type="Int32" />
           <Property Name="DONGIATHUCPHAM" Type="Double" />
           <NavigationProperty Name="PHIEUNHAP" Relationship="Self.FK_CHITIETP_CHITIETPH_PHIEUNHA" FromRole="CHITIETPHIEUNHAP" ToRole="PHIEUNHAP" />
           <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_CHITIETP_CHITIETPH_TAIKHOAN" FromRole="CHITIETPHIEUNHAP" ToRole="TAIKHOAN" />
@@ -741,7 +825,7 @@
           <Property Name="MADATBAN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MATAIKHOAN" Type="Int32" Nullable="false" />
           <Property Name="MAKH" Type="Int32" />
-          <Property Name="SOLUONGNGUOI" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="SOLUONGNGUOI" Type="Int32" />
           <Property Name="NGAYDEN" Type="DateTime" Precision="3" />
           <Property Name="GIODEN" Type="DateTime" Precision="3" />
           <Property Name="TRANGTHAIDATBAN" Type="Boolean" />
@@ -777,7 +861,7 @@
           <Property Name="MAKH" Type="Int32" Nullable="false" />
           <Property Name="NGAYDAT" Type="DateTime" Precision="3" />
           <Property Name="TRANGTHAI" Type="Boolean" />
-          <Property Name="DIACHINHAN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHINHAN" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CHITIETGIOHANGs" Relationship="Self.FK_CHITIETG_CHITIETGI_GIOHANG" FromRole="GIOHANG" ToRole="CHITIETGIOHANG" />
           <NavigationProperty Name="DUYETGIOHANGs" Relationship="Self.FK_DUYETGIO_DUOC_GIOHANG" FromRole="GIOHANG" ToRole="DUYETGIOHANG" />
           <NavigationProperty Name="KHACHHANG" Relationship="Self.FK_GIOHANG_DAT_KHACHHAN" FromRole="GIOHANG" ToRole="KHACHHANG" />
@@ -805,7 +889,7 @@
           <Property Name="NGAYTHANHTOAN" Type="DateTime" Precision="3" />
           <Property Name="TRANGTHAIHD" Type="Boolean" />
           <Property Name="GHICHU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="GIAMGIA" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="GIAMGIA" Type="Double" />
           <NavigationProperty Name="BAN" Relationship="Self.FK_HOADON_COTRONG_BAN" FromRole="HOADON" ToRole="BAN" />
           <NavigationProperty Name="CHITIETHOADONs" Relationship="Self.FK_CHITIETH_CHITIETHO_HOADON" FromRole="HOADON" ToRole="CHITIETHOADON" />
           <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_HOADON_NHAP_TAIKHOAN" FromRole="HOADON" ToRole="TAIKHOAN" />
@@ -818,13 +902,13 @@
           <Property Name="MAKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MALOAI_KH" Type="Int32" Nullable="false" />
           <Property Name="MADATBAN" Type="Int32" />
-          <Property Name="HOTEN_KH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DIACHI_KH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL_KH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SDT_KH" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="NAMSINH_KH" Type="DateTime" Precision="3" />
+          <Property Name="HOTEN_KH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI_KH" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL_KH" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="SDT_KH" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="NGAYSINH_KH" Type="DateTime" Precision="3" />
           <Property Name="GIOITINH_KH" Type="Boolean" />
-          <Property Name="TAIKHOAN_KH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TENDANGNHAP_KH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="MATKHAU_KH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DONDATBANs" Relationship="Self.FK_DONDATBA_DATBAN2_KHACHHAN" FromRole="KHACHHANG" ToRole="DONDATBAN" />
           <NavigationProperty Name="DONDATBAN" Relationship="Self.FK_KHACHHAN_DATBAN_DONDATBA" FromRole="KHACHHANG" ToRole="DONDATBAN" />
@@ -859,8 +943,9 @@
           <Property Name="MAHINHANH" Type="Int32" Nullable="false" />
           <Property Name="TENGOI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DONGIA" Type="Double" />
-          <Property Name="MOTA" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="CACHLAM" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MOTA" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="CACHLAM" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYTAOMOI" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CHITIETGIOHANGs" Relationship="Self.FK_CHITIETG_CHITIETGI_MONAN" FromRole="MONAN" ToRole="CHITIETGIOHANG" />
           <NavigationProperty Name="CHITIETHOADONs" Relationship="Self.FK_CHITIETH_CHITIETHO_MONAN" FromRole="MONAN" ToRole="CHITIETHOADON" />
           <NavigationProperty Name="DONVITINH" Relationship="Self.FK_MONAN_CODV_DONVITIN" FromRole="MONAN" ToRole="DONVITINH" />
@@ -874,7 +959,7 @@
           <Property Name="MANCC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TEN_NCC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DIACHI_NCC" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SDT_NCC" Type="Decimal" Precision="11" Scale="0" />
+          <Property Name="SDT_NCC" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="GHICHUTHEM" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PHIEUNHAPs" Relationship="Self.FK_PHIEUNHA_CUNGCAP_NHACUNGC" FromRole="NHACUNGCAP" ToRole="PHIEUNHAP" />
         </EntityType>
@@ -884,7 +969,7 @@
           </Key>
           <Property Name="MANHAHANG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TENNHAHANG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SDT" Type="Decimal" Precision="11" Scale="0" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="GIOITHIEU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="NHANVIENs" Relationship="Self.FK_NHANVIEN_NAMTRONG_NHAHANG" FromRole="NHAHANG" ToRole="NHANVIEN" />
           <NavigationProperty Name="TANGs" Relationship="Self.FK_TANG_O_NHAHANG" FromRole="NHAHANG" ToRole="TANG" />
@@ -896,12 +981,12 @@
           <Property Name="MANV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MANHAHANG" Type="Int32" Nullable="false" />
           <Property Name="MACV" Type="Int32" Nullable="false" />
-          <Property Name="HOTEN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SDT_NV" Type="Decimal" Precision="11" Scale="0" />
+          <Property Name="HOTEN_NV" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT_NV" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="DIACHI_NV" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="EMAIL_NV" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="NAMSINH_NV" Type="DateTime" Precision="3" />
-          <Property Name="GIOITINH" Type="Boolean" />
+          <Property Name="NGAYSINH_NV" Type="DateTime" Precision="3" />
+          <Property Name="GIOITINH_NV" Type="Boolean" />
           <NavigationProperty Name="CHUCVU" Relationship="Self.FK_NHANVIEN_CO_CHUCVU" FromRole="NHANVIEN" ToRole="CHUCVU" />
           <NavigationProperty Name="NHAHANG" Relationship="Self.FK_NHANVIEN_NAMTRONG_NHAHANG" FromRole="NHANVIEN" ToRole="NHAHANG" />
           <NavigationProperty Name="TAIKHOANs" Relationship="Self.FK_TAIKHOAN_CUANV_NHANVIEN" FromRole="NHANVIEN" ToRole="TAIKHOAN" />
@@ -1390,24 +1475,175 @@
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
           </AssociationSet>
-          <FunctionImport Name="sp_InsUpdDelLoaiMonAn" ReturnType="Collection(QLNhaHangModel.sp_InsUpdDelLoaiMonAn_Result)">
+          <FunctionImport Name="sp_InsUpdDelChucVu" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelChucVu_Result)">
+            <Parameter Name="macv" Mode="In" Type="Int32" />
+            <Parameter Name="tencv" Mode="In" Type="String" />
+            <Parameter Name="motacv" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelDonViTinh" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelDonViTinh_Result)">
+            <Parameter Name="madvtinh" Mode="In" Type="Int32" />
+            <Parameter Name="tendvtinh" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelHinhAnh" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelHinhAnh_Result)">
+            <Parameter Name="mahinhanh" Mode="In" Type="Int32" />
+            <Parameter Name="duongdan1" Mode="In" Type="String" />
+            <Parameter Name="duongdan2" Mode="In" Type="String" />
+            <Parameter Name="duongdan3" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelLoaiMonAn" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelLoaiMonAn_Result)">
             <Parameter Name="maloai" Mode="In" Type="Int32" />
             <Parameter Name="tenloai" Mode="In" Type="String" />
             <Parameter Name="type" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelNhaHang" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelNhaHang_Result)">
+            <Parameter Name="manhahang" Mode="In" Type="Int32" />
+            <Parameter Name="tennhahang" Mode="In" Type="String" />
+            <Parameter Name="sdt" Mode="In" Type="String" />
+            <Parameter Name="gioithieu" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_insert_order">
+            <Parameter Name="order_id" Mode="InOut" Type="Int32" />
+            <Parameter Name="order_date" Mode="In" Type="DateTime" />
+            <Parameter Name="custom_id" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Boolean" />
+            <Parameter Name="received_address" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelTang" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelTang_Result)">
+            <Parameter Name="matang" Mode="In" Type="Int32" />
+            <Parameter Name="manhahang" Mode="In" Type="Int32" />
+            <Parameter Name="tentang" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelBan" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelBan_Result)">
+            <Parameter Name="maban" Mode="In" Type="Int32" />
+            <Parameter Name="matang" Mode="In" Type="Int32" />
+            <Parameter Name="tentang" Mode="In" Type="String" />
+            <Parameter Name="trangthaiban" Mode="In" Type="Boolean" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelMonAn" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelMonAn_Result)">
+            <Parameter Name="mamon" Mode="In" Type="Int32" />
+            <Parameter Name="madvtinh" Mode="In" Type="Int32" />
+            <Parameter Name="maloai" Mode="In" Type="Int32" />
+            <Parameter Name="mahinhanh" Mode="In" Type="Int32" />
+            <Parameter Name="tengoi" Mode="In" Type="String" />
+            <Parameter Name="dongia" Mode="In" Type="Double" />
+            <Parameter Name="mota" Mode="In" Type="String" />
+            <Parameter Name="cachlam" Mode="In" Type="String" />
+            <Parameter Name="ngaytao" Mode="In" Type="DateTime" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelNhanVien" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelNhanVien_Result)">
+            <Parameter Name="manv" Mode="In" Type="Int32" />
+            <Parameter Name="manhahang" Mode="In" Type="Int32" />
+            <Parameter Name="macv" Mode="In" Type="Int32" />
+            <Parameter Name="hoten_nv" Mode="In" Type="String" />
+            <Parameter Name="sdt_nv" Mode="In" Type="String" />
+            <Parameter Name="diachi_nv" Mode="In" Type="String" />
+            <Parameter Name="email_nv" Mode="In" Type="String" />
+            <Parameter Name="ngaysinh_nv" Mode="In" Type="DateTime" />
+            <Parameter Name="gioitinh_nv" Mode="In" Type="Boolean" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelTaiKhoan" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelTaiKhoan_Result)">
+            <Parameter Name="mataikhoan" Mode="In" Type="Int32" />
+            <Parameter Name="manv" Mode="In" Type="Int32" />
+            <Parameter Name="tendangnhap" Mode="In" Type="String" />
+            <Parameter Name="matkhau" Mode="In" Type="String" />
+            <Parameter Name="quyensd" Mode="In" Type="String" />
+            <Parameter Name="trangthaikichhoat" Mode="In" Type="Boolean" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelThucPham" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelThucPham_Result)">
+            <Parameter Name="manthucpham" Mode="In" Type="Int32" />
+            <Parameter Name="tenthucpham" Mode="In" Type="String" />
+            <Parameter Name="dvtinh" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="sp_InsUpdDelChucVu_Result">
+          <Property Type="Int32" Name="MACV" Nullable="false" />
+          <Property Type="String" Name="TENCV" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="MOTACV" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelDonViTinh_Result">
+          <Property Type="Int32" Name="MADVTINH" Nullable="false" />
+          <Property Type="String" Name="TENDVTINH" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelHinhAnh_Result">
+          <Property Type="Int32" Name="MAHINHANH" Nullable="false" />
+          <Property Type="String" Name="DUONGDAN1" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="DUONGDAN2" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="DUONGDAN3" Nullable="true" MaxLength="350" />
+        </ComplexType>
         <ComplexType Name="sp_InsUpdDelLoaiMonAn_Result">
           <Property Type="Int32" Name="MALOAI" Nullable="false" />
           <Property Type="String" Name="TENLOAI" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelNhaHang_Result">
+          <Property Type="Int32" Name="MANHAHANG" Nullable="false" />
+          <Property Type="String" Name="TENNHAHANG" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SDT" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="GIOITHIEU" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelTang_Result">
+          <Property Type="Int32" Name="MATANG" Nullable="false" />
+          <Property Type="Int32" Name="MANHAHANG" Nullable="false" />
+          <Property Type="String" Name="TENTANG" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelBan_Result">
+          <Property Type="Int32" Name="MABAN" Nullable="false" />
+          <Property Type="Int32" Name="MATANG" Nullable="false" />
+          <Property Type="String" Name="TENBAN" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="TRANGTHAIBAN" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelMonAn_Result">
+          <Property Type="Int32" Name="MAMON" Nullable="false" />
+          <Property Type="Int32" Name="MADVTINH" Nullable="false" />
+          <Property Type="Int32" Name="MALOAI" Nullable="false" />
+          <Property Type="Int32" Name="MAHINHANH" Nullable="false" />
+          <Property Type="String" Name="TENGOI" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="DONGIA" Nullable="true" />
+          <Property Type="String" Name="MOTA" Nullable="true" MaxLength="1500" />
+          <Property Type="String" Name="CACHLAM" Nullable="true" MaxLength="1500" />
+          <Property Type="DateTime" Name="NGAYTAOMOI" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelNhanVien_Result">
+          <Property Type="Int32" Name="MANV" Nullable="false" />
+          <Property Type="Int32" Name="MANHAHANG" Nullable="false" />
+          <Property Type="Int32" Name="MACV" Nullable="false" />
+          <Property Type="String" Name="HOTEN_NV" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SDT_NV" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="DIACHI_NV" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="EMAIL_NV" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="NGAYSINH_NV" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="GIOITINH_NV" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelTaiKhoan_Result">
+          <Property Type="Int32" Name="MATAIKHOAN" Nullable="false" />
+          <Property Type="Int32" Name="MANV" Nullable="false" />
+          <Property Type="String" Name="TENDANGNHAP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="MATKHAU" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QUYENSD" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="TRANGTHAIKICHHOAT" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelThucPham_Result">
+          <Property Type="Int32" Name="MATHUCPHAM" Nullable="false" />
+          <Property Type="String" Name="TENTHUCPHAM" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DVTINH" Nullable="true" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QLNhaHangModelStoreContainer" CdmEntityContainer="QLNhaHangEntities">
+        <EntityContainerMapping StorageEntityContainer="QlNhaHangModelStoreContainer" CdmEntityContainer="QLNhaHangEntities">
           <EntitySetMapping Name="BANs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.BAN">
+            <EntityTypeMapping TypeName="QlNhaHangModel.BAN">
               <MappingFragment StoreEntitySet="BAN">
                 <ScalarProperty Name="MABAN" ColumnName="MABAN" />
                 <ScalarProperty Name="MATANG" ColumnName="MATANG" />
@@ -1417,7 +1653,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHITIETGIOHANGs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.CHITIETGIOHANG">
+            <EntityTypeMapping TypeName="QlNhaHangModel.CHITIETGIOHANG">
               <MappingFragment StoreEntitySet="CHITIETGIOHANG">
                 <ScalarProperty Name="MAMON" ColumnName="MAMON" />
                 <ScalarProperty Name="MAGH" ColumnName="MAGH" />
@@ -1426,7 +1662,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHITIETHOADONs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.CHITIETHOADON">
+            <EntityTypeMapping TypeName="QlNhaHangModel.CHITIETHOADON">
               <MappingFragment StoreEntitySet="CHITIETHOADON">
                 <ScalarProperty Name="MAHD" ColumnName="MAHD" />
                 <ScalarProperty Name="MAMON" ColumnName="MAMON" />
@@ -1435,7 +1671,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHITIETPHIEUNHAPs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.CHITIETPHIEUNHAP">
+            <EntityTypeMapping TypeName="QlNhaHangModel.CHITIETPHIEUNHAP">
               <MappingFragment StoreEntitySet="CHITIETPHIEUNHAP">
                 <ScalarProperty Name="MATHUCPHAM" ColumnName="MATHUCPHAM" />
                 <ScalarProperty Name="MAPHIEUNHAP" ColumnName="MAPHIEUNHAP" />
@@ -1446,7 +1682,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHUCVUs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.CHUCVU">
+            <EntityTypeMapping TypeName="QlNhaHangModel.CHUCVU">
               <MappingFragment StoreEntitySet="CHUCVU">
                 <ScalarProperty Name="MACV" ColumnName="MACV" />
                 <ScalarProperty Name="TENCV" ColumnName="TENCV" />
@@ -1455,7 +1691,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DONDATBANs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.DONDATBAN">
+            <EntityTypeMapping TypeName="QlNhaHangModel.DONDATBAN">
               <MappingFragment StoreEntitySet="DONDATBAN">
                 <ScalarProperty Name="MADATBAN" ColumnName="MADATBAN" />
                 <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
@@ -1468,7 +1704,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DONVITINHs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.DONVITINH">
+            <EntityTypeMapping TypeName="QlNhaHangModel.DONVITINH">
               <MappingFragment StoreEntitySet="DONVITINH">
                 <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
                 <ScalarProperty Name="TENDVTINH" ColumnName="TENDVTINH" />
@@ -1476,7 +1712,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DUYETGIOHANGs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.DUYETGIOHANG">
+            <EntityTypeMapping TypeName="QlNhaHangModel.DUYETGIOHANG">
               <MappingFragment StoreEntitySet="DUYETGIOHANG">
                 <ScalarProperty Name="MADUYET" ColumnName="MADUYET" />
                 <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
@@ -1487,7 +1723,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GIOHANGs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.GIOHANG">
+            <EntityTypeMapping TypeName="QlNhaHangModel.GIOHANG">
               <MappingFragment StoreEntitySet="GIOHANG">
                 <ScalarProperty Name="MAGH" ColumnName="MAGH" />
                 <ScalarProperty Name="MAKH" ColumnName="MAKH" />
@@ -1498,7 +1734,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HINHANHs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.HINHANH">
+            <EntityTypeMapping TypeName="QlNhaHangModel.HINHANH">
               <MappingFragment StoreEntitySet="HINHANH">
                 <ScalarProperty Name="MAHINHANH" ColumnName="MAHINHANH" />
                 <ScalarProperty Name="DUONGDAN1" ColumnName="DUONGDAN1" />
@@ -1508,7 +1744,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HOADONs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.HOADON">
+            <EntityTypeMapping TypeName="QlNhaHangModel.HOADON">
               <MappingFragment StoreEntitySet="HOADON">
                 <ScalarProperty Name="MAHD" ColumnName="MAHD" />
                 <ScalarProperty Name="MABAN" ColumnName="MABAN" />
@@ -1524,7 +1760,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KHACHHANGs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.KHACHHANG">
+            <EntityTypeMapping TypeName="QlNhaHangModel.KHACHHANG">
               <MappingFragment StoreEntitySet="KHACHHANG">
                 <ScalarProperty Name="MAKH" ColumnName="MAKH" />
                 <ScalarProperty Name="MALOAI_KH" ColumnName="MALOAI_KH" />
@@ -1533,15 +1769,15 @@
                 <ScalarProperty Name="DIACHI_KH" ColumnName="DIACHI_KH" />
                 <ScalarProperty Name="EMAIL_KH" ColumnName="EMAIL_KH" />
                 <ScalarProperty Name="SDT_KH" ColumnName="SDT_KH" />
-                <ScalarProperty Name="NAMSINH_KH" ColumnName="NAMSINH_KH" />
+                <ScalarProperty Name="NGAYSINH_KH" ColumnName="NGAYSINH_KH" />
                 <ScalarProperty Name="GIOITINH_KH" ColumnName="GIOITINH_KH" />
-                <ScalarProperty Name="TAIKHOAN_KH" ColumnName="TAIKHOAN_KH" />
+                <ScalarProperty Name="TENDANGNHAP_KH" ColumnName="TENDANGNHAP_KH" />
                 <ScalarProperty Name="MATKHAU_KH" ColumnName="MATKHAU_KH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LOAIKHACHHANGs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.LOAIKHACHHANG">
+            <EntityTypeMapping TypeName="QlNhaHangModel.LOAIKHACHHANG">
               <MappingFragment StoreEntitySet="LOAIKHACHHANG">
                 <ScalarProperty Name="MALOAI_KH" ColumnName="MALOAI_KH" />
                 <ScalarProperty Name="TENLOAI_KH" ColumnName="TENLOAI_KH" />
@@ -1550,7 +1786,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LOAIMONANs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.LOAIMONAN">
+            <EntityTypeMapping TypeName="QlNhaHangModel.LOAIMONAN">
               <MappingFragment StoreEntitySet="LOAIMONAN">
                 <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
                 <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
@@ -1558,7 +1794,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MONANs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.MONAN">
+            <EntityTypeMapping TypeName="QlNhaHangModel.MONAN">
               <MappingFragment StoreEntitySet="MONAN">
                 <ScalarProperty Name="MAMON" ColumnName="MAMON" />
                 <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
@@ -1568,11 +1804,12 @@
                 <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
                 <ScalarProperty Name="MOTA" ColumnName="MOTA" />
                 <ScalarProperty Name="CACHLAM" ColumnName="CACHLAM" />
+                <ScalarProperty Name="NGAYTAOMOI" ColumnName="NGAYTAOMOI" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NHACUNGCAPs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.NHACUNGCAP">
+            <EntityTypeMapping TypeName="QlNhaHangModel.NHACUNGCAP">
               <MappingFragment StoreEntitySet="NHACUNGCAP">
                 <ScalarProperty Name="MANCC" ColumnName="MANCC" />
                 <ScalarProperty Name="TEN_NCC" ColumnName="TEN_NCC" />
@@ -1583,7 +1820,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NHAHANGs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.NHAHANG">
+            <EntityTypeMapping TypeName="QlNhaHangModel.NHAHANG">
               <MappingFragment StoreEntitySet="NHAHANG">
                 <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
                 <ScalarProperty Name="TENNHAHANG" ColumnName="TENNHAHANG" />
@@ -1593,22 +1830,22 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NHANVIENs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.NHANVIEN">
+            <EntityTypeMapping TypeName="QlNhaHangModel.NHANVIEN">
               <MappingFragment StoreEntitySet="NHANVIEN">
                 <ScalarProperty Name="MANV" ColumnName="MANV" />
                 <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
                 <ScalarProperty Name="MACV" ColumnName="MACV" />
-                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+                <ScalarProperty Name="HOTEN_NV" ColumnName="HOTEN_NV" />
                 <ScalarProperty Name="SDT_NV" ColumnName="SDT_NV" />
                 <ScalarProperty Name="DIACHI_NV" ColumnName="DIACHI_NV" />
                 <ScalarProperty Name="EMAIL_NV" ColumnName="EMAIL_NV" />
-                <ScalarProperty Name="NAMSINH_NV" ColumnName="NAMSINH_NV" />
-                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+                <ScalarProperty Name="NGAYSINH_NV" ColumnName="NGAYSINH_NV" />
+                <ScalarProperty Name="GIOITINH_NV" ColumnName="GIOITINH_NV" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PHIEUNHAPs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.PHIEUNHAP">
+            <EntityTypeMapping TypeName="QlNhaHangModel.PHIEUNHAP">
               <MappingFragment StoreEntitySet="PHIEUNHAP">
                 <ScalarProperty Name="MAPHIEUNHAP" ColumnName="MAPHIEUNHAP" />
                 <ScalarProperty Name="MANCC" ColumnName="MANCC" />
@@ -1617,7 +1854,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TAIKHOANs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.TAIKHOAN">
+            <EntityTypeMapping TypeName="QlNhaHangModel.TAIKHOAN">
               <MappingFragment StoreEntitySet="TAIKHOAN">
                 <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
                 <ScalarProperty Name="MANV" ColumnName="MANV" />
@@ -1629,7 +1866,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TANGs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.TANG">
+            <EntityTypeMapping TypeName="QlNhaHangModel.TANG">
               <MappingFragment StoreEntitySet="TANG">
                 <ScalarProperty Name="MATANG" ColumnName="MATANG" />
                 <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
@@ -1638,7 +1875,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="THUCPHAMs">
-            <EntityTypeMapping TypeName="QLNhaHangModel.THUCPHAM">
+            <EntityTypeMapping TypeName="QlNhaHangModel.THUCPHAM">
               <MappingFragment StoreEntitySet="THUCPHAM">
                 <ScalarProperty Name="MATHUCPHAM" ColumnName="MATHUCPHAM" />
                 <ScalarProperty Name="TENTHUCPHAM" ColumnName="TENTHUCPHAM" />
@@ -1646,11 +1883,119 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelLoaiMonAn" FunctionName="QLNhaHangModel.Store.sp_InsUpdDelLoaiMonAn">
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelChucVu" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelChucVu">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QLNhaHangModel.sp_InsUpdDelLoaiMonAn_Result">
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelChucVu_Result">
+                <ScalarProperty Name="MACV" ColumnName="MACV" />
+                <ScalarProperty Name="TENCV" ColumnName="TENCV" />
+                <ScalarProperty Name="MOTACV" ColumnName="MOTACV" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelDonViTinh" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelDonViTinh">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelDonViTinh_Result">
+                <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
+                <ScalarProperty Name="TENDVTINH" ColumnName="TENDVTINH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelHinhAnh" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelHinhAnh">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelHinhAnh_Result">
+                <ScalarProperty Name="MAHINHANH" ColumnName="MAHINHANH" />
+                <ScalarProperty Name="DUONGDAN1" ColumnName="DUONGDAN1" />
+                <ScalarProperty Name="DUONGDAN2" ColumnName="DUONGDAN2" />
+                <ScalarProperty Name="DUONGDAN3" ColumnName="DUONGDAN3" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelLoaiMonAn" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelLoaiMonAn">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelLoaiMonAn_Result">
                 <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
                 <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelNhaHang" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelNhaHang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelNhaHang_Result">
+                <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
+                <ScalarProperty Name="TENNHAHANG" ColumnName="TENNHAHANG" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="GIOITHIEU" ColumnName="GIOITHIEU" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_insert_order" FunctionName="QlNhaHangModel.Store.usp_insert_order" />
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelTang" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelTang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelTang_Result">
+                <ScalarProperty Name="MATANG" ColumnName="MATANG" />
+                <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
+                <ScalarProperty Name="TENTANG" ColumnName="TENTANG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelBan" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelBan">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelBan_Result">
+                <ScalarProperty Name="MABAN" ColumnName="MABAN" />
+                <ScalarProperty Name="MATANG" ColumnName="MATANG" />
+                <ScalarProperty Name="TENBAN" ColumnName="TENBAN" />
+                <ScalarProperty Name="TRANGTHAIBAN" ColumnName="TRANGTHAIBAN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelMonAn" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelMonAn">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelMonAn_Result">
+                <ScalarProperty Name="MAMON" ColumnName="MAMON" />
+                <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
+                <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
+                <ScalarProperty Name="MAHINHANH" ColumnName="MAHINHANH" />
+                <ScalarProperty Name="TENGOI" ColumnName="TENGOI" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="CACHLAM" ColumnName="CACHLAM" />
+                <ScalarProperty Name="NGAYTAOMOI" ColumnName="NGAYTAOMOI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelNhanVien" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelNhanVien">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelNhanVien_Result">
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
+                <ScalarProperty Name="MACV" ColumnName="MACV" />
+                <ScalarProperty Name="HOTEN_NV" ColumnName="HOTEN_NV" />
+                <ScalarProperty Name="SDT_NV" ColumnName="SDT_NV" />
+                <ScalarProperty Name="DIACHI_NV" ColumnName="DIACHI_NV" />
+                <ScalarProperty Name="EMAIL_NV" ColumnName="EMAIL_NV" />
+                <ScalarProperty Name="NGAYSINH_NV" ColumnName="NGAYSINH_NV" />
+                <ScalarProperty Name="GIOITINH_NV" ColumnName="GIOITINH_NV" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelTaiKhoan" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelTaiKhoan">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelTaiKhoan_Result">
+                <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="TENDANGNHAP" ColumnName="TENDANGNHAP" />
+                <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
+                <ScalarProperty Name="QUYENSD" ColumnName="QUYENSD" />
+                <ScalarProperty Name="TRANGTHAIKICHHOAT" ColumnName="TRANGTHAIKICHHOAT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelThucPham" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelThucPham">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelThucPham_Result">
+                <ScalarProperty Name="MATHUCPHAM" ColumnName="MATHUCPHAM" />
+                <ScalarProperty Name="TENTHUCPHAM" ColumnName="TENTHUCPHAM" />
+                <ScalarProperty Name="DVTINH" ColumnName="DVTINH" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -23,7 +23,7 @@ namespace LuanVanTotNghiep.Models
         public int MADATBAN { get; set; }
         public int MATAIKHOAN { get; set; }
         public Nullable<int> MAKH { get; set; }
-        public Nullable<decimal> SOLUONGNGUOI { get; set; }
+        public Nullable<int> SOLUONGNGUOI { get; set; }
         public Nullable<System.DateTime> NGAYDEN { get; set; }
         public Nullable<System.DateTime> GIODEN { get; set; }
         public Nullable<bool> TRANGTHAIDATBAN { get; set; }

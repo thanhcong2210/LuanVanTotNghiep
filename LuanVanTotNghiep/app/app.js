@@ -20,5 +20,40 @@ NhaHangApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
         url: "/loaimonan",
             templateUrl: '/app/View/LoaiMonAnList.html',
             controller: 'loaiMonAnController'
+        })
+        .state('dvtinh', {//nested state [products is the nested state of business state]
+            url: "/dvtinh",
+            templateUrl: '/app/View/DonViTinh.html',
+            controller: 'donViTinhController'
+        })
+        .state('hinhanh', {//nested state [products is the nested state of business state]
+            url: "/hinhanh",
+            templateUrl: '/app/View/HinhAnh.html',
+            controller: 'hinhAnhController'
+        })
+        .state('nhahang', {//nested state [products is the nested state of business state]
+            url: "/nhahang",
+            templateUrl: '/app/View/NhaHang.html',
+            controller: 'nhaHangController'
+        })
+        .state('tang', {//nested state [products is the nested state of business state]
+            url: "/tang",
+            templateUrl: '/app/View/Tang.html',
+            controller: 'tangController'
+        })
+        .state('chucvu', {//nested state [products is the nested state of business state]
+            url: "/chucvu",
+            templateUrl: '/app/View/ChucVu.html',
+            controller: 'chucVuController'
+        })
+        .state('nhanvien', {//nested state [products is the nested state of business state]
+            url: "/nhanvien",
+            templateUrl: '/app/View/NhanVien.html',
+            controller: 'nhanVienController'
+        })
+        .state('taikhoan', {//nested state [products is the nested state of business state]
+            url: "/taikhoan",
+            templateUrl: '/app/View/TaiKhoan.html',
+            controller: 'taiKhoanController'
         });
 }]);

@@ -10,18 +10,14 @@
 namespace LuanVanTotNghiep.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class CHITIETPHIEUNHAP
+    public partial class sp_InsUpdDelTaiKhoan_Result
     {
-        public int MATHUCPHAM { get; set; }
-        public int MAPHIEUNHAP { get; set; }
         public int MATAIKHOAN { get; set; }
-        public Nullable<int> SOLUONGNHAP { get; set; }
-        public Nullable<double> DONGIATHUCPHAM { get; set; }
-    
-        public virtual PHIEUNHAP PHIEUNHAP { get; set; }
-        public virtual TAIKHOAN TAIKHOAN { get; set; }
-        public virtual THUCPHAM THUCPHAM { get; set; }
+        public int MANV { get; set; }
+        public string TENDANGNHAP { get; set; }
+        public string MATKHAU { get; set; }
+        public string QUYENSD { get; set; }
+        public Nullable<bool> TRANGTHAIKICHHOAT { get; set; }
     }
 }
