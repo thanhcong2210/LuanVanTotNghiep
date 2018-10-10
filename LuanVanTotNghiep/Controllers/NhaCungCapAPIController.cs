@@ -9,51 +9,47 @@ using System.Web.Http;
 
 namespace LuanVanTotNghiep.Controllers
 {
-    public class NhanVienAPIController : ApiController
+    public class NhaCungCapAPIController : ApiController
     {
         QLNhaHangEntities db = new QLNhaHangEntities();
         // Get All
         [HttpGet]
-        public List<NHANVIEN> Get()
+        public List<NHACUNGCAP> Get()
         {
-            List<NHANVIEN> list = new List<NHANVIEN>();
-            var results = db.sp_InsUpdDelNhanVien(0,0,0,"","","","",new DateTime(1492, 10, 12), new bool(), "Get").ToList();
+            List<NHACUNGCAP> list = new List<NHACUNGCAP>();
+            var results = db.sp_InsUpdDelNhaCungCap(0, "","","", "", "Get").ToList();
             foreach (var result in results)
             {
-                var nv = new NHANVIEN()
+                var ncc = new NHACUNGCAP()
                 {
-                    MANV = result.MANV,
-                    MANHAHANG = result.MANHAHANG,
-                    MACV = result.MACV,
-                    HOTEN_NV = result.HOTEN_NV,
-                    SDT_NV = result.SDT_NV,
-                    DIACHI_NV = result.DIACHI_NV,
-                    EMAIL_NV = result.EMAIL_NV,
-                    NGAYSINH_NV = result.NGAYSINH_NV ?? DateTime.Now,
-                    GIOITINH_NV = result.GIOITINH_NV
+                    MANCC = result.MANCC,
+                    TEN_NCC  = result.TEN_NCC,
+                    DIACHI_NCC = result.DIACHI_NCC,
+                    SDT_NCC = result.SDT_NCC,
+                    GHICHUTHEM = result.GHICHUTHEM
                 };
-                list.Add(nv);
+                list.Add(ncc);
             }
             return list;
         }
 
         // Get by Id
-        public NHANVIEN Get(int id)
+        public NHACUNGCAP Get(int id)
         {
 
-            NHANVIEN nv = db.NHANVIENs.Find(id);
-            if (nv == null)
+            NHACUNGCAP ncc = db.NHACUNGCAPs.Find(id);
+            if (ncc == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
-            return nv;
+            return ncc;
         }
         // Insert 
-        public HttpResponseMessage Post(NHANVIEN nv)
+        public HttpResponseMessage Post(NHACUNGCAP ncc)
         {
             if (ModelState.IsValid)
             {
-                var list = db.sp_InsUpdDelNhanVien(0, nv.MANHAHANG, nv.MACV, nv.HOTEN_NV, nv.SDT_NV, nv.DIACHI_NV, nv.EMAIL_NV, nv.NGAYSINH_NV, nv.GIOITINH_NV, "Ins").ToList();
+                var list = db.sp_InsUpdDelNhaCungCap(0, ncc.TEN_NCC, ncc.DIACHI_NCC, ncc.SDT_NCC, ncc.GHICHUTHEM, "Ins").ToList();
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, list);
                 return response;
             }
@@ -64,9 +60,9 @@ namespace LuanVanTotNghiep.Controllers
         }
 
         // Update 
-        public HttpResponseMessage Put(NHANVIEN nv)
+        public HttpResponseMessage Put(NHACUNGCAP ncc)
         {
-            List<sp_InsUpdDelNhanVien_Result> list = new List<sp_InsUpdDelNhanVien_Result>();
+            List<sp_InsUpdDelNhaCungCap_Result> list = new List<sp_InsUpdDelNhaCungCap_Result>();
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
@@ -74,7 +70,7 @@ namespace LuanVanTotNghiep.Controllers
 
             try
             {
-                list = db.sp_InsUpdDelNhanVien(nv.MANV, nv.MANHAHANG, nv.MACV, nv.HOTEN_NV, nv.SDT_NV, nv.DIACHI_NV, nv.EMAIL_NV, nv.NGAYSINH_NV, nv.GIOITINH_NV, "Upd").ToList();
+                list = db.sp_InsUpdDelNhaCungCap(ncc.MANCC, ncc.TEN_NCC, ncc.DIACHI_NCC, ncc.SDT_NCC, ncc.GHICHUTHEM, "Upd").ToList();
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -86,15 +82,15 @@ namespace LuanVanTotNghiep.Controllers
         // Delete employee By Id
         public HttpResponseMessage Delete(int id)
         {
-            List<sp_InsUpdDelNhanVien_Result> list = new List<sp_InsUpdDelNhanVien_Result>();
-            var results = db.sp_InsUpdDelNhanVien(id, id, id, "" , "" , "" , "" , new DateTime() , new bool(), "GetById").ToList();
+            List<sp_InsUpdDelNhaCungCap_Result> list = new List<sp_InsUpdDelNhaCungCap_Result>();
+            var results = db.sp_InsUpdDelNhaCungCap(id,"","", "", "", "GetById").ToList();
             if (results.Count == 0)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
             try
             {
-                list = db.sp_InsUpdDelNhanVien(id, id, id, "", "", "", "", new DateTime(), new bool(), "Del").ToList();
+                list = db.sp_InsUpdDelNhaCungCap(id, "","","", "", "Del").ToList();
             }
             catch (DbUpdateConcurrencyException ex)
             {

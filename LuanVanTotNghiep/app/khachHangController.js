@@ -1,26 +1,26 @@
-﻿NhaHangApp.controller('tangController', ['$scope', '$http', tangController]);
+﻿NhaHangApp.controller('khachHangController', ['$scope', '$http', khachHangController]);
 
 // Angularjs Controller
-function tangController($scope, $http) {
+function khachHangController($scope, $http) {
     // Declare variable
     $scope.loading = true;
     $scope.updateShow = false;
     $scope.addShow = true;
 
     // Get All 
-    $http.get('/api/TangAPI/').success(function (data) {
-        $scope.tangs = data;
+    $http.get('/api/KhachHangAPI/').success(function (data) {
+        $scope.khachhangs = data;
     }).error(function () {
         $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
-        });
+    });
     //Insert 
     $scope.add = function () {
         $scope.loading = true;
-        $http.post('/api/TangAPI/', this.newt).success(function (data) {
-            $scope.tang = data;
+        $http.post('/api/KhachHangAPI/', this.newkh).success(function (data) {
+            $scope.khachhangs = data;
             $scope.updateShow = false;
             $scope.addShow = true;
-            $scope.newt = '';
+            $scope.newkh = '';
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
@@ -28,9 +28,9 @@ function tangController($scope, $http) {
 
     //Edit 
     $scope.edit = function () {
-        var Id = this.tang.MATANG;
-        $http.get('/api/TangAPI/' + Id).success(function (data) {
-            $scope.newt = data;
+        var Id = this.khachhang.MAKH;
+        $http.get('/api/KhachHangAPI/' + Id).success(function (data) {
+            $scope.newkh = data;
             $scope.updateShow = true;
             $scope.addShow = false;
         }).error(function () {
@@ -40,12 +40,12 @@ function tangController($scope, $http) {
 
     $scope.update = function () {
         $scope.loading = true;
-        console.log(this.newt);
-        $http.put('/api/TangAPI/', this.newt).success(function (data) {
-            $scope.tangs = data;
+        console.log(this.newkh);
+        $http.put('/api/KhachHangAPI/', this.newkh).success(function (data) {
+            $scope.khachhangs = data;
             $scope.updateShow = false;
             $scope.addShow = true;
-            $scope.newt = '';
+            $scope.newkh = '';
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
@@ -53,10 +53,10 @@ function tangController($scope, $http) {
 
     //Delete 
     $scope.delete = function () {
-        var Id = this.tang.MATANG;
+        var Id = this.khachhang.MAKH;
         $scope.loading = true;
-        $http.delete('/api/TangAPI/' + Id).success(function (data) {
-            $scope.tangs = data;
+        $http.delete('/api/KhachHangAPI/' + Id).success(function (data) {
+            $scope.khachhangs = data;
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
@@ -66,6 +66,6 @@ function tangController($scope, $http) {
     $scope.cancel = function () {
         $scope.updateShow = false;
         $scope.addShow = true;
-        $scope.tangs = '';
+        $scope.khachhangs = '';
     }
 }

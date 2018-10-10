@@ -9,39 +9,41 @@ using System.Web.Http;
 
 namespace LuanVanTotNghiep.Controllers
 {
-    public class NhanVienAPIController : ApiController
+    public class KhachHangAPIController : ApiController
     {
         QLNhaHangEntities db = new QLNhaHangEntities();
         // Get All
         [HttpGet]
-        public List<NHANVIEN> Get()
+        public List<KHACHHANG> Get()
         {
-            List<NHANVIEN> list = new List<NHANVIEN>();
-            var results = db.sp_InsUpdDelNhanVien(0,0,0,"","","","",new DateTime(1492, 10, 12), new bool(), "Get").ToList();
+            List<KHACHHANG> list = new List<KHACHHANG>();
+            var results = db.sp_InsUpdDelKhachHang(0, 0, 0, "", "", "", "", new DateTime(1492, 10, 12), new bool(),"","", "Get").ToList();
             foreach (var result in results)
             {
-                var nv = new NHANVIEN()
+                var nv = new KHACHHANG()
                 {
-                    MANV = result.MANV,
-                    MANHAHANG = result.MANHAHANG,
-                    MACV = result.MACV,
-                    HOTEN_NV = result.HOTEN_NV,
-                    SDT_NV = result.SDT_NV,
-                    DIACHI_NV = result.DIACHI_NV,
-                    EMAIL_NV = result.EMAIL_NV,
-                    NGAYSINH_NV = result.NGAYSINH_NV ?? DateTime.Now,
-                    GIOITINH_NV = result.GIOITINH_NV
-                };
+                    MAKH = result.MAKH,
+                    MALOAI_KH = result.MALOAI_KH,
+                    MADATBAN = result.MADATBAN,
+                    HOTEN_KH = result.HOTEN_KH,
+                    DIACHI_KH = result.DIACHI_KH,
+                    EMAIL_KH = result.EMAIL_KH,
+                    SDT_KH = result.SDT_KH,
+                    NGAYSINH_KH = result.NGAYSINH_KH ?? DateTime.Now,
+                    GIOITINH_KH = result.GIOITINH_KH,
+                    TENDANGNHAP_KH = result.TENDANGNHAP_KH,
+                    MATKHAU_KH = result.MATKHAU_KH
+                 };
                 list.Add(nv);
             }
             return list;
         }
 
         // Get by Id
-        public NHANVIEN Get(int id)
+        public KHACHHANG Get(int id)
         {
 
-            NHANVIEN nv = db.NHANVIENs.Find(id);
+            KHACHHANG nv = db.KHACHHANGs.Find(id);
             if (nv == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -49,11 +51,11 @@ namespace LuanVanTotNghiep.Controllers
             return nv;
         }
         // Insert 
-        public HttpResponseMessage Post(NHANVIEN nv)
+        public HttpResponseMessage Post(KHACHHANG kh)
         {
             if (ModelState.IsValid)
             {
-                var list = db.sp_InsUpdDelNhanVien(0, nv.MANHAHANG, nv.MACV, nv.HOTEN_NV, nv.SDT_NV, nv.DIACHI_NV, nv.EMAIL_NV, nv.NGAYSINH_NV, nv.GIOITINH_NV, "Ins").ToList();
+                var list = db.sp_InsUpdDelKhachHang(0, kh.MALOAI_KH, kh.MADATBAN, kh.HOTEN_KH, kh.DIACHI_KH, kh.EMAIL_KH, kh.SDT_KH, kh.NGAYSINH_KH, kh.GIOITINH_KH, kh.TENDANGNHAP_KH, kh.MATKHAU_KH, "Ins").ToList();
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, list);
                 return response;
             }
@@ -64,9 +66,9 @@ namespace LuanVanTotNghiep.Controllers
         }
 
         // Update 
-        public HttpResponseMessage Put(NHANVIEN nv)
+        public HttpResponseMessage Put(KHACHHANG kh)
         {
-            List<sp_InsUpdDelNhanVien_Result> list = new List<sp_InsUpdDelNhanVien_Result>();
+            List<sp_InsUpdDelKhachHang_Result> list = new List<sp_InsUpdDelKhachHang_Result>();
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
@@ -74,7 +76,7 @@ namespace LuanVanTotNghiep.Controllers
 
             try
             {
-                list = db.sp_InsUpdDelNhanVien(nv.MANV, nv.MANHAHANG, nv.MACV, nv.HOTEN_NV, nv.SDT_NV, nv.DIACHI_NV, nv.EMAIL_NV, nv.NGAYSINH_NV, nv.GIOITINH_NV, "Upd").ToList();
+                list = db.sp_InsUpdDelKhachHang(kh.MAKH, kh.MALOAI_KH, kh.MADATBAN, kh.HOTEN_KH, kh.DIACHI_KH, kh.EMAIL_KH, kh.SDT_KH, kh.NGAYSINH_KH, kh.GIOITINH_KH, kh.TENDANGNHAP_KH, kh.MATKHAU_KH, "Upd").ToList();
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -86,15 +88,15 @@ namespace LuanVanTotNghiep.Controllers
         // Delete employee By Id
         public HttpResponseMessage Delete(int id)
         {
-            List<sp_InsUpdDelNhanVien_Result> list = new List<sp_InsUpdDelNhanVien_Result>();
-            var results = db.sp_InsUpdDelNhanVien(id, id, id, "" , "" , "" , "" , new DateTime() , new bool(), "GetById").ToList();
+            List<sp_InsUpdDelKhachHang_Result> list = new List<sp_InsUpdDelKhachHang_Result>();
+            var results = db.sp_InsUpdDelKhachHang(id, id, id, "", "", "", "", new DateTime(), new bool(),"","", "GetById").ToList();
             if (results.Count == 0)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
             try
             {
-                list = db.sp_InsUpdDelNhanVien(id, id, id, "", "", "", "", new DateTime(), new bool(), "Del").ToList();
+                list = db.sp_InsUpdDelKhachHang(id, id, id, "", "", "", "", new DateTime(), new bool(),"","", "Del").ToList();
             }
             catch (DbUpdateConcurrencyException ex)
             {

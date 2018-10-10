@@ -345,11 +345,11 @@ namespace LuanVanTotNghiep.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_InsUpdDelTaiKhoan_Result>("sp_InsUpdDelTaiKhoan", mataikhoanParameter, manvParameter, tendangnhapParameter, matkhauParameter, quyensdParameter, trangthaikichhoatParameter, typeParameter);
         }
     
-        public virtual ObjectResult<sp_InsUpdDelThucPham_Result> sp_InsUpdDelThucPham(Nullable<int> manthucpham, string tenthucpham, string dvtinh, string type)
+        public virtual ObjectResult<sp_InsUpdDelThucPham_Result> sp_InsUpdDelThucPham(Nullable<int> mathucpham, string tenthucpham, string dvtinh, string type)
         {
-            var manthucphamParameter = manthucpham.HasValue ?
-                new ObjectParameter("manthucpham", manthucpham) :
-                new ObjectParameter("manthucpham", typeof(int));
+            var mathucphamParameter = mathucpham.HasValue ?
+                new ObjectParameter("mathucpham", mathucpham) :
+                new ObjectParameter("mathucpham", typeof(int));
     
             var tenthucphamParameter = tenthucpham != null ?
                 new ObjectParameter("tenthucpham", tenthucpham) :
@@ -363,7 +363,189 @@ namespace LuanVanTotNghiep.Models
                 new ObjectParameter("type", type) :
                 new ObjectParameter("type", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_InsUpdDelThucPham_Result>("sp_InsUpdDelThucPham", manthucphamParameter, tenthucphamParameter, dvtinhParameter, typeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_InsUpdDelThucPham_Result>("sp_InsUpdDelThucPham", mathucphamParameter, tenthucphamParameter, dvtinhParameter, typeParameter);
+        }
+    
+        public virtual ObjectResult<sp_InsUpdDelNhaCungCap_Result> sp_InsUpdDelNhaCungCap(Nullable<int> mancc, string ten_ncc, string diachi_ncc, string sdt_ncc, string ghichuthem, string type)
+        {
+            var manccParameter = mancc.HasValue ?
+                new ObjectParameter("mancc", mancc) :
+                new ObjectParameter("mancc", typeof(int));
+    
+            var ten_nccParameter = ten_ncc != null ?
+                new ObjectParameter("ten_ncc", ten_ncc) :
+                new ObjectParameter("ten_ncc", typeof(string));
+    
+            var diachi_nccParameter = diachi_ncc != null ?
+                new ObjectParameter("diachi_ncc", diachi_ncc) :
+                new ObjectParameter("diachi_ncc", typeof(string));
+    
+            var sdt_nccParameter = sdt_ncc != null ?
+                new ObjectParameter("sdt_ncc", sdt_ncc) :
+                new ObjectParameter("sdt_ncc", typeof(string));
+    
+            var ghichuthemParameter = ghichuthem != null ?
+                new ObjectParameter("ghichuthem", ghichuthem) :
+                new ObjectParameter("ghichuthem", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_InsUpdDelNhaCungCap_Result>("sp_InsUpdDelNhaCungCap", manccParameter, ten_nccParameter, diachi_nccParameter, sdt_nccParameter, ghichuthemParameter, typeParameter);
+        }
+    
+        public virtual ObjectResult<sp_InsUpdDelPhieuNhap_Result> sp_InsUpdDelPhieuNhap(Nullable<int> maphieunhap, Nullable<int> mancc, Nullable<System.DateTime> ngaynhap, string type)
+        {
+            var maphieunhapParameter = maphieunhap.HasValue ?
+                new ObjectParameter("maphieunhap", maphieunhap) :
+                new ObjectParameter("maphieunhap", typeof(int));
+    
+            var manccParameter = mancc.HasValue ?
+                new ObjectParameter("mancc", mancc) :
+                new ObjectParameter("mancc", typeof(int));
+    
+            var ngaynhapParameter = ngaynhap.HasValue ?
+                new ObjectParameter("ngaynhap", ngaynhap) :
+                new ObjectParameter("ngaynhap", typeof(System.DateTime));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_InsUpdDelPhieuNhap_Result>("sp_InsUpdDelPhieuNhap", maphieunhapParameter, manccParameter, ngaynhapParameter, typeParameter);
+        }
+    
+        public virtual ObjectResult<sp_InsUpdDelDuyetGioHang_Result> sp_InsUpdDelDuyetGioHang(Nullable<int> maduyet, Nullable<int> mataikhoan, Nullable<int> magh, Nullable<System.DateTime> ngayduyet, Nullable<bool> trangthaiduyet, string type)
+        {
+            var maduyetParameter = maduyet.HasValue ?
+                new ObjectParameter("maduyet", maduyet) :
+                new ObjectParameter("maduyet", typeof(int));
+    
+            var mataikhoanParameter = mataikhoan.HasValue ?
+                new ObjectParameter("mataikhoan", mataikhoan) :
+                new ObjectParameter("mataikhoan", typeof(int));
+    
+            var maghParameter = magh.HasValue ?
+                new ObjectParameter("magh", magh) :
+                new ObjectParameter("magh", typeof(int));
+    
+            var ngayduyetParameter = ngayduyet.HasValue ?
+                new ObjectParameter("ngayduyet", ngayduyet) :
+                new ObjectParameter("ngayduyet", typeof(System.DateTime));
+    
+            var trangthaiduyetParameter = trangthaiduyet.HasValue ?
+                new ObjectParameter("trangthaiduyet", trangthaiduyet) :
+                new ObjectParameter("trangthaiduyet", typeof(bool));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_InsUpdDelDuyetGioHang_Result>("sp_InsUpdDelDuyetGioHang", maduyetParameter, mataikhoanParameter, maghParameter, ngayduyetParameter, trangthaiduyetParameter, typeParameter);
+        }
+    
+        public virtual ObjectResult<sp_InsUpdDelGioHang_Result> sp_InsUpdDelGioHang(Nullable<int> magh, Nullable<int> makh, Nullable<System.DateTime> ngaydat, Nullable<bool> trangthai, string diachinhan, string type)
+        {
+            var maghParameter = magh.HasValue ?
+                new ObjectParameter("magh", magh) :
+                new ObjectParameter("magh", typeof(int));
+    
+            var makhParameter = makh.HasValue ?
+                new ObjectParameter("makh", makh) :
+                new ObjectParameter("makh", typeof(int));
+    
+            var ngaydatParameter = ngaydat.HasValue ?
+                new ObjectParameter("ngaydat", ngaydat) :
+                new ObjectParameter("ngaydat", typeof(System.DateTime));
+    
+            var trangthaiParameter = trangthai.HasValue ?
+                new ObjectParameter("trangthai", trangthai) :
+                new ObjectParameter("trangthai", typeof(bool));
+    
+            var diachinhanParameter = diachinhan != null ?
+                new ObjectParameter("diachinhan", diachinhan) :
+                new ObjectParameter("diachinhan", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_InsUpdDelGioHang_Result>("sp_InsUpdDelGioHang", maghParameter, makhParameter, ngaydatParameter, trangthaiParameter, diachinhanParameter, typeParameter);
+        }
+    
+        public virtual ObjectResult<sp_InsUpdDelKhachHang_Result> sp_InsUpdDelKhachHang(Nullable<int> makh, Nullable<int> maloai_kh, Nullable<int> madatban, string hoten_kh, string diachi_kh, string email_kh, string sdt_kh, Nullable<System.DateTime> ngaysinh_kh, Nullable<bool> gioitinh_kh, string tendangnhap_kh, string matkhau_kh, string type)
+        {
+            var makhParameter = makh.HasValue ?
+                new ObjectParameter("makh", makh) :
+                new ObjectParameter("makh", typeof(int));
+    
+            var maloai_khParameter = maloai_kh.HasValue ?
+                new ObjectParameter("maloai_kh", maloai_kh) :
+                new ObjectParameter("maloai_kh", typeof(int));
+    
+            var madatbanParameter = madatban.HasValue ?
+                new ObjectParameter("madatban", madatban) :
+                new ObjectParameter("madatban", typeof(int));
+    
+            var hoten_khParameter = hoten_kh != null ?
+                new ObjectParameter("hoten_kh", hoten_kh) :
+                new ObjectParameter("hoten_kh", typeof(string));
+    
+            var diachi_khParameter = diachi_kh != null ?
+                new ObjectParameter("diachi_kh", diachi_kh) :
+                new ObjectParameter("diachi_kh", typeof(string));
+    
+            var email_khParameter = email_kh != null ?
+                new ObjectParameter("email_kh", email_kh) :
+                new ObjectParameter("email_kh", typeof(string));
+    
+            var sdt_khParameter = sdt_kh != null ?
+                new ObjectParameter("sdt_kh", sdt_kh) :
+                new ObjectParameter("sdt_kh", typeof(string));
+    
+            var ngaysinh_khParameter = ngaysinh_kh.HasValue ?
+                new ObjectParameter("ngaysinh_kh", ngaysinh_kh) :
+                new ObjectParameter("ngaysinh_kh", typeof(System.DateTime));
+    
+            var gioitinh_khParameter = gioitinh_kh.HasValue ?
+                new ObjectParameter("gioitinh_kh", gioitinh_kh) :
+                new ObjectParameter("gioitinh_kh", typeof(bool));
+    
+            var tendangnhap_khParameter = tendangnhap_kh != null ?
+                new ObjectParameter("tendangnhap_kh", tendangnhap_kh) :
+                new ObjectParameter("tendangnhap_kh", typeof(string));
+    
+            var matkhau_khParameter = matkhau_kh != null ?
+                new ObjectParameter("matkhau_kh", matkhau_kh) :
+                new ObjectParameter("matkhau_kh", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_InsUpdDelKhachHang_Result>("sp_InsUpdDelKhachHang", makhParameter, maloai_khParameter, madatbanParameter, hoten_khParameter, diachi_khParameter, email_khParameter, sdt_khParameter, ngaysinh_khParameter, gioitinh_khParameter, tendangnhap_khParameter, matkhau_khParameter, typeParameter);
+        }
+    
+        public virtual ObjectResult<sp_InsUpdDelLoaiKhachHang_Result> sp_InsUpdDelLoaiKhachHang(Nullable<int> maloai_kh, string tenloai_kh, string motaloai_kh, string type)
+        {
+            var maloai_khParameter = maloai_kh.HasValue ?
+                new ObjectParameter("maloai_kh", maloai_kh) :
+                new ObjectParameter("maloai_kh", typeof(int));
+    
+            var tenloai_khParameter = tenloai_kh != null ?
+                new ObjectParameter("tenloai_kh", tenloai_kh) :
+                new ObjectParameter("tenloai_kh", typeof(string));
+    
+            var motaloai_khParameter = motaloai_kh != null ?
+                new ObjectParameter("motaloai_kh", motaloai_kh) :
+                new ObjectParameter("motaloai_kh", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_InsUpdDelLoaiKhachHang_Result>("sp_InsUpdDelLoaiKhachHang", maloai_khParameter, tenloai_khParameter, motaloai_khParameter, typeParameter);
         }
     }
 }

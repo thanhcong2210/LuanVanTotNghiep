@@ -248,6 +248,26 @@
                             <li><a ui-sref="taikhoan" href="#taikhoan"><i class="fa fa-circle-o"></i>Tài khoản</a></li>
                         </ul>
                     </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-cutlery"></i> <span>Quản lý nhập thực phẩm </span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a ui-sref="nhacungcap" href="#nhacungcap"><i class="fa fa-circle-o"></i>Nhà cung cấp</a></li>
+                            <li><a ui-sref="thucpham" href="#thucpham"><i class="fa fa-circle-o"></i>Thực phẩm</a></li>
+                            <li><a ui-sref="phieunhap" href="#phieunhap"><i class="fa fa-circle-o"></i>Phiếu nhập</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-user"></i> <span>Quản lý thông tin khách hàng </span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a ui-sref="loaikhachhang" href="#loaikhachhang"><i class="fa fa-circle-o"></i>Loại khách hàng</a></li>
+                            <li><a ui-sref="khachhang" href="#khachhang"><i class="fa fa-circle-o"></i>Khách hàng</a></li>
+                            <li><a ui-sref="phieunhap" href="#phieunhap"><i class="fa fa-circle-o"></i>Phiếu nhập</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -256,6 +276,8 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div ui-view></div>
+
+            <div>Quản lý nhà hàng ASP.NET MVC WITH ANGULARJS AND WEB API</div>
         </div><!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
@@ -439,10 +461,11 @@
     <script src="~/Scripts/js/angular.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
     <script src="~/app/app.js"></script>
-    <script src="~/app/loaiMonAnController.js"></script>
-    <script src="~/app/components/home/homeController.js"></script>
+
+    <script src="~/app/homeController.js"></script>
     <!--module-->
     <script src="~/app/components/monan/monanListController.js"></script>
+    <script src="~/app/loaiMonAnController.js"></script>
     <script src="~/app/donViTinhController.js"></script>
     <script src="~/app/hinhAnhController.js"></script>
     <script src="~/app/nhaHangController.js"></script>
@@ -450,6 +473,15 @@
     <script src="~/app/chucVuController.js"></script>
     <script src="~/app/nhanVienController.js"></script>
     <script src="~/app/taiKhoanController.js"></script>
+    <script src="~/app/thucPhamController.js"></script>
+    <script src="~/app/nhaCungCapController.js"></script>
+    <script src="~/app/banController.js"></script>
+    <script src="~/app/phieuNhapController.js"></script>
+    <script src="~/app/khachHangController.js"></script>
+    <script src="~/app/loaiKhachHangController.js"></script>
+
+
+
 </body>
 </html>
 

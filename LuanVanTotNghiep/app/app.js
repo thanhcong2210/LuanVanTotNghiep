@@ -3,21 +3,21 @@ var NhaHangApp = angular.module('NhaHangApp', ['ui.router']);
 
 NhaHangApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /business
-    $urlRouterProvider.otherwise("/")
+
 
     $stateProvider
         .state('home', {//State demonstrating Nested views
             url: "/home",
-            templateUrl: '/app/components/home/homeView.html',
+            templateUrl: '/app/homeView.html',
             controller: 'homeController'
         })
         .state('monan', {//nested state [products is the nested state of business state]
             url: "/monan",
-            templateUrl: '/app/components/monan/monanListView.html',
+            templateUrl: '/app/monanListView.html',
             controller: 'monanListController'
         })
         .state('loaimonan', {//nested state [products is the nested state of business state]
-        url: "/loaimonan",
+            url: "/loaimonan",
             templateUrl: '/app/View/LoaiMonAnList.html',
             controller: 'loaiMonAnController'
         })
@@ -55,5 +55,37 @@ NhaHangApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
             url: "/taikhoan",
             templateUrl: '/app/View/TaiKhoan.html',
             controller: 'taiKhoanController'
+        })
+        .state('thucpham', {//nested state [products is the nested state of business state]
+            url: "/thucpham",
+            templateUrl: '/app/View/ThucPham.html',
+            controller: 'thucPhamController'
+        })
+        .state('nhacungcap', {//nested state [products is the nested state of business state]
+            url: "/nhacungcaP",
+            templateUrl: '/app/View/NhaCungCap.html',
+            controller: 'nhaCungCapController'
+        })
+        .state('ban', {//nested state [products is the nested state of business state]
+            url: "/ban",
+            templateUrl: '/app/View/Ban.html',
+            controller: 'banController'
+        })
+        .state('phieunhap', {//nested state [products is the nested state of business state]
+            url: "/phieunhap",
+            templateUrl: '/app/View/PhieuNhap.html',
+            controller: 'phieuNhapController'
+        })
+        .state('khachhang', {//nested state [products is the nested state of business state]
+            url: "/khachhang",
+            templateUrl: '/app/View/KhachHang.html',
+            controller: 'khachHangController'
+        })
+        .state('loaikhachhang', {//nested state [products is the nested state of business state]
+            url: "/loaikhachhang",
+            templateUrl: '/app/View/LoaiKhachHang.html',
+            controller: 'loaiKhachHangController'
         });
+
+    $urlRouterProvider.otherwise("/")
 }]);

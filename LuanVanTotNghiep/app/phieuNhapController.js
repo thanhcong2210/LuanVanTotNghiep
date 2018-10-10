@@ -1,36 +1,37 @@
-﻿NhaHangApp.controller('tangController', ['$scope', '$http', tangController]);
+﻿NhaHangApp.controller('phieuNhapController', ['$scope', '$http', phieuNhapController]);
 
 // Angularjs Controller
-function tangController($scope, $http) {
+function phieuNhapController($scope, $http) {
     // Declare variable
     $scope.loading = true;
     $scope.updateShow = false;
     $scope.addShow = true;
 
     // Get All 
-    $http.get('/api/TangAPI/').success(function (data) {
-        $scope.tangs = data;
+    $http.get('/api/PhieuNhapAPI/').success(function (data) {
+        $scope.phieunhaps = data;
     }).error(function () {
         $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
-        });
+    });
+
     //Insert 
     $scope.add = function () {
         $scope.loading = true;
-        $http.post('/api/TangAPI/', this.newt).success(function (data) {
-            $scope.tang = data;
+        $http.post('/api/PhieuNhapAPI/', this.newphieunhap).success(function (data) {
+            $scope.phieunhaps = data;
             $scope.updateShow = false;
             $scope.addShow = true;
-            $scope.newt = '';
+            $scope.newphieunhap = '';
         }).error(function (data) {
-            $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
+            $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin!" + data;
         });
     }
 
     //Edit 
     $scope.edit = function () {
-        var Id = this.tang.MATANG;
-        $http.get('/api/TangAPI/' + Id).success(function (data) {
-            $scope.newt = data;
+        var Id = this.phieunhap.MAPHIEUNHAP;
+        $http.get('/api/PhieuNhapAPI/' + Id).success(function (data) {
+            $scope.newphieunhap = data;
             $scope.updateShow = true;
             $scope.addShow = false;
         }).error(function () {
@@ -40,12 +41,12 @@ function tangController($scope, $http) {
 
     $scope.update = function () {
         $scope.loading = true;
-        console.log(this.newt);
-        $http.put('/api/TangAPI/', this.newt).success(function (data) {
-            $scope.tangs = data;
+        console.log(this.newphieunhap);
+        $http.put('/api/PhieuNhapAPI/', this.newphieunhap).success(function (data) {
+            $scope.phieunhaps = data;
             $scope.updateShow = false;
             $scope.addShow = true;
-            $scope.newt = '';
+            $scope.newphieunhap = '';
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
@@ -53,10 +54,10 @@ function tangController($scope, $http) {
 
     //Delete 
     $scope.delete = function () {
-        var Id = this.tang.MATANG;
+        var Id = this.phieunhap.MAPHIEUNHAP;
         $scope.loading = true;
-        $http.delete('/api/TangAPI/' + Id).success(function (data) {
-            $scope.tangs = data;
+        $http.delete('/api/PhieuNhapAPI/' + Id).success(function (data) {
+            $scope.phieunhaps = data;
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
@@ -66,6 +67,6 @@ function tangController($scope, $http) {
     $scope.cancel = function () {
         $scope.updateShow = false;
         $scope.addShow = true;
-        $scope.tangs = '';
+        $scope.newphieunhap = '';
     }
 }

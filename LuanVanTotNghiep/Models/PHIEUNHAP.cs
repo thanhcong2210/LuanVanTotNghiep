@@ -11,7 +11,10 @@ namespace LuanVanTotNghiep.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Xml.Serialization;
+    [Table("PHIEUNHAP")]
     public partial class PHIEUNHAP
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,8 +25,17 @@ namespace LuanVanTotNghiep.Models
     
         public int MAPHIEUNHAP { get; set; }
         public int MANCC { get; set; }
-        public Nullable<System.DateTime> NGAYNHAP { get; set; }
-    
+        [Column(TypeName = "datetime2")]
+        [XmlAttribute]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [Display(Name = "Date Modified")]
+        public DateTime NGAYNHAP
+        {
+            get { return nGAYNHAP; }
+            set { nGAYNHAP = value; }
+        }
+        private DateTime nGAYNHAP = DateTime.Now.ToUniversalTime();
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETPHIEUNHAP> CHITIETPHIEUNHAPs { get; set; }
         public virtual NHACUNGCAP NHACUNGCAP { get; set; }
