@@ -43,12 +43,12 @@ namespace LuanVanTotNghiep.Controllers
         public KHACHHANG Get(int id)
         {
 
-            KHACHHANG nv = db.KHACHHANGs.Find(id);
-            if (nv == null)
+            KHACHHANG kh = db.KHACHHANGs.Find(id);
+            if (kh == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
-            return nv;
+            return kh;
         }
         // Insert 
         public HttpResponseMessage Post(KHACHHANG kh)

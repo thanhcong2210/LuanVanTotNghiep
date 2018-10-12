@@ -1,23 +1,4 @@
-﻿<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    /* Create two equal columns that floats next to each other */
-    .column {
-        float: left;
-        width: 50%;
-        padding: 10px;
-        height: 275px; /* Should be removed. Only for demonstration */
-    }
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-</style> <!-- Content Header (Page header) -->
+﻿<!-- Content Header (Page header) -->
 
 <section class="content-header">
     <h1>
@@ -47,52 +28,51 @@
                         <strong class="error" style="text-align:left">{{error}} </strong>
                     </div>
                     
-                    <form name="addtaikhoan" class="form-horizontal" style="width: 800px;">
+                    <form name="addtaikhoan" class="form-horizontal" style="width: auto;">
                         <div class="row">
-                            <div class="column">
-                                <div class="form-group">
-                                    <label for="mataikhoan" class="col-sm-3 control-label">Mã tài khoản</label>
-                                    <div class="col-sm-9 space">
-                                        <input type="text" class="form-control" id="mataikhoan" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newtk.MATAIKHOAN" disabled />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="manv" class="col-sm-3 control-label">Nhân viên</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="manv" placeholder="" ng-model="newtk.MANV" required />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tendangnhap" class="col-sm-3 control-label">Tên đăng nhập</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="tendangnhap" placeholder="" ng-model="newtk.TENDANGNHAP" required />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="matkhau" class="col-sm-3 control-label">Mật khẩu</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="matkhau" placeholder="" ng-model="newtk.MATKHAU" required />
-                                    </div>
+                            <div class="form-group col-xs-6">
+                                <label for="mataikhoan" class="col-md-2 control-label">Mã tài khoản</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="mataikhoan" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newtk.MATAIKHOAN" disabled />
                                 </div>
                             </div>
-                            <div class="column">
-                                <div class="form-group">
-                                    <label for="quyensd" class="col-sm-3 control-label" style="height:30px ">Quyền sử dụng</label>
-                                    <div class="col-sm-9 space">
-                                        <input type="text" class="form-control" id="quyensd" placeholder="" ng-model="newtk.QUYENSD" required />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="trangthaikichhoat" class="col-sm-5 control-label">Trạng thái kích hoạt</label>
-                                    <div class="col-sm-7 space">
-                                        <input type="checkbox" ng-model="newtk.TRANGTHAIKICHHOAT" ng-true-value="'true'" ng-false-value="'false'" />
-                                    </div>
+                            <div class="form-group col-xs-6">
+                                <label for="manv" class="col-md-2 control-label">Nhân viên</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="manv" placeholder="" ng-model="newtk.MANV" required />
                                 </div>
                             </div>
-
+                            <div class="form-group col-xs-6">
+                                <label for="tendangnhap" class="col-md-2 control-label">Tên đăng nhập</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="tendangnhap" placeholder="" ng-model="newtk.TENDANGNHAP" required />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="matkhau" class="col-md-2 control-label">Mật khẩu</label>
+                                <div class="col-md-10">
+                                    <input type="password" class="form-control" id="matkhau" placeholder="" ng-model="newtk.MATKHAU" required />
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group space">
-                            <div class="col-sm-offset-2 col-sm-10">
+                        <div class="row">
+
+                            <div class="form-group col-xs-6">
+                                <label for="quyensd" class="col-md-2 control-label" style="height:30px ">Quyền sử dụng</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="quyensd" placeholder="" ng-model="newtk.QUYENSD" required />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="trangthaikichhoat" class="col-md-2 ontrol-label">Trạng thái kích hoạt</label>
+                                <div class="col-md-10 space">
+                                    <input type="radio" name="trangthai" ng-model="newtk.TRANGTHAIKICHHOAT" ng-value="'true'"/> Kích hoạt
+                                    <input type="radio" name="trangthai" ng-model="newtk.TRANGTHAIKICHHOAT" ng-value="'false'"/> Chưa kích hoạt
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-6 space">
+                            <div class="col-sm-offset-2 col-md-10">
                                 <input type="submit" value="Thêm mới" ng-click="add()" ng-show="addShow" ng-disabled="!addtaikhoan.$valid" class="btn btn-success" />
                                 <input type="submit" value="Chỉnh sửa" ng-click="update()" ng-show="updateShow" ng-disabled="!addtaikhoan.$valid" class="btn btn-primary" />
                                 <input type="button" value="Hủy bỏ" ng-click="cancel()" class="btn btn-default" />
@@ -126,13 +106,13 @@
                                     <p>{{ taikhoan.TENDANGNHAP }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ taikhoan.MATKHAU }}</p>
+                                    <p style="display:block">{{ taikhoan.MATKHAU }}</p>
                                 </td>
                                 <td>
                                     <p>{{ taikhoan.QUYENSD }}</p>
                                 </td>
                                 <td>
-                                    <p><div ng-if="taikhoan.TRANGTHAIKICHHOAT == 'true'">Đã kích hoạt</div></p>
+                                    <p>{{taikhoan.TRANGTHAIKICHHOAT ? "Đã kích hoạt" : "Chưa được kích hoạt"}}</p>
                                 </td>
                                 <td>
                                     <p><a class="btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a></p>

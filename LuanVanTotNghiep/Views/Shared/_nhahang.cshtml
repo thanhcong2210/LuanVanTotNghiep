@@ -1,0 +1,9 @@
+﻿@model List<LuanVanTotNghiep.Models.NHAHANG>
+@foreach (var item in Model)
+{
+    <div class="col-md-4 site-animate">
+        <h2 class="site-heading-2">@item.TENNHAHANG</h2>
+        <p>@item.GIOITHIEU</p>
+        <p>Điện thoại: @item.SDT</p>
+    </div>
+}

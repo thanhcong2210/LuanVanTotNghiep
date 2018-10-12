@@ -12,21 +12,25 @@ namespace LuanVanTotNghiep.Controllers
     public class NhanVienAPIController : ApiController
     {
         QLNhaHangEntities db = new QLNhaHangEntities();
+        public NhanVienAPIController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
         // Get All
         [HttpGet]
         public List<NHANVIEN> Get()
         {
             List<NHANVIEN> list = new List<NHANVIEN>();
-            var results = db.sp_InsUpdDelNhanVien(0,0,0,"","","","",new DateTime(1492, 10, 12), new bool(), "Get").ToList();
+            var results = db.sp_InsUpdDelNhanVien(0, 0, 0, "", "", "", "", new DateTime(1990, 10, 20),new bool(), "Get").ToList();
             foreach (var result in results)
             {
                 var nv = new NHANVIEN()
                 {
-                    MANV = result.MANV,
+                    MANV =result.MANV,
                     MANHAHANG = result.MANHAHANG,
                     MACV = result.MACV,
                     HOTEN_NV = result.HOTEN_NV,
-                    SDT_NV = result.SDT_NV,
+                    SDT_NV = result.SDT_NV, 
                     DIACHI_NV = result.DIACHI_NV,
                     EMAIL_NV = result.EMAIL_NV,
                     NGAYSINH_NV = result.NGAYSINH_NV ?? DateTime.Now,
@@ -87,7 +91,7 @@ namespace LuanVanTotNghiep.Controllers
         public HttpResponseMessage Delete(int id)
         {
             List<sp_InsUpdDelNhanVien_Result> list = new List<sp_InsUpdDelNhanVien_Result>();
-            var results = db.sp_InsUpdDelNhanVien(id, id, id, "" , "" , "" , "" , new DateTime() , new bool(), "GetById").ToList();
+            var results = db.sp_InsUpdDelNhanVien(id, id, id,"", "", "", "", new DateTime(), new bool(), "GetById").ToList();
             if (results.Count == 0)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);

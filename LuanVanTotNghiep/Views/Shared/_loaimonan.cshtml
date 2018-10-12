@@ -1,0 +1,12 @@
+﻿@model List<LuanVanTotNghiep.Models.LOAIMONAN>
+<ul class="nav site-tab-nav nav-pills mb-5" id="pills-tab" role="tablist">
+    @foreach (var item in Model)
+    {
+        <li class="nav-item site-animate">
+
+            <a class="nav-link" id="pills-@item.TENLOAI-tab" data-toggle="pill" href="#pills-@item.TENLOAI" role="tab" aria-controls="pills-@item.TENLOAI" aria-selected="true">@item.TENLOAI</a>
+
+
+        </li>
+    }
+</ul>

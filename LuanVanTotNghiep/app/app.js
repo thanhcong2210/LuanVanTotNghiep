@@ -8,13 +8,13 @@ NhaHangApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
     $stateProvider
         .state('home', {//State demonstrating Nested views
             url: "/home",
-            templateUrl: '/app/homeView.html',
+            templateUrl: '/app/View/homeView.html',
             controller: 'homeController'
         })
         .state('monan', {//nested state [products is the nested state of business state]
             url: "/monan",
-            templateUrl: '/app/monanListView.html',
-            controller: 'monanListController'
+            templateUrl: '/app/View/MonAn.html',
+            controller: 'monAnController'
         })
         .state('loaimonan', {//nested state [products is the nested state of business state]
             url: "/loaimonan",

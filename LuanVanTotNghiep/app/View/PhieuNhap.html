@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label for="ngaynhap" class="col-sm-3 control-label">Ngày nhập</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" name="ngaynhap" ng-model="newphieunhap.NGAYNHAP" required />
+                                <input type="date" class="form-control" name="ngaynhap" ng-model="newphieunhap.NGAYNHAP" />
                             </div>
                         </div>
 
@@ -78,7 +78,7 @@
                                     <p>{{ phieunhap.MANCC }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ phieunhap.NGAYNHAP | date : "dd/MM/y"}}</p>
+                                    <p>{{ phieunhap.NGAYNHAP | date : "MM/dd/y"}}</p>
                                 </td>
                                 <td>
                                     <p><a class="btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a></p>

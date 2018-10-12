@@ -14,6 +14,7 @@ namespace LuanVanTotNghiep.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
+
     [Table("NHANVIEN")]
     public partial class NHANVIEN
     {
@@ -30,6 +31,7 @@ namespace LuanVanTotNghiep.Models
         public string SDT_NV { get; set; }
         public string DIACHI_NV { get; set; }
         public string EMAIL_NV { get; set; }
+
         [Column(TypeName = "datetime2")]
         [XmlAttribute]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]

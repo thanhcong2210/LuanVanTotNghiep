@@ -1,32 +1,13 @@
-﻿ <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    /* Create two equal columns that floats next to each other */
-    .column {
-        float: left;
-        width: 50%;
-        padding: 10px;
-        height: 300px; /* Should be removed. Only for demonstration */
-    }
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-</style> <!-- Content Header (Page header) -->
+﻿<!-- Content Header (Page header) -->
 
 <section class="content-header">
     <h1>
-        Danh sách nhân viên
+        Danh mục nhân viên
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
-        <li><a href="#">Nhân sự</a></li>
-        <li class="active">Danh mục nhân viên</li>
+        <li><a href="#">Nhân viên</a></li>
+        <li class="active">Danh sách nhân viên</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -34,7 +15,7 @@
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Danh mục nhân viên</h3>
+            <h3 class="box-title">Danh sách nhân viên</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="thu phóng"><i class="fa fa-minus"></i></button>
                 <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="đóng"><i class="fa fa-times"></i></button>
@@ -43,71 +24,73 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-12">
-                    <strong class="error">{{error}}</strong>
-                    <form name="addnhanvien" class="form-horizontal" style="width: 800px">
+                    <div class="alert-danger" style="width: 350px ;line-height: 50px; position:center;transition-delay:initial">
+                        <strong class="error" style="text-align:left">{{error}} </strong>
+                    </div>
+
+                    <form name="addnhanvien" class="form-horizontal" style="width: auto;">
                         <div class="row">
-                            <div class="column">
-                                <div class="form-group">
-                                    <label for="manv" class="col-sm-2 control-label">Mã nhân viên</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="manv" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newnv.MANV" disabled />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="manhahang" class="col-sm-2 control-label">Mã nhà hàng</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="manhahang" placeholder="" ng-model="newnv.MANHAHANG" required />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="macv" class="col-sm-2 control-label">Chức vụ</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="macv" placeholder="" ng-model="newnv.MACV" required />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tennv" class="col-sm-2 control-label">Họ và tên</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="tennv" placeholder="" ng-model="newnv.HOTEN_NV" required />
-                                    </div>
+                            <div class="form-group col-xs-6">
+                                <label for="manv" class="col-md-2 control-label">Mã nhân viên</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="manv" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newnhanvien.MANV" disabled />
                                 </div>
                             </div>
-                            <div class="column">
-                                <div class="form-group">
-                                    <label for="sdt" class="col-sm-2 control-label">Số điện thoại</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="sdt" placeholder="" ng-model="newnv.SDT_NV" required />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="diachi" class="col-sm-2 control-label">Địa chỉ</label>
-                                    <div class="col-sm-10">
-                                        <textarea type="text" class="form-control" id="diachi" placeholder="" ng-model="newnv.DIACHI_NV" required />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="col-sm-2 control-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="emailnv" placeholder="" ng-model="newnv.EMAIL_NV" required />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="ngaysinh" class="col-sm-2 control-label">Ngày sinh</label>
-                                    <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="ngaysinh" placeholder="" ng-model="newnv.NGAYSINH_NV" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="gioitinh" class="col-sm-5 control-label">Giới tính</label>
-                                    <div class="col-sm-7 space">
-                                        <input type="radio" name="gioitinh" ng-model="newnv.GIOITINH_NV" ng-value="true" /> Nam
-                                        <input type="radio" name="gioitinh" ng-model="newnv.GIOITINH_NV" ng-value="false" /> Nữ
-                                    </div>
+                            <div class="form-group col-xs-6">
+                                <label for="manhahang" class="col-md-2 control-label">Nhà hàng</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="manhahang" ng-model="newnhanvien.MANHAHANG" required />
                                 </div>
                             </div>
 
+                            <div class="form-group col-xs-6">
+                                <label for="macv" class="col-md-2 control-label">Chức vụ</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="macv" ng-model="newnhanvien.MACV" required/>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="hoten" class="col-md-2 control-label">Họ tên</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="hoten" ng-model="newnhanvien.HOTEN_NV" required/>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group space">
+                        <div class="row">
+                            <div class="form-group col-xs-6">
+                                <label for="sdt" class="col-md-2 control-label">SDT</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="sdt" placeholder="" ng-model="newnhanvien.SDT_NV" required />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="diachi" class="col-md-2 control-label">Địa chỉ</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="diachi" placeholder="" ng-model="newnhanvien.DIACHI_NV" required />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="mail" class="col-md-2 control-label">Email</label>
+                                <div class="col-md-10 space">
+                                    <input type="email" class="form-control" id="mail" placeholder="" ng-model="newnhanvien.EMAIL_NV" />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="ngaysinh" class="col-md-2 control-label">Ngày sinh</label>
+                                <div class="col-md-10 space">
+                                    <input  data-input type="date" class="form-control" name="ngaysinh" placeholder="" ng-model="newnhanvien.NGAYSINH_NV" />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="gioitinh" class="col-md-2 control-label">Giới tính</label>
+                                <div class="col-md-10 space">
+                                    <input type="radio" name="gioitinh" ng-model="newnhanvien.GIOITINH_NV" ng-value="true" /> Nam
+                                    <input type="radio" name="gioitinh" ng-model="newnhanvien.GIOITINH_NV" ng-value="false" />  Nữ
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-6 space">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <input type="submit" value="Thêm mới" ng-click="add()" ng-show="addShow" ng-disabled="!addnhanvien.$valid" class="btn btn-success" />
                                 <input type="submit" value="Chỉnh sửa" ng-click="update()" ng-show="updateShow" ng-disabled="!addnhanvien.$valid" class="btn btn-primary" />
@@ -117,13 +100,11 @@
                     </form>
                 </div>
             </div>
-            <br />
-            <br />
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover" style="width: 850px; margin-left: 70px;">
+                        <table class="table table-bordered table-hover" style="width: auto; margin-left: 70px;">
                             <tr>
                                 <th>Mã nhân viên</th>
                                 <th>Nhà hàng</th>
@@ -159,12 +140,11 @@
                                     <p>{{ nhanvien.EMAIL_NV }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ nhanvien.NGAYSINH_NV }}</p>
+                                    <p>{{ nhanvien.NGAYSINH_NV | date:"dd/MM/y" }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ nhanvien.GIOITINH_NV }}</p>
+                                    <p>{{ nhanvien.GIOITINH_NV ? "Nam" : "Nữ" }}</p>
                                 </td>
-
                                 <td>
                                     <p><a class="btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a></p>
                                 </td>

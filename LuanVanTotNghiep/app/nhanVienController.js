@@ -13,16 +13,17 @@ function nhanVienController($scope, $http) {
     }).error(function () {
         $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
     });
+
     //Insert 
     $scope.add = function () {
         $scope.loading = true;
-        $http.post('/api/NhanVienAPI/', this.newnv).success(function (data) {
-            $scope.tang = data;
+        $http.post('/api/NhanVienAPI/', this.newnhanvien).success(function (data) {
+            $scope.nhanviens = data;
             $scope.updateShow = false;
             $scope.addShow = true;
-            $scope.newnv = '';
+            $scope.newnhanvien = '';
         }).error(function (data) {
-            $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
+            $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin!" + data;
         });
     }
 
@@ -30,7 +31,8 @@ function nhanVienController($scope, $http) {
     $scope.edit = function () {
         var Id = this.nhanvien.MANV;
         $http.get('/api/NhanVienAPI/' + Id).success(function (data) {
-            $scope.newnv = data;
+            data.NGAYSINH_NV = new Date(data.NGAYSINH_NV);
+            $scope.newnhanvien = data;
             $scope.updateShow = true;
             $scope.addShow = false;
         }).error(function () {
@@ -40,12 +42,13 @@ function nhanVienController($scope, $http) {
 
     $scope.update = function () {
         $scope.loading = true;
-        console.log(this.newnv);
-        $http.put('/api/NhanVienAPI/', this.newnv).success(function (data) {
+        console.log(this.newnhanvien);
+        $http.put('/api/NhanVienAPI/', this.newnhanvien).success(function (data) {
+            data.NGAYSINH_NV = new Date(data.NGAYSINH_NV);
             $scope.nhanviens = data;
             $scope.updateShow = false;
             $scope.addShow = true;
-            $scope.newnv = '';
+            $scope.newnhanvien = '';
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
@@ -66,6 +69,6 @@ function nhanVienController($scope, $http) {
     $scope.cancel = function () {
         $scope.updateShow = false;
         $scope.addShow = true;
-        $scope.nhanviens = '';
+        $scope.newnhanvien = '';
     }
 }

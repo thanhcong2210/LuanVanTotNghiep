@@ -1,7 +1,4 @@
-﻿NhaHangApp.controller('nhaCungCapController', ['$scope', '$http', nhaCungCapController]);
-
-// Angularjs Controller
-function nhaCungCapController($scope, $http) {
-    // Declare variable
+﻿NhaHangApp.controller('nhaCungCapController', function ($scope) {
     $scope.message = "Trang chủ";
-}
+});
+

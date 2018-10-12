@@ -31,6 +31,7 @@ function phieuNhapController($scope, $http) {
     $scope.edit = function () {
         var Id = this.phieunhap.MAPHIEUNHAP;
         $http.get('/api/PhieuNhapAPI/' + Id).success(function (data) {
+            data.NGAYNHAP = new Date(data.NGAYNHAP);
             $scope.newphieunhap = data;
             $scope.updateShow = true;
             $scope.addShow = false;

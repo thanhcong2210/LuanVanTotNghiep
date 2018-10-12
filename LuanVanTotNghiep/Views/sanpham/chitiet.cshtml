@@ -1,0 +1,233 @@
+﻿@model LuanVanTotNghiep.Models.MONAN
+    @{
+        ViewBag.Title = "chi tiết";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        var Category = (LuanVanTotNghiep.Models.LOAIMONAN)ViewBag.Category;
+    }
+<style>
+    body {
+        font-family: Arial;
+        margin: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    /* Position the image container (needed to position the left and right arrows) */
+    .khunganh {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Hide the images by default */
+    .mySlides {
+        display: none;
+    }
+
+    /* Add a pointer when hovering over the thumbnail images */
+    .cursor {
+        cursor: pointer;
+    }
+
+    /* Next & previous buttons */
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 40%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+    /* Number text (1/3 etc) */
+    .numbertext {
+        color: #fff;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    /* Container for image text */
+    .caption-container {
+        text-align: center;
+        background-color: #fff;
+        padding: 2px 16px;
+        color: white;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Six columns side by side */
+    .column {
+        float: left;
+        width: 15%;
+        border: 1px;
+    }
+
+    /* Add a transparency effect for thumnbail images */
+    .demo {
+        opacity: 0.5;
+    }
+
+        .active,
+        .demo:hover {
+            opacity: 1;
+        }
+</style>
+    <nav class="navbar navbar-expand-lg navbar-dark site_navbar bg-dark site-navbar-light" id="site-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/Home/Index">Thành Công </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-nav" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="site-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="/Home/Index" class="nav-link">Trang chủ</a></li>
+                    <li class="nav-item"><a href="/Home/About" class="nav-link">Giới thiệu</a></li>
+                    <li class="nav-item"><a href="#section-offer" class="nav-link">Đặt bàn</a></li>
+                    <li class="nav-item"><a href="#section-menu" class="nav-link">Thực đơn</a></li>
+                    <li class="nav-item"><a href="#section-news" class="nav-link">News</a></li>
+                    <li class="nav-item"><a href="#section-login" class="nav-link">Đăng Nhập</a></li>
+                    <li class="nav-item"><a href="#section-signin" class="nav-link">Đăng Ký</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="site-section" id="section-product">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 breadcrumb" ><a href="/Home" class="col-lg-2" style="color: black;" >Trang chủ</a> > <a class="col-lg-2" style="color: black;" href="category.html">@Category.TENLOAI</a> > <a class="col-lg-2" style="color: black;" href="#">@Model.TENGOI</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 site-animate img" data-animate-effect="zoomOutUp">
+                    <div class="khunganh">
+                        <div class="mySlides">
+
+                            <img src="@Model.HINHANH.DUONGDAN1" style="width:100%">
+                        </div>
+
+                        <div class="mySlides">
+
+                            <img src="@Model.HINHANH.DUONGDAN2" style="width:100%">
+                        </div>
+
+                        <div class="mySlides">
+
+                            <img src="@Model.HINHANH.DUONGDAN3" style="width:100%">
+                        </div>
+
+                        <div class="caption-container">
+                            <p id="caption"></p>
+                        </div>
+                        <div class="row">
+                            <div class="column" style="margin-left: 200px ">
+                                <img class="demo cursor" src="@Model.HINHANH.DUONGDAN1" style="width:100%" onclick="currentSlide(1)">
+                            </div>
+                            <div class="column">
+                                <img class="demo cursor" src="@Model.HINHANH.DUONGDAN2" style="width:100%" onclick="currentSlide(2)">
+                            </div>
+                            <div class="column">
+                                <img class="demo cursor" src="@Model.HINHANH.DUONGDAN3" style="width:100%" onclick="currentSlide(3)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5 site-animate mb-5">
+                    <h2 class="site-primary-title display-4">@Model.TENGOI</h2>
+                    <p style="font-family:'Times New Roman', Times, serif; color:red"> Giá: @Model.DONGIA VND</p>
+                    <p>
+                        Hệ thống Quán Ăn Ngon tại Hà Nội:
+                        18 Phan Bội Châu, Hoàn Kiếm, Hà Nội
+                        25T2 Trung Hòa Nhân Chính, Cầu Giấy, Hà Nội
+                        B2-R6 Vincom Royal City, 72A Nguyễn Trãi, Thanh Xuân, Hà Nội
+                    </p>
+                    <p>Số lượng: <input class="form-inline quantity" type="number" value="1"></p>
+                    <p><a href="#" class="btn btn-secondary btn-lg glyphicon-shopping-cart">Thêm vào giỏ hàng</a></p>
+                </div>
+                <div class="col-md-12 site-animate mb-12">
+                    <div class="product-desc">
+                        <ul class="nav nav-tabs">
+                            <li class="noactive"><a href="#description">Mô tả</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="description" class="tab-pane fade in active">
+                                <p>@Model.MOTA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <section>
+            <div class="container">
+                 <div class="col-md-12 site-animate mb-12">
+
+                 </div>
+             </div>
+     </section>
+    <!-- END section -->
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            var captionText = document.getElementById("caption");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+    </script>
