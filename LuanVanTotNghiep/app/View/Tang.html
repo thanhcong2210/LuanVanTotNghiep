@@ -1,12 +1,12 @@
 ﻿  <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Danh sách tầng
+        Danh mục tầng
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
         <li><a href="#">Tầng</a></li>
-        <li class="active">Danh mục tầng</li>
+        <li class="active">Danh sách tầng</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -14,7 +14,7 @@
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Danh mục tầng </h3>
+            <h3 class="box-title">Danh sách tầng </h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                 <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -24,26 +24,30 @@
             <div class="row">
                 <div class="col-md-12">
                     <strong class="error">{{error}}</strong>
-                    <form name="addtang" style="width: 800px; margin: 0px auto;">
+                    <form name="addtang" class="form-horizontal" style="width: 800px" method="post">
                         <div class="form-group">
-                            <label for="manhahang" class="col-sm-2 control-label">Mã nhà hàng:</label>
-                            <div class="col-sm-10 space">
-                                <input type="text" class="form-control" id="manhahang" placeholder="" ng-model="newt.MANHAHANG" required />
+                            <div class="form-group">
+                                <label for="matang" class="col-md-2 control-label">Mã tầng</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="matang" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newt.MATANG" disabled />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="manhahang" class="col-sm-2 control-label">Mã nhà hàng:</label>
+                                <div class="col-md-10 space">
+                                    <select class="form-control" name="manhahang" ng-init="newt.MANHAHANG=nhahangs[0].ID" ng-model="newt.MANHAHANG" ng-options="nhahang.MANHAHANG as nhahang.TENNHAHANG for nhahang in nhahangs track by nhahang.MANHAHANG"></select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tentang" class="col-sm-2 control-label">Tên tầng:</label>
+                                <div class="col-sm-10 space">
+                                    <input type="text" class="form-control" id="tentang" placeholder="" ng-model="newt.TENTANG" required />
+                                </div>
                             </div>
                         </div>
-                        <!--<div class="form-group">
-                            <label for="manhahang" class="col-sm-2 control-label">Mã nhà hàng:</label>
-                            <div class="col-sm-10 space">
-                                <select ng-model="selectedMaNhaHang" ng-options="x for x in nhahangs"></select>
-                            </div>
-                        </div>-->
-                        <br />
-                        <div class="form-group">
-                            <label for="tentang" class="col-sm-2 control-label">Tên tầng:</label>
-                            <div class="col-sm-10 space">
-                                <input type="text" class="form-control" id="tentang" placeholder="" ng-model="newt.TENTANG" required />
-                            </div>
-                        </div>
+
                         <div class="form-group space">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <input type="submit" value="Thêm mới" ng-click="add()" ng-show="addShow" ng-disabled="!addtang.$valid" class="btn btn-success" />
@@ -58,12 +62,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover" style="width: 800px; margin-left: 170px;">
-                            <tr>
+                        <table class="table table-bordered table-hover" style="width: auto; margin-left: 170px;">
+                            <tr style="background-color:grey">
                                 <th>Mã tầng</th>
                                 <th>Nhà hàng</th>
                                 <th>Tên tầng</th>
                                 <th>Actions</th>
+                            </tr>
+                            <tr ng-disabled="load">
+                                <td>
+                                    <img src="../../upload/loading.gif" />
+                                </td>
                             </tr>
                             <tr ng-repeat="tang in tangs">
                                 <td>

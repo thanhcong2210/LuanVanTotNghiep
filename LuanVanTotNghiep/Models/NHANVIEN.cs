@@ -11,11 +11,7 @@ namespace LuanVanTotNghiep.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Xml.Serialization;
-
-    [Table("NHANVIEN")]
+    
     public partial class NHANVIEN
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,17 +27,7 @@ namespace LuanVanTotNghiep.Models
         public string SDT_NV { get; set; }
         public string DIACHI_NV { get; set; }
         public string EMAIL_NV { get; set; }
-
-        [Column(TypeName = "datetime2")]
-        [XmlAttribute]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
-        [Display(Name = "Date Modified")]
-        public DateTime NGAYSINH_NV
-        {
-            get { return nGAYSINH_NV; }
-            set { nGAYSINH_NV = value; }
-        }
-        private DateTime nGAYSINH_NV = DateTime.Now.ToUniversalTime();
+        public Nullable<System.DateTime> NGAYSINH_NV { get; set; }
         public Nullable<bool> GIOITINH_NV { get; set; }
     
         public virtual CHUCVU CHUCVU { get; set; }

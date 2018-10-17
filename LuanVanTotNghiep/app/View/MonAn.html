@@ -1,4 +1,12 @@
-﻿<!-- Content Header (Page header) -->
+﻿<!--<link href="../../Assets/admin/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
+<script src="../../Assets/admin/jquery-ui-1.12.1.custom/jquery-ui.js"></script>-->
+<script src="../../Assets/admin/tinymce/jquery.tinymce.min.js"></script>
+<script src="../../Assets/admin/tinymce/tinymce.min.js"></script>
+<script> 
+    tinymce.init({ selector: '#mota' }); 
+    tinymce.init({ selector: '#cachlam' });
+</script>
+<!-- Content Header (Page header) -->
 
 <section class="content-header">
     <h1>
@@ -28,7 +36,7 @@
                         <strong class="error" style="text-align:left">{{error}} </strong>
                     </div>
 
-                    <form name="addmonan" class="form-horizontal" style="width: auto;">
+                    <form name="addmonan" class="form-horizontal" style="width: auto;" method="post">
                         <div class="row">
                             <div class="form-group col-xs-6">
                                 <label for="mamon" class="col-md-2 control-label">Mã món ăn</label>
@@ -66,19 +74,20 @@
                             <div class="form-group col-xs-6">
                                 <label for="dongia" class="col-md-2 control-label">Đơn giá</label>
                                 <div class="col-md-10 space">
-                                    <input type="number" class="form-control" id="dongia" placeholder="" ng-model="newmonan.DONGIA" required />
+                                    <input type="number" class="form-control" name="dongia" placeholder="" ng-model="newmonan.DONGIA" required />
                                 </div>
                             </div>
                             <div class="form-group col-xs-6">
                                 <label for="mota" class="col-md-2 control-label">Mô tả</label>
                                 <div class="col-md-10 space">
-                                    <input type="text" class="form-control" id="mota" placeholder="" ng-model="newmonan.MOTA" />
+
+                                    <textarea type="text" class="form-control" id="mota" name="mota" placeholder="" ng-model="newmonan.MOTA"> </textarea>
                                 </div>
                             </div>
                             <div class="form-group col-xs-6">
                                 <label for="cachlam" class="col-md-2 control-label">Cách làm</label>
                                 <div class="col-md-10 space">
-                                    <input type="text" class="form-control" id="cachlam" placeholder="" ng-model="newmonan.CACHLAM" />
+                                    <textarea type="text" class="form-control" id="cachlam" name="cachlam" placeholder="" ng-model="newmonan.CACHLAM"> </textarea>
                                 </div>
                             </div>
                             <div class="form-group col-xs-6">
@@ -111,7 +120,7 @@
                                 <th>Loại</th>
                                 <th>Tên món</th>
                                 <th>Đơn giá</th>
-                                <th>Mô tả</th>
+                                <th style="width:350px">Mô tả</th>
                                 <th>Cách làm</th>
                                 <th>Ngày tạo</th>
                                 <th>Actions</th>
@@ -135,7 +144,7 @@
                                 <td>
                                     <p>{{ monan.DONGIA }}</p>
                                 </td>
-                                <td>
+                                <td style="width:350px">
                                     <p>{{ monan.MOTA }}</p>
                                 </td>
                                 <td>

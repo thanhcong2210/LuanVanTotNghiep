@@ -6,22 +6,25 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
+
 
 namespace LuanVanTotNghiep.Controllers
 {
+    [RoutePrefix("api/TangAPI")]
     public class TangAPIController : ApiController
     {
         QLNhaHangEntities db = new QLNhaHangEntities();
         // Get All
         [HttpGet]
+        [Route("")]
+        [AcceptVerbs("GET", "HEAD")]
         public List<TANG> Get()
         {
             List<TANG> list = new List<TANG>();
-            List<NHAHANG> listnhahang = new List<NHAHANG>();
             var results = db.sp_InsUpdDelTang(0, 0, "", "Get").ToList();
             foreach (var result in results)
             {
-                NHAHANG nh = new NHAHANG();
                 var t = new TANG()
                 {
                     MATANG = result.MATANG,
@@ -44,7 +47,30 @@ namespace LuanVanTotNghiep.Controllers
             }
             return t;
         }
+        [HttpGet]
+        [Route("getnhahang")]
+        [AcceptVerbs("GET", "HEAD")]
+        public List<NHAHANG> GetNhaHang()
+        {
+            List<NHAHANG> list = new List<NHAHANG>();
+            var results = db.sp_InsUpdDelNhaHang(0, "", "", "", "Get").ToList();
+            foreach (var result in results)
+            {
+                var t = new NHAHANG()
+                {
+                    MANHAHANG = result.MANHAHANG,
+                    TENNHAHANG = result.TENNHAHANG,
+                    SDT = result.SDT,
+                    GIOITHIEU = result.GIOITHIEU
+                };
+                list.Add(t);
+            }
+            return list;
+        }
         // Insert 
+        [HttpPost]
+        [Route("")]
+        [AcceptVerbs("POST", "HEAD")]
         public HttpResponseMessage Post(TANG t)
         {
             if (ModelState.IsValid)
@@ -59,6 +85,8 @@ namespace LuanVanTotNghiep.Controllers
             }
         }
 
+        [HttpPut]
+        [AcceptVerbs("PUT", "HEAD")]
         // Update 
         public HttpResponseMessage Put(TANG t)
         {

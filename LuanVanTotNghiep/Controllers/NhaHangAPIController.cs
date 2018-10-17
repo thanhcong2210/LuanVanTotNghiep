@@ -32,6 +32,25 @@ namespace LuanVanTotNghiep.Controllers
             return list;
         }
 
+        [Route("getallparents")]
+        [HttpGet]
+        public HttpResponseMessage GetAllParents(HttpRequestMessage request)
+        {
+            List<NHAHANG> listnhahang = new List<NHAHANG>();
+            var results = db.sp_InsUpdDelNhaHang(0, "", "", "", "Get").ToList();
+            foreach (var result in results)
+            {
+                var t = new NHAHANG()
+                {
+                    MANHAHANG = result.MANHAHANG,
+                    TENNHAHANG = result.TENNHAHANG,
+                    SDT = result.SDT,
+                    GIOITHIEU = result.GIOITHIEU
+                };
+                listnhahang.Add(t);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, listnhahang);
+        }
         // Get by Id
         public NHAHANG Get(int id)
         {

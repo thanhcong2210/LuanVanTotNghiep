@@ -7,7 +7,7 @@ NhaHangApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
 
     $stateProvider
         .state('home', {//State demonstrating Nested views
-            url: "/home",
+            url: "/",
             templateUrl: '/app/View/homeView.html',
             controller: 'homeController'
         })
@@ -38,6 +38,7 @@ NhaHangApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
         })
         .state('tang', {//nested state [products is the nested state of business state]
             url: "/tang",
+            headers: { 'Content-Type': 'application/json' },
             templateUrl: '/app/View/Tang.html',
             controller: 'tangController'
         })
@@ -87,5 +88,5 @@ NhaHangApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
             controller: 'loaiKhachHangController'
         });
 
-    $urlRouterProvider.otherwise("/")
+    $urlRouterProvider.otherwise("/");
 }]);

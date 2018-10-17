@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -21,6 +22,8 @@ namespace LuanVanTotNghiep
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Include;
+            config.MessageHandlers.Add(new PreflightRequestsHandler());
         }
     }
 }
