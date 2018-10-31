@@ -1,0 +1,159 @@
+﻿@using LuanVanTotNghiep.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<LuanVanTotNghiep.Models.MONAN>
+
+@{
+    var loai = (LuanVanTotNghiep.Models.LOAIMONAN)ViewBag.Category;
+    ViewBag.Title = loai.TENLOAI;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="product-model">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">@loai.TENLOAI</li>
+        </ol>
+        <h2>Our Products</h2>
+        <div class="row">
+            <div class="col-md-9 product-model-sec">
+                @foreach (var item in Model)
+                {
+
+                    var link = "/sanpham/chitiet/" + item.MAMON;
+                    <a href="@link"></a>
+                    <div class="product-grid">
+                        <a href="@link">
+                            <div class="more-product"><span></span></div>
+                            <div class="product-img b-link-stripe b-animate-go  thickbox">
+                                <img src="@item.HINHANH.DUONGDAN1" class="img-responsive" alt="">
+                                <div class="b-wrapper">
+                                    <h4 class="b-animate b-from-left  b-delay03">
+                                        <button><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Xem nhanh</button>
+                                    </h4>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="product-info simpleCart_shelfItem">
+                            <div class="product-info-cust prt_name">
+                                <h4 style="font-size: 30px; color:black">@item.TENGOI</h4>
+
+                                <span class="item_price">@item.DONGIA VND</span>
+                                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @productID = item.MAMON, @quantity = 1, @strURL = Request.Url.ToString() }))
+                                {
+                                    <input type="submit" style="cursor:pointer" value="Thêm vào giỏ hàng" id="btnGioHang" class="item_add items">
+                                }
+                                @*<p class="item_add items">@Ajax.ActionLink("THÊM VÀO GIỎ HÀNG", "ThemGioHang", "giohang", new { @productID = item.MAMON, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace })<span class="glyphicon glyphicon-shopping-cart"></span></p>*@
+                                @*<button type="button" title="Add to Cart" class="item_add items add-to-cart" data-id="@item.MAMON">
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+        </button>*@
+                                @*<a class="item_add items" href="/giohang/AddItem?productId=@item.MAMON&quantity=1"><span class="glyphicon glyphicon-shopping-cart"></span></a>*@
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+            @*@{
+                    Html.RenderAction("_loaimonan", "sanpham");
+                }*@
+            <div class="col-md-3 rsidebar span_1_of_left">
+                <section class="sky-form">
+                    <div class="product_right">
+                        <h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>LOẠI MÓN ĂN</h4>
+
+                        <div class="tab1" style=" text-align:left; color:white;">
+                            <ul class="place" style=" text-align:left; color:white;">
+                                <li>
+                                    <a href="#" style=" text-align:left; color:red;
+                                        display: table;
+                                        margin: 0 100px;
+                                        padding-bottom: 30px;
+                                        border-bottom: none;
+                                        border-radius: 5px;
+    border: 1px solid #950a0f;
+    color: #950a0f;
+    font-family: 'UTM Trajan Pro Bold';
+    font-size: 18px;
+    line-height: 1;
+    margin: 0px 5px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+                                        ">Khai vi</a>
+                                </li>
+                                <li>
+                                    <a href="#" style=" text-align:left; color:red;
+                                         display: table;
+                                        margin: 0 100px;
+                                        padding-bottom: 30px;
+                                        border-bottom: none;
+                                        border-radius: 5px;
+    border: 1px solid #950a0f;
+    color: #950a0f;
+    font-family: 'UTM Trajan Pro Bold';
+    font-size: 18px;
+    line-height: 1;
+    margin: 0px 5px;
+    padding: 10px 20px;
+    text-transform: uppercase;">Mon Chinh</a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                </section>
+
+            </div>
+
+
+        </div>
+        <div class="dlink" style="float: right">
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("loaimon", "sanpham", new { @page = page }))
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+    $(function () {
+        $(".add-to-cart").click(function () {
+            pid = $(this).attr("data-id");
+            $.ajax({
+                url: "/giohang/Add",
+                data: { id: pid },
+                success: function (response) {
+                    $("#nn-cart-count").html(response.Count);
+                    $("#nn-cart-total").html(response.Total);
+                }
+            });
+
+            // hieu ung bay vao gio
+            cssfly = ".fly-effect {background:url(?);background-size:100% 100%;}";
+            src = $("#i" + pid).attr("src");
+            newcssfly = cssfly.replace("?", src);
+            $("#cart-fly").html(newcssfly);
+
+            options = { to: "#nn-cart-image", className: "fly-effect" };
+            $("#i" + pid).effect("transfer", options, 500, function () { });
+        });
+    });
+    </script>
+    @*<script>
+        $("div.nn-product-box").hover(function () {
+
+            $(this).find(".nn-view-detail").stop().animate({ opacity: 0.6, bottom: '0px' });
+        }, function () {
+            $(this).find(".nn-view-detail").stop().animate({ opacity: 0, bottom: '-40px' });
+        });
+
+
+
+    </script>*@
+}

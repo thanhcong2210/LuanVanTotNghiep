@@ -1,4 +1,6 @@
-﻿  <!-- Content Header (Page header) -->
+﻿
+
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
         Danh sách nhà hàng
@@ -23,74 +25,103 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-12">
-                    <strong class="error">{{error}}</strong>
-                    <form name="addnhahang" class="form-horizontal" style="width: 800px">
-                        <div class="form-group">
-                            <label for="manhahang" class="col-sm-2 control-label">Mã nhà hàng</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="manhahang" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newnh.MANHAHANG" disabled />
+                    <div class="alert-danger" style="width: 350px ;line-height: 50px; position:center;transition-delay:initial">
+                        <strong class="error" style="text-align:left">{{error}} </strong>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-12">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="Filter..." >
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-soundcloud">Tìm kiếm</button>
+                                <input type="button" value="Thêm mới" href="javascript:void(0);" ng-click="ShowHide()" class="btn btn-success" />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="tennhahang" class="col-sm-2 control-label">Tên nhà hàng</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="tennhahang" placeholder="" ng-model="newnh.TENNHAHANG" required />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="sdt" class="col-sm-2 control-label">Số điện thoại</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="sdt" placeholder="" ng-model="newnh.SDT" required />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="gioithieu" class="col-sm-2 control-label">Giới thiệu</label>
-                            <div class="col-sm-10">
-                                <textarea type="text" class="form-control" id="gioithieu" placeholder="" ng-model="newnh.GIOITHIEU" required />
-                            </div>
-                        </div>
-                        <div class="form-group space">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <input type="submit" value="Thêm mới" ng-click="add()" ng-show="addShow" ng-disabled="!addnhahang.$valid" class="btn btn-success" />
-                                <input type="submit" value="Chỉnh sửa" ng-click="update()" ng-show="updateShow" ng-disabled="!addnhahang.$valid" class="btn btn-primary" />
-                                <input type="button" value="Hủy bỏ" ng-click="cancel()" class="btn btn-default" />
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                    <br />
+
+
                 </div>
+                <form name="addnhahang" ng-show="ShowAddForm" class="form-horizontal" style="width: 800px">
+                    <div class="form-group">
+                        <label for="manhahang" class="col-md-2 control-label">Mã nhà hàng</label>
+                        <div class="col-md-10 space">
+                            <input type="text" class="form-control" id="manhahang" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newnh.MANHAHANG" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tennhahang" class="col-md-2 control-label">Tên nhà hàng</label>
+                        <div class="col-md-10 space">
+                            <input type="text" class="form-control" id="tennhahang" placeholder="" ng-model="newnh.TENNHAHANG" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sdt" class="col-md-2 control-label">Số điện thoại</label>
+                        <div class="col-md-10 space">
+                            <input type="text" class="form-control" id="sdt" placeholder="" ng-model="newnh.SDT" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fax" class="col-md-2 control-label">Fax</label>
+                        <div class="col-md-10 space">
+                            <input type="text" class="form-control" id="fax" placeholder="" ng-model="newnh.FAX" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="diachi" class="col-md-2 control-label">Địa chỉ</label>
+                        <div class="col-md-10 space">
+                            <textarea style="height:100px" type="text" class="form-control" id="diachi" placeholder="" ng-model="newnh.DIACHI"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gioithieu" class="col-md-2 control-label">Giới thiệu</label>
+                        <div class="col-md-10 space">
+                            <textarea type="text" class="form-control" id="gioithieu" placeholder="" ng-model="newnh.GIOITHIEU" required />
+                        </div>
+                    </div>
+                    <div class="form-group space">
+                        <div class="col-sm-offset-2 col-md-10 space">
+                            <input type="submit" value="Thêm" ng-click="add()" ng-show="addShow" ng-disabled="!addnhahang.$valid" class="btn btn-success" />
+                            <input type="submit" value="Lưu" ng-click="update()" ng-show="updateShow" ng-disabled="!addnhahang.$valid" class="btn btn-primary" />
+                            <input type="button" value="Hủy bỏ" ng-click="cancel()" class="btn btn-default" />
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover" style="width: 800px; margin-left: 170px;">
-                            <tr>
-                                <th>Mã nhà hàng</th>
-                                <th>Tên nhà hàng</th>
-                                <th>Số điện thoại</th>
-                                <th>Giới thiệu</th>
-                                <th>Actions</th>
-                            </tr>
-                            <tr ng-repeat="nhahang in nhahangs">
-                                <td>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" style="width: 800px; margin-left: 50px;" >
+                            <tr ng-repeat="nhahang in nhahangs ">
+                                <td >
                                     <p>{{ nhahang.MANHAHANG }}</p>
                                 </td>
-                                <td>
+                                <td >
                                     <p>{{ nhahang.TENNHAHANG }}</p>
                                 </td>
-                                <td>
+                                <td >
                                     <p>{{ nhahang.SDT }}</p>
                                 </td>
                                 <td>
+                                    <p>{{ nhahang.FAX }}</p>
+                                </td>
+                                <td >
+                                    <p>{{ nhahang.DIACHI }}</p>
+                                </td>
+
+                                <td >
                                     <p>{{ nhahang.GIOITHIEU }}</p>
                                 </td>
                                 <td>
                                     <p><a class="btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a></p>
                                 </td>
                             </tr>
-                        </table>
-                    </div>
+                    </table>
                 </div>
             </div>
-        </div><!-- /.box-body -->
+        </div>
+    </div><!-- /.box-body -->
     </div><!-- /.box -->
 </section><!-- /.content -->

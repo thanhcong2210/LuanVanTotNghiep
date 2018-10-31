@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="QlNhaHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="NhaHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BAN">
           <Key>
             <PropertyRef Name="MABAN" />
@@ -58,7 +58,7 @@
           </Key>
           <Property Name="MADATBAN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MATAIKHOAN" Type="int" Nullable="false" />
-          <Property Name="MAKH" Type="int" />
+          <Property Name="MAKH" Type="int" Nullable="false" />
           <Property Name="SOLUONGNGUOI" Type="int" />
           <Property Name="NGAYDEN" Type="datetime" />
           <Property Name="GIODEN" Type="datetime" />
@@ -96,6 +96,7 @@
             <PropertyRef Name="MAHINHANH" />
           </Key>
           <Property Name="MAHINHANH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENHINHANH" Type="nvarchar" MaxLength="50" />
           <Property Name="DUONGDAN1" Type="char" MaxLength="350" />
           <Property Name="DUONGDAN2" Type="char" MaxLength="350" />
           <Property Name="DUONGDAN3" Type="char" MaxLength="350" />
@@ -177,6 +178,8 @@
           <Property Name="MANHAHANG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TENNHAHANG" Type="nvarchar" MaxLength="100" />
           <Property Name="SDT" Type="char" MaxLength="11" />
+          <Property Name="FAX" Type="char" MaxLength="11" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="250" />
           <Property Name="GIOITHIEU" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="NHANVIEN">
@@ -325,7 +328,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DONDATBA_DATBAN2_KHACHHAN">
-          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
           <End Role="DONDATBAN" Type="Self.DONDATBAN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KHACHHANG">
@@ -553,6 +556,16 @@
           <Parameter Name="motacv" Type="nvarchar" Mode="In" />
           <Parameter Name="type" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_InsUpdDelDonDatBan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="madatban" Type="int" Mode="In" />
+          <Parameter Name="mataikhoan" Type="int" Mode="In" />
+          <Parameter Name="makh" Type="int" Mode="In" />
+          <Parameter Name="soluongnguoi" Type="int" Mode="In" />
+          <Parameter Name="ngayden" Type="datetime" Mode="In" />
+          <Parameter Name="gioden" Type="datetime" Mode="In" />
+          <Parameter Name="trangthaidatban" Type="bit" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_InsUpdDelDonViTinh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="madvtinh" Type="int" Mode="In" />
           <Parameter Name="tendvtinh" Type="nvarchar" Mode="In" />
@@ -576,6 +589,7 @@
         </Function>
         <Function Name="sp_InsUpdDelHinhAnh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="mahinhanh" Type="int" Mode="In" />
+          <Parameter Name="tenhinhanh" Type="nvarchar" Mode="In" />
           <Parameter Name="duongdan1" Type="char" Mode="In" />
           <Parameter Name="duongdan2" Type="char" Mode="In" />
           <Parameter Name="duongdan3" Type="char" Mode="In" />
@@ -630,6 +644,8 @@
           <Parameter Name="manhahang" Type="int" Mode="In" />
           <Parameter Name="tennhahang" Type="nvarchar" Mode="In" />
           <Parameter Name="sdt" Type="char" Mode="In" />
+          <Parameter Name="fax" Type="char" Mode="In" />
+          <Parameter Name="diachi" Type="nvarchar" Mode="In" />
           <Parameter Name="gioithieu" Type="nvarchar" Mode="In" />
           <Parameter Name="type" Type="varchar" Mode="In" />
         </Function>
@@ -679,7 +695,7 @@
           <Parameter Name="status" Type="bit" Mode="In" />
           <Parameter Name="received_address" Type="nvarchar" Mode="In" />
         </Function>
-        <EntityContainer Name="QlNhaHangModelStoreContainer">
+        <EntityContainer Name="NhaHangModelStoreContainer">
           <EntitySet Name="BAN" EntityType="Self.BAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETGIOHANG" EntityType="Self.CHITIETGIOHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETHOADON" EntityType="Self.CHITIETHOADON" Schema="dbo" store:Type="Tables" />
@@ -807,10 +823,11 @@
             <End Role="TANG" EntitySet="TANG" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="QlNhaHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="NhaHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BAN">
           <Key>
             <PropertyRef Name="MABAN" />
@@ -874,7 +891,7 @@
           </Key>
           <Property Name="MADATBAN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MATAIKHOAN" Type="Int32" Nullable="false" />
-          <Property Name="MAKH" Type="Int32" />
+          <Property Name="MAKH" Type="Int32" Nullable="false" />
           <Property Name="SOLUONGNGUOI" Type="Int32" />
           <Property Name="NGAYDEN" Type="DateTime" Precision="3" />
           <Property Name="GIODEN" Type="DateTime" Precision="3" />
@@ -921,6 +938,7 @@
             <PropertyRef Name="MAHINHANH" />
           </Key>
           <Property Name="MAHINHANH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENHINHANH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DUONGDAN1" Type="String" MaxLength="350" FixedLength="true" Unicode="false" />
           <Property Name="DUONGDAN2" Type="String" MaxLength="350" FixedLength="true" Unicode="false" />
           <Property Name="DUONGDAN3" Type="String" MaxLength="350" FixedLength="true" Unicode="false" />
@@ -1020,6 +1038,8 @@
           <Property Name="MANHAHANG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TENNHAHANG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SDT" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="FAX" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="DIACHI" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="GIOITHIEU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="NHANVIENs" Relationship="Self.FK_NHANVIEN_NAMTRONG_NHAHANG" FromRole="NHAHANG" ToRole="NHANVIEN" />
           <NavigationProperty Name="TANGs" Relationship="Self.FK_TANG_O_NHAHANG" FromRole="NHAHANG" ToRole="TANG" />
@@ -1207,7 +1227,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DONDATBA_DATBAN2_KHACHHAN">
-          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
           <End Role="DONDATBAN" Type="Self.DONDATBAN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KHACHHANG">
@@ -1525,110 +1545,35 @@
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
           </AssociationSet>
-          <FunctionImport Name="sp_InsUpdDelChucVu" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelChucVu_Result)">
-            <Parameter Name="macv" Mode="In" Type="Int32" />
-            <Parameter Name="tencv" Mode="In" Type="String" />
-            <Parameter Name="motacv" Mode="In" Type="String" />
-            <Parameter Name="type" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelDonViTinh" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelDonViTinh_Result)">
-            <Parameter Name="madvtinh" Mode="In" Type="Int32" />
-            <Parameter Name="tendvtinh" Mode="In" Type="String" />
-            <Parameter Name="type" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelHinhAnh" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelHinhAnh_Result)">
-            <Parameter Name="mahinhanh" Mode="In" Type="Int32" />
-            <Parameter Name="duongdan1" Mode="In" Type="String" />
-            <Parameter Name="duongdan2" Mode="In" Type="String" />
-            <Parameter Name="duongdan3" Mode="In" Type="String" />
-            <Parameter Name="type" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelLoaiMonAn" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelLoaiMonAn_Result)">
-            <Parameter Name="maloai" Mode="In" Type="Int32" />
-            <Parameter Name="tenloai" Mode="In" Type="String" />
-            <Parameter Name="type" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelNhaHang" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelNhaHang_Result)">
-            <Parameter Name="manhahang" Mode="In" Type="Int32" />
-            <Parameter Name="tennhahang" Mode="In" Type="String" />
-            <Parameter Name="sdt" Mode="In" Type="String" />
-            <Parameter Name="gioithieu" Mode="In" Type="String" />
-            <Parameter Name="type" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="usp_insert_order">
-            <Parameter Name="order_id" Mode="InOut" Type="Int32" />
-            <Parameter Name="order_date" Mode="In" Type="DateTime" />
-            <Parameter Name="custom_id" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Boolean" />
-            <Parameter Name="received_address" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelTang" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelTang_Result)">
-            <Parameter Name="matang" Mode="In" Type="Int32" />
-            <Parameter Name="manhahang" Mode="In" Type="Int32" />
-            <Parameter Name="tentang" Mode="In" Type="String" />
-            <Parameter Name="type" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelBan" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelBan_Result)">
+          <FunctionImport Name="sp_InsUpdDelBan" ReturnType="Collection(NhaHangModel.sp_InsUpdDelBan_Result)">
             <Parameter Name="maban" Mode="In" Type="Int32" />
             <Parameter Name="matang" Mode="In" Type="Int32" />
             <Parameter Name="tentang" Mode="In" Type="String" />
             <Parameter Name="trangthaiban" Mode="In" Type="Boolean" />
             <Parameter Name="type" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelMonAn" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelMonAn_Result)">
-            <Parameter Name="mamon" Mode="In" Type="Int32" />
-            <Parameter Name="madvtinh" Mode="In" Type="Int32" />
-            <Parameter Name="maloai" Mode="In" Type="Int32" />
-            <Parameter Name="mahinhanh" Mode="In" Type="Int32" />
-            <Parameter Name="tengoi" Mode="In" Type="String" />
-            <Parameter Name="dongia" Mode="In" Type="Double" />
-            <Parameter Name="mota" Mode="In" Type="String" />
-            <Parameter Name="cachlam" Mode="In" Type="String" />
-            <Parameter Name="ngaytao" Mode="In" Type="DateTime" />
-            <Parameter Name="type" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelNhanVien" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelNhanVien_Result)">
-            <Parameter Name="manv" Mode="In" Type="Int32" />
-            <Parameter Name="manhahang" Mode="In" Type="Int32" />
+          <FunctionImport Name="sp_InsUpdDelChucVu" ReturnType="Collection(NhaHangModel.sp_InsUpdDelChucVu_Result)">
             <Parameter Name="macv" Mode="In" Type="Int32" />
-            <Parameter Name="hoten_nv" Mode="In" Type="String" />
-            <Parameter Name="sdt_nv" Mode="In" Type="String" />
-            <Parameter Name="diachi_nv" Mode="In" Type="String" />
-            <Parameter Name="email_nv" Mode="In" Type="String" />
-            <Parameter Name="ngaysinh_nv" Mode="In" Type="DateTime" />
-            <Parameter Name="gioitinh_nv" Mode="In" Type="Boolean" />
+            <Parameter Name="tencv" Mode="In" Type="String" />
+            <Parameter Name="motacv" Mode="In" Type="String" />
             <Parameter Name="type" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelTaiKhoan" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelTaiKhoan_Result)">
+          <FunctionImport Name="sp_InsUpdDelDonDatBan" ReturnType="Collection(NhaHangModel.sp_InsUpdDelDonDatBan_Result)">
+            <Parameter Name="madatban" Mode="In" Type="Int32" />
             <Parameter Name="mataikhoan" Mode="In" Type="Int32" />
-            <Parameter Name="manv" Mode="In" Type="Int32" />
-            <Parameter Name="tendangnhap" Mode="In" Type="String" />
-            <Parameter Name="matkhau" Mode="In" Type="String" />
-            <Parameter Name="quyensd" Mode="In" Type="String" />
-            <Parameter Name="trangthaikichhoat" Mode="In" Type="Boolean" />
+            <Parameter Name="makh" Mode="In" Type="Int32" />
+            <Parameter Name="soluongnguoi" Mode="In" Type="Int32" />
+            <Parameter Name="ngayden" Mode="In" Type="DateTime" />
+            <Parameter Name="gioden" Mode="In" Type="DateTime" />
+            <Parameter Name="trangthaidatban" Mode="In" Type="Boolean" />
             <Parameter Name="type" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelThucPham" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelThucPham_Result)">
-            <Parameter Name="mathucpham" Mode="In" Type="Int32" />
-            <Parameter Name="tenthucpham" Mode="In" Type="String" />
-            <Parameter Name="dvtinh" Mode="In" Type="String" />
+          <FunctionImport Name="sp_InsUpdDelDonViTinh" ReturnType="Collection(NhaHangModel.sp_InsUpdDelDonViTinh_Result)">
+            <Parameter Name="madvtinh" Mode="In" Type="Int32" />
+            <Parameter Name="tendvtinh" Mode="In" Type="String" />
             <Parameter Name="type" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelNhaCungCap" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelNhaCungCap_Result)">
-            <Parameter Name="mancc" Mode="In" Type="Int32" />
-            <Parameter Name="ten_ncc" Mode="In" Type="String" />
-            <Parameter Name="diachi_ncc" Mode="In" Type="String" />
-            <Parameter Name="sdt_ncc" Mode="In" Type="String" />
-            <Parameter Name="ghichuthem" Mode="In" Type="String" />
-            <Parameter Name="type" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelPhieuNhap" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelPhieuNhap_Result)">
-            <Parameter Name="maphieunhap" Mode="In" Type="Int32" />
-            <Parameter Name="mancc" Mode="In" Type="Int32" />
-            <Parameter Name="ngaynhap" Mode="In" Type="DateTime" />
-            <Parameter Name="type" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelDuyetGioHang" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelDuyetGioHang_Result)">
+          <FunctionImport Name="sp_InsUpdDelDuyetGioHang" ReturnType="Collection(NhaHangModel.sp_InsUpdDelDuyetGioHang_Result)">
             <Parameter Name="maduyet" Mode="In" Type="Int32" />
             <Parameter Name="mataikhoan" Mode="In" Type="Int32" />
             <Parameter Name="magh" Mode="In" Type="Int32" />
@@ -1636,7 +1581,7 @@
             <Parameter Name="trangthaiduyet" Mode="In" Type="Boolean" />
             <Parameter Name="type" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelGioHang" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelGioHang_Result)">
+          <FunctionImport Name="sp_InsUpdDelGioHang" ReturnType="Collection(NhaHangModel.sp_InsUpdDelGioHang_Result)">
             <Parameter Name="magh" Mode="In" Type="Int32" />
             <Parameter Name="makh" Mode="In" Type="Int32" />
             <Parameter Name="ngaydat" Mode="In" Type="DateTime" />
@@ -1644,7 +1589,15 @@
             <Parameter Name="diachinhan" Mode="In" Type="String" />
             <Parameter Name="type" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelKhachHang" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelKhachHang_Result)">
+          <FunctionImport Name="sp_InsUpdDelHinhAnh" ReturnType="Collection(NhaHangModel.sp_InsUpdDelHinhAnh_Result)">
+            <Parameter Name="mahinhanh" Mode="In" Type="Int32" />
+            <Parameter Name="tenhinhanh" Mode="In" Type="String" />
+            <Parameter Name="duongdan1" Mode="In" Type="String" />
+            <Parameter Name="duongdan2" Mode="In" Type="String" />
+            <Parameter Name="duongdan3" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelKhachHang" ReturnType="Collection(NhaHangModel.sp_InsUpdDelKhachHang_Result)">
             <Parameter Name="makh" Mode="In" Type="Int32" />
             <Parameter Name="maloai_kh" Mode="In" Type="Int32" />
             <Parameter Name="madatban" Mode="In" Type="Int32" />
@@ -1658,95 +1611,116 @@
             <Parameter Name="matkhau_kh" Mode="In" Type="String" />
             <Parameter Name="type" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_InsUpdDelLoaiKhachHang" ReturnType="Collection(QlNhaHangModel.sp_InsUpdDelLoaiKhachHang_Result)">
+          <FunctionImport Name="sp_InsUpdDelLoaiKhachHang" ReturnType="Collection(NhaHangModel.sp_InsUpdDelLoaiKhachHang_Result)">
             <Parameter Name="maloai_kh" Mode="In" Type="Int32" />
             <Parameter Name="tenloai_kh" Mode="In" Type="String" />
             <Parameter Name="motaloai_kh" Mode="In" Type="String" />
             <Parameter Name="type" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelLoaiMonAn" ReturnType="Collection(NhaHangModel.sp_InsUpdDelLoaiMonAn_Result)">
+            <Parameter Name="maloai" Mode="In" Type="Int32" />
+            <Parameter Name="tenloai" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelMonAn" ReturnType="Collection(NhaHangModel.sp_InsUpdDelMonAn_Result)">
+            <Parameter Name="mamon" Mode="In" Type="Int32" />
+            <Parameter Name="madvtinh" Mode="In" Type="Int32" />
+            <Parameter Name="maloai" Mode="In" Type="Int32" />
+            <Parameter Name="mahinhanh" Mode="In" Type="Int32" />
+            <Parameter Name="tengoi" Mode="In" Type="String" />
+            <Parameter Name="dongia" Mode="In" Type="Double" />
+            <Parameter Name="mota" Mode="In" Type="String" />
+            <Parameter Name="cachlam" Mode="In" Type="String" />
+            <Parameter Name="ngaytao" Mode="In" Type="DateTime" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelNhaCungCap" ReturnType="Collection(NhaHangModel.sp_InsUpdDelNhaCungCap_Result)">
+            <Parameter Name="mancc" Mode="In" Type="Int32" />
+            <Parameter Name="ten_ncc" Mode="In" Type="String" />
+            <Parameter Name="diachi_ncc" Mode="In" Type="String" />
+            <Parameter Name="sdt_ncc" Mode="In" Type="String" />
+            <Parameter Name="ghichuthem" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelNhaHang" ReturnType="Collection(NhaHangModel.sp_InsUpdDelNhaHang_Result)">
+            <Parameter Name="manhahang" Mode="In" Type="Int32" />
+            <Parameter Name="tennhahang" Mode="In" Type="String" />
+            <Parameter Name="sdt" Mode="In" Type="String" />
+            <Parameter Name="fax" Mode="In" Type="String" />
+            <Parameter Name="diachi" Mode="In" Type="String" />
+            <Parameter Name="gioithieu" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelNhanVien" ReturnType="Collection(NhaHangModel.sp_InsUpdDelNhanVien_Result)">
+            <Parameter Name="manv" Mode="In" Type="Int32" />
+            <Parameter Name="manhahang" Mode="In" Type="Int32" />
+            <Parameter Name="macv" Mode="In" Type="Int32" />
+            <Parameter Name="hoten_nv" Mode="In" Type="String" />
+            <Parameter Name="sdt_nv" Mode="In" Type="String" />
+            <Parameter Name="diachi_nv" Mode="In" Type="String" />
+            <Parameter Name="email_nv" Mode="In" Type="String" />
+            <Parameter Name="ngaysinh_nv" Mode="In" Type="DateTime" />
+            <Parameter Name="gioitinh_nv" Mode="In" Type="Boolean" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelPhieuNhap" ReturnType="Collection(NhaHangModel.sp_InsUpdDelPhieuNhap_Result)">
+            <Parameter Name="maphieunhap" Mode="In" Type="Int32" />
+            <Parameter Name="mancc" Mode="In" Type="Int32" />
+            <Parameter Name="ngaynhap" Mode="In" Type="DateTime" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelTaiKhoan" ReturnType="Collection(NhaHangModel.sp_InsUpdDelTaiKhoan_Result)">
+            <Parameter Name="mataikhoan" Mode="In" Type="Int32" />
+            <Parameter Name="manv" Mode="In" Type="Int32" />
+            <Parameter Name="tendangnhap" Mode="In" Type="String" />
+            <Parameter Name="matkhau" Mode="In" Type="String" />
+            <Parameter Name="quyensd" Mode="In" Type="String" />
+            <Parameter Name="trangthaikichhoat" Mode="In" Type="Boolean" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelTang" ReturnType="Collection(NhaHangModel.sp_InsUpdDelTang_Result)">
+            <Parameter Name="matang" Mode="In" Type="Int32" />
+            <Parameter Name="manhahang" Mode="In" Type="Int32" />
+            <Parameter Name="tentang" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUpdDelThucPham" ReturnType="Collection(NhaHangModel.sp_InsUpdDelThucPham_Result)">
+            <Parameter Name="mathucpham" Mode="In" Type="Int32" />
+            <Parameter Name="tenthucpham" Mode="In" Type="String" />
+            <Parameter Name="dvtinh" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_insert_order">
+            <Parameter Name="order_id" Mode="InOut" Type="Int32" />
+            <Parameter Name="order_date" Mode="In" Type="DateTime" />
+            <Parameter Name="custom_id" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Boolean" />
+            <Parameter Name="received_address" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="sp_InsUpdDelChucVu_Result">
-          <Property Type="Int32" Name="MACV" Nullable="false" />
-          <Property Type="String" Name="TENCV" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="MOTACV" Nullable="true" MaxLength="100" />
-        </ComplexType>
-        <ComplexType Name="sp_InsUpdDelDonViTinh_Result">
-          <Property Type="Int32" Name="MADVTINH" Nullable="false" />
-          <Property Type="String" Name="TENDVTINH" Nullable="true" MaxLength="10" />
-        </ComplexType>
-        <ComplexType Name="sp_InsUpdDelHinhAnh_Result">
-          <Property Type="Int32" Name="MAHINHANH" Nullable="false" />
-          <Property Type="String" Name="DUONGDAN1" Nullable="true" MaxLength="350" />
-          <Property Type="String" Name="DUONGDAN2" Nullable="true" MaxLength="350" />
-          <Property Type="String" Name="DUONGDAN3" Nullable="true" MaxLength="350" />
-        </ComplexType>
-        <ComplexType Name="sp_InsUpdDelLoaiMonAn_Result">
-          <Property Type="Int32" Name="MALOAI" Nullable="false" />
-          <Property Type="String" Name="TENLOAI" Nullable="true" MaxLength="20" />
-        </ComplexType>
-        <ComplexType Name="sp_InsUpdDelNhaHang_Result">
-          <Property Type="Int32" Name="MANHAHANG" Nullable="false" />
-          <Property Type="String" Name="TENNHAHANG" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="SDT" Nullable="true" MaxLength="11" />
-          <Property Type="String" Name="GIOITHIEU" Nullable="true" MaxLength="200" />
-        </ComplexType>
-        <ComplexType Name="sp_InsUpdDelTang_Result">
-          <Property Type="Int32" Name="MATANG" Nullable="false" />
-          <Property Type="Int32" Name="MANHAHANG" Nullable="false" />
-          <Property Type="String" Name="TENTANG" Nullable="true" MaxLength="20" />
-        </ComplexType>
         <ComplexType Name="sp_InsUpdDelBan_Result">
           <Property Type="Int32" Name="MABAN" Nullable="false" />
           <Property Type="Int32" Name="MATANG" Nullable="false" />
           <Property Type="String" Name="TENBAN" Nullable="true" MaxLength="50" />
           <Property Type="Boolean" Name="TRANGTHAIBAN" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="sp_InsUpdDelMonAn_Result">
-          <Property Type="Int32" Name="MAMON" Nullable="false" />
-          <Property Type="Int32" Name="MADVTINH" Nullable="false" />
-          <Property Type="Int32" Name="MALOAI" Nullable="false" />
-          <Property Type="Int32" Name="MAHINHANH" Nullable="false" />
-          <Property Type="String" Name="TENGOI" Nullable="true" MaxLength="50" />
-          <Property Type="Double" Name="DONGIA" Nullable="true" />
-          <Property Type="String" Name="MOTA" Nullable="true" MaxLength="1500" />
-          <Property Type="String" Name="CACHLAM" Nullable="true" MaxLength="1500" />
-          <Property Type="DateTime" Name="NGAYTAOMOI" Nullable="true" Precision="23" />
-        </ComplexType>
-        <ComplexType Name="sp_InsUpdDelNhanVien_Result">
-          <Property Type="Int32" Name="MANV" Nullable="false" />
-          <Property Type="Int32" Name="MANHAHANG" Nullable="false" />
+        <ComplexType Name="sp_InsUpdDelChucVu_Result">
           <Property Type="Int32" Name="MACV" Nullable="false" />
-          <Property Type="String" Name="HOTEN_NV" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="SDT_NV" Nullable="true" MaxLength="11" />
-          <Property Type="String" Name="DIACHI_NV" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="EMAIL_NV" Nullable="true" MaxLength="200" />
-          <Property Type="DateTime" Name="NGAYSINH_NV" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="GIOITINH_NV" Nullable="true" />
+          <Property Type="String" Name="TENCV" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="MOTACV" Nullable="true" MaxLength="100" />
         </ComplexType>
-        <ComplexType Name="sp_InsUpdDelTaiKhoan_Result">
+        <ComplexType Name="sp_InsUpdDelDonDatBan_Result">
+          <Property Type="Int32" Name="MADATBAN" Nullable="false" />
           <Property Type="Int32" Name="MATAIKHOAN" Nullable="false" />
-          <Property Type="Int32" Name="MANV" Nullable="false" />
-          <Property Type="String" Name="TENDANGNHAP" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="MATKHAU" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="QUYENSD" Nullable="true" MaxLength="10" />
-          <Property Type="Boolean" Name="TRANGTHAIKICHHOAT" Nullable="true" />
+          <Property Type="Int32" Name="MAKH" Nullable="false" />
+          <Property Type="Int32" Name="SOLUONGNGUOI" Nullable="true" />
+          <Property Type="DateTime" Name="NGAYDEN" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="GIODEN" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="TRANGTHAIDATBAN" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="sp_InsUpdDelThucPham_Result">
-          <Property Type="Int32" Name="MATHUCPHAM" Nullable="false" />
-          <Property Type="String" Name="TENTHUCPHAM" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="DVTINH" Nullable="true" MaxLength="20" />
-        </ComplexType>
-        <ComplexType Name="sp_InsUpdDelNhaCungCap_Result">
-          <Property Type="Int32" Name="MANCC" Nullable="false" />
-          <Property Type="String" Name="TEN_NCC" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="DIACHI_NCC" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="SDT_NCC" Nullable="true" MaxLength="11" />
-          <Property Type="String" Name="GHICHUTHEM" Nullable="true" MaxLength="200" />
-        </ComplexType>
-        <ComplexType Name="sp_InsUpdDelPhieuNhap_Result">
-          <Property Type="Int32" Name="MAPHIEUNHAP" Nullable="false" />
-          <Property Type="Int32" Name="MANCC" Nullable="false" />
-          <Property Type="DateTime" Name="NGAYNHAP" Nullable="true" Precision="23" />
+        <ComplexType Name="sp_InsUpdDelDonViTinh_Result">
+          <Property Type="Int32" Name="MADVTINH" Nullable="false" />
+          <Property Type="String" Name="TENDVTINH" Nullable="true" MaxLength="10" />
         </ComplexType>
         <ComplexType Name="sp_InsUpdDelDuyetGioHang_Result">
           <Property Type="Int32" Name="MADUYET" Nullable="false" />
@@ -1761,6 +1735,13 @@
           <Property Type="DateTime" Name="NGAYDAT" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="TRANGTHAI" Nullable="true" />
           <Property Type="String" Name="DIACHINHAN" Nullable="true" MaxLength="350" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelHinhAnh_Result">
+          <Property Type="Int32" Name="MAHINHANH" Nullable="false" />
+          <Property Type="String" Name="TENHINHANH" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DUONGDAN1" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="DUONGDAN2" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="DUONGDAN3" Nullable="true" MaxLength="350" />
         </ComplexType>
         <ComplexType Name="sp_InsUpdDelKhachHang_Result">
           <Property Type="Int32" Name="MAKH" Nullable="false" />
@@ -1780,14 +1761,78 @@
           <Property Type="String" Name="TENLOAI_KH" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="MOTALOAI_KH" Nullable="true" MaxLength="200" />
         </ComplexType>
+        <ComplexType Name="sp_InsUpdDelLoaiMonAn_Result">
+          <Property Type="Int32" Name="MALOAI" Nullable="false" />
+          <Property Type="String" Name="TENLOAI" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelMonAn_Result">
+          <Property Type="Int32" Name="MAMON" Nullable="false" />
+          <Property Type="Int32" Name="MADVTINH" Nullable="false" />
+          <Property Type="Int32" Name="MALOAI" Nullable="false" />
+          <Property Type="Int32" Name="MAHINHANH" Nullable="false" />
+          <Property Type="String" Name="TENGOI" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="DONGIA" Nullable="true" />
+          <Property Type="String" Name="MOTA" Nullable="true" MaxLength="1500" />
+          <Property Type="String" Name="CACHLAM" Nullable="true" MaxLength="1500" />
+          <Property Type="DateTime" Name="NGAYTAOMOI" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelNhaCungCap_Result">
+          <Property Type="Int32" Name="MANCC" Nullable="false" />
+          <Property Type="String" Name="TEN_NCC" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DIACHI_NCC" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SDT_NCC" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="GHICHUTHEM" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelNhaHang_Result">
+          <Property Type="Int32" Name="MANHAHANG" Nullable="false" />
+          <Property Type="String" Name="TENNHAHANG" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SDT" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="FAX" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="DIACHI" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="GIOITHIEU" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelNhanVien_Result">
+          <Property Type="Int32" Name="MANV" Nullable="false" />
+          <Property Type="Int32" Name="MANHAHANG" Nullable="false" />
+          <Property Type="Int32" Name="MACV" Nullable="false" />
+          <Property Type="String" Name="HOTEN_NV" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SDT_NV" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="DIACHI_NV" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="EMAIL_NV" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="NGAYSINH_NV" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="GIOITINH_NV" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelPhieuNhap_Result">
+          <Property Type="Int32" Name="MAPHIEUNHAP" Nullable="false" />
+          <Property Type="Int32" Name="MANCC" Nullable="false" />
+          <Property Type="DateTime" Name="NGAYNHAP" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelTaiKhoan_Result">
+          <Property Type="Int32" Name="MATAIKHOAN" Nullable="false" />
+          <Property Type="Int32" Name="MANV" Nullable="false" />
+          <Property Type="String" Name="TENDANGNHAP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="MATKHAU" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QUYENSD" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="TRANGTHAIKICHHOAT" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelTang_Result">
+          <Property Type="Int32" Name="MATANG" Nullable="false" />
+          <Property Type="Int32" Name="MANHAHANG" Nullable="false" />
+          <Property Type="String" Name="TENTANG" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_InsUpdDelThucPham_Result">
+          <Property Type="Int32" Name="MATHUCPHAM" Nullable="false" />
+          <Property Type="String" Name="TENTHUCPHAM" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DVTINH" Nullable="true" MaxLength="20" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QlNhaHangModelStoreContainer" CdmEntityContainer="QLNhaHangEntities">
+        <EntityContainerMapping StorageEntityContainer="NhaHangModelStoreContainer" CdmEntityContainer="QLNhaHangEntities">
           <EntitySetMapping Name="BANs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.BAN">
+            <EntityTypeMapping TypeName="NhaHangModel.BAN">
               <MappingFragment StoreEntitySet="BAN">
                 <ScalarProperty Name="MABAN" ColumnName="MABAN" />
                 <ScalarProperty Name="MATANG" ColumnName="MATANG" />
@@ -1797,7 +1842,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHITIETGIOHANGs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.CHITIETGIOHANG">
+            <EntityTypeMapping TypeName="NhaHangModel.CHITIETGIOHANG">
               <MappingFragment StoreEntitySet="CHITIETGIOHANG">
                 <ScalarProperty Name="MAMON" ColumnName="MAMON" />
                 <ScalarProperty Name="MAGH" ColumnName="MAGH" />
@@ -1806,7 +1851,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHITIETHOADONs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.CHITIETHOADON">
+            <EntityTypeMapping TypeName="NhaHangModel.CHITIETHOADON">
               <MappingFragment StoreEntitySet="CHITIETHOADON">
                 <ScalarProperty Name="MAHD" ColumnName="MAHD" />
                 <ScalarProperty Name="MAMON" ColumnName="MAMON" />
@@ -1815,7 +1860,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHITIETPHIEUNHAPs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.CHITIETPHIEUNHAP">
+            <EntityTypeMapping TypeName="NhaHangModel.CHITIETPHIEUNHAP">
               <MappingFragment StoreEntitySet="CHITIETPHIEUNHAP">
                 <ScalarProperty Name="MATHUCPHAM" ColumnName="MATHUCPHAM" />
                 <ScalarProperty Name="MAPHIEUNHAP" ColumnName="MAPHIEUNHAP" />
@@ -1826,7 +1871,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHUCVUs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.CHUCVU">
+            <EntityTypeMapping TypeName="NhaHangModel.CHUCVU">
               <MappingFragment StoreEntitySet="CHUCVU">
                 <ScalarProperty Name="MACV" ColumnName="MACV" />
                 <ScalarProperty Name="TENCV" ColumnName="TENCV" />
@@ -1835,7 +1880,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DONDATBANs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.DONDATBAN">
+            <EntityTypeMapping TypeName="NhaHangModel.DONDATBAN">
               <MappingFragment StoreEntitySet="DONDATBAN">
                 <ScalarProperty Name="MADATBAN" ColumnName="MADATBAN" />
                 <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
@@ -1848,7 +1893,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DONVITINHs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.DONVITINH">
+            <EntityTypeMapping TypeName="NhaHangModel.DONVITINH">
               <MappingFragment StoreEntitySet="DONVITINH">
                 <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
                 <ScalarProperty Name="TENDVTINH" ColumnName="TENDVTINH" />
@@ -1856,7 +1901,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DUYETGIOHANGs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.DUYETGIOHANG">
+            <EntityTypeMapping TypeName="NhaHangModel.DUYETGIOHANG">
               <MappingFragment StoreEntitySet="DUYETGIOHANG">
                 <ScalarProperty Name="MADUYET" ColumnName="MADUYET" />
                 <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
@@ -1867,7 +1912,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GIOHANGs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.GIOHANG">
+            <EntityTypeMapping TypeName="NhaHangModel.GIOHANG">
               <MappingFragment StoreEntitySet="GIOHANG">
                 <ScalarProperty Name="MAGH" ColumnName="MAGH" />
                 <ScalarProperty Name="MAKH" ColumnName="MAKH" />
@@ -1878,9 +1923,10 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HINHANHs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.HINHANH">
+            <EntityTypeMapping TypeName="NhaHangModel.HINHANH">
               <MappingFragment StoreEntitySet="HINHANH">
                 <ScalarProperty Name="MAHINHANH" ColumnName="MAHINHANH" />
+                <ScalarProperty Name="TENHINHANH" ColumnName="TENHINHANH" />
                 <ScalarProperty Name="DUONGDAN1" ColumnName="DUONGDAN1" />
                 <ScalarProperty Name="DUONGDAN2" ColumnName="DUONGDAN2" />
                 <ScalarProperty Name="DUONGDAN3" ColumnName="DUONGDAN3" />
@@ -1888,7 +1934,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HOADONs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.HOADON">
+            <EntityTypeMapping TypeName="NhaHangModel.HOADON">
               <MappingFragment StoreEntitySet="HOADON">
                 <ScalarProperty Name="MAHD" ColumnName="MAHD" />
                 <ScalarProperty Name="MABAN" ColumnName="MABAN" />
@@ -1904,7 +1950,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KHACHHANGs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.KHACHHANG">
+            <EntityTypeMapping TypeName="NhaHangModel.KHACHHANG">
               <MappingFragment StoreEntitySet="KHACHHANG">
                 <ScalarProperty Name="MAKH" ColumnName="MAKH" />
                 <ScalarProperty Name="MALOAI_KH" ColumnName="MALOAI_KH" />
@@ -1921,7 +1967,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LOAIKHACHHANGs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.LOAIKHACHHANG">
+            <EntityTypeMapping TypeName="NhaHangModel.LOAIKHACHHANG">
               <MappingFragment StoreEntitySet="LOAIKHACHHANG">
                 <ScalarProperty Name="MALOAI_KH" ColumnName="MALOAI_KH" />
                 <ScalarProperty Name="TENLOAI_KH" ColumnName="TENLOAI_KH" />
@@ -1930,7 +1976,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LOAIMONANs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.LOAIMONAN">
+            <EntityTypeMapping TypeName="NhaHangModel.LOAIMONAN">
               <MappingFragment StoreEntitySet="LOAIMONAN">
                 <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
                 <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
@@ -1938,7 +1984,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MONANs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.MONAN">
+            <EntityTypeMapping TypeName="NhaHangModel.MONAN">
               <MappingFragment StoreEntitySet="MONAN">
                 <ScalarProperty Name="MAMON" ColumnName="MAMON" />
                 <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
@@ -1953,7 +1999,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NHACUNGCAPs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.NHACUNGCAP">
+            <EntityTypeMapping TypeName="NhaHangModel.NHACUNGCAP">
               <MappingFragment StoreEntitySet="NHACUNGCAP">
                 <ScalarProperty Name="MANCC" ColumnName="MANCC" />
                 <ScalarProperty Name="TEN_NCC" ColumnName="TEN_NCC" />
@@ -1964,17 +2010,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NHAHANGs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.NHAHANG">
+            <EntityTypeMapping TypeName="NhaHangModel.NHAHANG">
               <MappingFragment StoreEntitySet="NHAHANG">
                 <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
                 <ScalarProperty Name="TENNHAHANG" ColumnName="TENNHAHANG" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
                 <ScalarProperty Name="GIOITHIEU" ColumnName="GIOITHIEU" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NHANVIENs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.NHANVIEN">
+            <EntityTypeMapping TypeName="NhaHangModel.NHANVIEN">
               <MappingFragment StoreEntitySet="NHANVIEN">
                 <ScalarProperty Name="MANV" ColumnName="MANV" />
                 <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
@@ -1989,7 +2037,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PHIEUNHAPs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.PHIEUNHAP">
+            <EntityTypeMapping TypeName="NhaHangModel.PHIEUNHAP">
               <MappingFragment StoreEntitySet="PHIEUNHAP">
                 <ScalarProperty Name="MAPHIEUNHAP" ColumnName="MAPHIEUNHAP" />
                 <ScalarProperty Name="MANCC" ColumnName="MANCC" />
@@ -1998,7 +2046,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TAIKHOANs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.TAIKHOAN">
+            <EntityTypeMapping TypeName="NhaHangModel.TAIKHOAN">
               <MappingFragment StoreEntitySet="TAIKHOAN">
                 <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
                 <ScalarProperty Name="MANV" ColumnName="MANV" />
@@ -2010,7 +2058,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TANGs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.TANG">
+            <EntityTypeMapping TypeName="NhaHangModel.TANG">
               <MappingFragment StoreEntitySet="TANG">
                 <ScalarProperty Name="MATANG" ColumnName="MATANG" />
                 <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
@@ -2019,7 +2067,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="THUCPHAMs">
-            <EntityTypeMapping TypeName="QlNhaHangModel.THUCPHAM">
+            <EntityTypeMapping TypeName="NhaHangModel.THUCPHAM">
               <MappingFragment StoreEntitySet="THUCPHAM">
                 <ScalarProperty Name="MATHUCPHAM" ColumnName="MATHUCPHAM" />
                 <ScalarProperty Name="TENTHUCPHAM" ColumnName="TENTHUCPHAM" />
@@ -2027,64 +2075,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelChucVu" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelChucVu">
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelBan" FunctionName="NhaHangModel.Store.sp_InsUpdDelBan">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelChucVu_Result">
-                <ScalarProperty Name="MACV" ColumnName="MACV" />
-                <ScalarProperty Name="TENCV" ColumnName="TENCV" />
-                <ScalarProperty Name="MOTACV" ColumnName="MOTACV" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelDonViTinh" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelDonViTinh">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelDonViTinh_Result">
-                <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
-                <ScalarProperty Name="TENDVTINH" ColumnName="TENDVTINH" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelHinhAnh" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelHinhAnh">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelHinhAnh_Result">
-                <ScalarProperty Name="MAHINHANH" ColumnName="MAHINHANH" />
-                <ScalarProperty Name="DUONGDAN1" ColumnName="DUONGDAN1" />
-                <ScalarProperty Name="DUONGDAN2" ColumnName="DUONGDAN2" />
-                <ScalarProperty Name="DUONGDAN3" ColumnName="DUONGDAN3" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelLoaiMonAn" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelLoaiMonAn">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelLoaiMonAn_Result">
-                <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
-                <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelNhaHang" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelNhaHang">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelNhaHang_Result">
-                <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
-                <ScalarProperty Name="TENNHAHANG" ColumnName="TENNHAHANG" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="GIOITHIEU" ColumnName="GIOITHIEU" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_insert_order" FunctionName="QlNhaHangModel.Store.usp_insert_order" />
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelTang" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelTang">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelTang_Result">
-                <ScalarProperty Name="MATANG" ColumnName="MATANG" />
-                <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
-                <ScalarProperty Name="TENTANG" ColumnName="TENTANG" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelBan" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelBan">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelBan_Result">
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelBan_Result">
                 <ScalarProperty Name="MABAN" ColumnName="MABAN" />
                 <ScalarProperty Name="MATANG" ColumnName="MATANG" />
                 <ScalarProperty Name="TENBAN" ColumnName="TENBAN" />
@@ -2092,80 +2085,39 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelMonAn" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelMonAn">
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelChucVu" FunctionName="NhaHangModel.Store.sp_InsUpdDelChucVu">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelMonAn_Result">
-                <ScalarProperty Name="MAMON" ColumnName="MAMON" />
-                <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
-                <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
-                <ScalarProperty Name="MAHINHANH" ColumnName="MAHINHANH" />
-                <ScalarProperty Name="TENGOI" ColumnName="TENGOI" />
-                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
-                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
-                <ScalarProperty Name="CACHLAM" ColumnName="CACHLAM" />
-                <ScalarProperty Name="NGAYTAOMOI" ColumnName="NGAYTAOMOI" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelNhanVien" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelNhanVien">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelNhanVien_Result">
-                <ScalarProperty Name="MANV" ColumnName="MANV" />
-                <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelChucVu_Result">
                 <ScalarProperty Name="MACV" ColumnName="MACV" />
-                <ScalarProperty Name="HOTEN_NV" ColumnName="HOTEN_NV" />
-                <ScalarProperty Name="SDT_NV" ColumnName="SDT_NV" />
-                <ScalarProperty Name="DIACHI_NV" ColumnName="DIACHI_NV" />
-                <ScalarProperty Name="EMAIL_NV" ColumnName="EMAIL_NV" />
-                <ScalarProperty Name="NGAYSINH_NV" ColumnName="NGAYSINH_NV" />
-                <ScalarProperty Name="GIOITINH_NV" ColumnName="GIOITINH_NV" />
+                <ScalarProperty Name="TENCV" ColumnName="TENCV" />
+                <ScalarProperty Name="MOTACV" ColumnName="MOTACV" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelTaiKhoan" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelTaiKhoan">
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelDonDatBan" FunctionName="NhaHangModel.Store.sp_InsUpdDelDonDatBan">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelTaiKhoan_Result">
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelDonDatBan_Result">
+                <ScalarProperty Name="MADATBAN" ColumnName="MADATBAN" />
                 <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
-                <ScalarProperty Name="MANV" ColumnName="MANV" />
-                <ScalarProperty Name="TENDANGNHAP" ColumnName="TENDANGNHAP" />
-                <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
-                <ScalarProperty Name="QUYENSD" ColumnName="QUYENSD" />
-                <ScalarProperty Name="TRANGTHAIKICHHOAT" ColumnName="TRANGTHAIKICHHOAT" />
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="SOLUONGNGUOI" ColumnName="SOLUONGNGUOI" />
+                <ScalarProperty Name="NGAYDEN" ColumnName="NGAYDEN" />
+                <ScalarProperty Name="GIODEN" ColumnName="GIODEN" />
+                <ScalarProperty Name="TRANGTHAIDATBAN" ColumnName="TRANGTHAIDATBAN" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelThucPham" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelThucPham">
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelDonViTinh" FunctionName="NhaHangModel.Store.sp_InsUpdDelDonViTinh">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelThucPham_Result">
-                <ScalarProperty Name="MATHUCPHAM" ColumnName="MATHUCPHAM" />
-                <ScalarProperty Name="TENTHUCPHAM" ColumnName="TENTHUCPHAM" />
-                <ScalarProperty Name="DVTINH" ColumnName="DVTINH" />
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelDonViTinh_Result">
+                <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
+                <ScalarProperty Name="TENDVTINH" ColumnName="TENDVTINH" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelNhaCungCap" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelNhaCungCap">
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelDuyetGioHang" FunctionName="NhaHangModel.Store.sp_InsUpdDelDuyetGioHang">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelNhaCungCap_Result">
-                <ScalarProperty Name="MANCC" ColumnName="MANCC" />
-                <ScalarProperty Name="TEN_NCC" ColumnName="TEN_NCC" />
-                <ScalarProperty Name="DIACHI_NCC" ColumnName="DIACHI_NCC" />
-                <ScalarProperty Name="SDT_NCC" ColumnName="SDT_NCC" />
-                <ScalarProperty Name="GHICHUTHEM" ColumnName="GHICHUTHEM" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelPhieuNhap" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelPhieuNhap">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelPhieuNhap_Result">
-                <ScalarProperty Name="MAPHIEUNHAP" ColumnName="MAPHIEUNHAP" />
-                <ScalarProperty Name="MANCC" ColumnName="MANCC" />
-                <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelDuyetGioHang" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelDuyetGioHang">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelDuyetGioHang_Result">
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelDuyetGioHang_Result">
                 <ScalarProperty Name="MADUYET" ColumnName="MADUYET" />
                 <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
                 <ScalarProperty Name="MAGH" ColumnName="MAGH" />
@@ -2174,9 +2126,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelGioHang" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelGioHang">
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelGioHang" FunctionName="NhaHangModel.Store.sp_InsUpdDelGioHang">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelGioHang_Result">
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelGioHang_Result">
                 <ScalarProperty Name="MAGH" ColumnName="MAGH" />
                 <ScalarProperty Name="MAKH" ColumnName="MAKH" />
                 <ScalarProperty Name="NGAYDAT" ColumnName="NGAYDAT" />
@@ -2185,9 +2137,20 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelKhachHang" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelKhachHang">
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelHinhAnh" FunctionName="NhaHangModel.Store.sp_InsUpdDelHinhAnh">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelKhachHang_Result">
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelHinhAnh_Result">
+                <ScalarProperty Name="MAHINHANH" ColumnName="MAHINHANH" />
+                <ScalarProperty Name="TENHINHANH" ColumnName="TENHINHANH" />
+                <ScalarProperty Name="DUONGDAN1" ColumnName="DUONGDAN1" />
+                <ScalarProperty Name="DUONGDAN2" ColumnName="DUONGDAN2" />
+                <ScalarProperty Name="DUONGDAN3" ColumnName="DUONGDAN3" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelKhachHang" FunctionName="NhaHangModel.Store.sp_InsUpdDelKhachHang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelKhachHang_Result">
                 <ScalarProperty Name="MAKH" ColumnName="MAKH" />
                 <ScalarProperty Name="MALOAI_KH" ColumnName="MALOAI_KH" />
                 <ScalarProperty Name="MADATBAN" ColumnName="MADATBAN" />
@@ -2202,15 +2165,116 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUpdDelLoaiKhachHang" FunctionName="QlNhaHangModel.Store.sp_InsUpdDelLoaiKhachHang">
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelLoaiKhachHang" FunctionName="NhaHangModel.Store.sp_InsUpdDelLoaiKhachHang">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QlNhaHangModel.sp_InsUpdDelLoaiKhachHang_Result">
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelLoaiKhachHang_Result">
                 <ScalarProperty Name="MALOAI_KH" ColumnName="MALOAI_KH" />
                 <ScalarProperty Name="TENLOAI_KH" ColumnName="TENLOAI_KH" />
                 <ScalarProperty Name="MOTALOAI_KH" ColumnName="MOTALOAI_KH" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelLoaiMonAn" FunctionName="NhaHangModel.Store.sp_InsUpdDelLoaiMonAn">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelLoaiMonAn_Result">
+                <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
+                <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelMonAn" FunctionName="NhaHangModel.Store.sp_InsUpdDelMonAn">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelMonAn_Result">
+                <ScalarProperty Name="MAMON" ColumnName="MAMON" />
+                <ScalarProperty Name="MADVTINH" ColumnName="MADVTINH" />
+                <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
+                <ScalarProperty Name="MAHINHANH" ColumnName="MAHINHANH" />
+                <ScalarProperty Name="TENGOI" ColumnName="TENGOI" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="CACHLAM" ColumnName="CACHLAM" />
+                <ScalarProperty Name="NGAYTAOMOI" ColumnName="NGAYTAOMOI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelNhaCungCap" FunctionName="NhaHangModel.Store.sp_InsUpdDelNhaCungCap">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelNhaCungCap_Result">
+                <ScalarProperty Name="MANCC" ColumnName="MANCC" />
+                <ScalarProperty Name="TEN_NCC" ColumnName="TEN_NCC" />
+                <ScalarProperty Name="DIACHI_NCC" ColumnName="DIACHI_NCC" />
+                <ScalarProperty Name="SDT_NCC" ColumnName="SDT_NCC" />
+                <ScalarProperty Name="GHICHUTHEM" ColumnName="GHICHUTHEM" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelNhaHang" FunctionName="NhaHangModel.Store.sp_InsUpdDelNhaHang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelNhaHang_Result">
+                <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
+                <ScalarProperty Name="TENNHAHANG" ColumnName="TENNHAHANG" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="GIOITHIEU" ColumnName="GIOITHIEU" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelNhanVien" FunctionName="NhaHangModel.Store.sp_InsUpdDelNhanVien">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelNhanVien_Result">
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
+                <ScalarProperty Name="MACV" ColumnName="MACV" />
+                <ScalarProperty Name="HOTEN_NV" ColumnName="HOTEN_NV" />
+                <ScalarProperty Name="SDT_NV" ColumnName="SDT_NV" />
+                <ScalarProperty Name="DIACHI_NV" ColumnName="DIACHI_NV" />
+                <ScalarProperty Name="EMAIL_NV" ColumnName="EMAIL_NV" />
+                <ScalarProperty Name="NGAYSINH_NV" ColumnName="NGAYSINH_NV" />
+                <ScalarProperty Name="GIOITINH_NV" ColumnName="GIOITINH_NV" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelPhieuNhap" FunctionName="NhaHangModel.Store.sp_InsUpdDelPhieuNhap">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelPhieuNhap_Result">
+                <ScalarProperty Name="MAPHIEUNHAP" ColumnName="MAPHIEUNHAP" />
+                <ScalarProperty Name="MANCC" ColumnName="MANCC" />
+                <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelTaiKhoan" FunctionName="NhaHangModel.Store.sp_InsUpdDelTaiKhoan">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelTaiKhoan_Result">
+                <ScalarProperty Name="MATAIKHOAN" ColumnName="MATAIKHOAN" />
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="TENDANGNHAP" ColumnName="TENDANGNHAP" />
+                <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
+                <ScalarProperty Name="QUYENSD" ColumnName="QUYENSD" />
+                <ScalarProperty Name="TRANGTHAIKICHHOAT" ColumnName="TRANGTHAIKICHHOAT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelTang" FunctionName="NhaHangModel.Store.sp_InsUpdDelTang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelTang_Result">
+                <ScalarProperty Name="MATANG" ColumnName="MATANG" />
+                <ScalarProperty Name="MANHAHANG" ColumnName="MANHAHANG" />
+                <ScalarProperty Name="TENTANG" ColumnName="TENTANG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUpdDelThucPham" FunctionName="NhaHangModel.Store.sp_InsUpdDelThucPham">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NhaHangModel.sp_InsUpdDelThucPham_Result">
+                <ScalarProperty Name="MATHUCPHAM" ColumnName="MATHUCPHAM" />
+                <ScalarProperty Name="TENTHUCPHAM" ColumnName="TENTHUCPHAM" />
+                <ScalarProperty Name="DVTINH" ColumnName="DVTINH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_insert_order" FunctionName="NhaHangModel.Store.usp_insert_order" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

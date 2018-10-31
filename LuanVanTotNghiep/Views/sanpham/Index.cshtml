@@ -1,0 +1,65 @@
+﻿@using LuanVanTotNghiep.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<LuanVanTotNghiep.Models.MONAN>
+
+@{
+    ViewBag.Title = "Thực đơn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="product-model">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">Products</li>
+        </ol>
+        <h2>Our Products</h2>
+        <div class="row">
+            <div class="col-md-9 product-model-sec">
+                @foreach (var item in Model)
+                {
+
+                    var link = "/sanpham/chitiet/" + item.MAMON;
+                    <a href="@link"></a>
+                    <div class="product-grid">
+                        <a href="@link">
+                            <div class="more-product"><span></span></div>
+                            <div class="product-img b-link-stripe b-animate-go  thickbox">
+                                <img src="@item.HINHANH.DUONGDAN1" class="img-responsive" alt="">
+                                <div class="b-wrapper">
+                                    <h4 class="b-animate b-from-left  b-delay03">
+                                        <button><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Xem nhanh</button>
+                                    </h4>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="product-info simpleCart_shelfItem">
+                            <div class="product-info-cust prt_name">
+                                <h4 style="font-size: 30px; color:black">@item.TENGOI</h4>
+                                <span class="item_price">@item.DONGIA VND</span>
+
+                                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @productID = item.MAMON, @quantity = 1, @strURL = Request.Url.ToString() }))
+                                {
+                                    <input type="submit" style="cursor:pointer" value="Thêm vào giỏ hàng" id="btnGioHang" class="item_add items">
+                                }
+
+                                @*<p class="item_add items">@Ajax.ActionLink("THÊM VÀO GIỎ HÀNG", "ThemGioHang", "giohang", new { @productID = item.MAMON, @quantity = 1 , @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace })</p>*@
+                                @*<a class="item_add items" href="/giohang/AddItem?productId=@item.MAMON&quantity=1"><span class="glyphicon glyphicon-shopping-cart"></span></a>*@
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+            @{
+                Html.RenderAction("_loaimonan", "sanpham");
+            }
+        </div>
+        <div class="dlink" style="float: right">
+
+            @Html.PagedListPager(Model, page => Url.Action("index", "sanpham", new { @page = page }))
+            Tổng số trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
+        </div>
+    </div>
+</div>

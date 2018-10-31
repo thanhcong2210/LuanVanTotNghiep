@@ -39,14 +39,16 @@
                             <div class="form-group col-xs-6">
                                 <label for="manhahang" class="col-md-2 control-label">Nhà hàng</label>
                                 <div class="col-md-10 space">
-                                    <input type="text" class="form-control" id="manhahang" ng-model="newnhanvien.MANHAHANG" required />
+                                    <input ng-show="updateShow" ng-disabled="addnhanvien.$valid" type="text" class="form-control" id="manhahang" placeholder="" value="nhahang.TENNHAHANG" />
+                                    <select ng-show="addShow" ng-disabled="addnhanvien.$valid" class="form-control" name="manhahang" ng-init="newnhanvien.MANHAHANG=nhahangs[0].ID" ng-model="newnhanvien.MANHAHANG" ng-options="nhahang.MANHAHANG as nhahang.TENNHAHANG for nhahang in nhahangs track by nhahang.MANHAHANG"></select>
                                 </div>
                             </div>
 
                             <div class="form-group col-xs-6">
                                 <label for="macv" class="col-md-2 control-label">Chức vụ</label>
                                 <div class="col-md-10 space">
-                                    <input type="text" class="form-control" id="macv" ng-model="newnhanvien.MACV" required/>
+                                    <!--<input ng-show="updateShow" ng-disabled="addnhanvien.$valid" type="text" class="form-control" id="macv" placeholder="" ng-model="newnhanvien.MACV" />-->
+                                    <select  class="form-control" name="macv" ng-init="newnhanvien.MACV=chucvus[0].ID" ng-model="newnhanvien.MACV" ng-options="chucvu.MACV as chucvu.TENCV for chucvu in chucvus track by chucvu.MACV"></select>
                                 </div>
                             </div>
                             <div class="form-group col-xs-6">

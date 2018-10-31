@@ -12,8 +12,20 @@ function nhanVienController($scope, $http) {
         $scope.nhanviens = data;
     }).error(function () {
         $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
-    });
+        });
 
+    // chuc vu
+    $http.get('/api/NhanVienAPI/getchucvu').success(function (data) {
+        $scope.chucvus = data;
+    }).error(function () {
+        $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+        });
+    //nha hang
+    $http.get('/api/NhanVienAPI/getnhahang').success(function (data) {
+        $scope.nhahangs = data;
+    }).error(function () {
+        $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+    });
     //Insert 
     $scope.add = function () {
         $scope.loading = true;
@@ -25,7 +37,7 @@ function nhanVienController($scope, $http) {
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin!" + data;
         });
-    }
+    };
 
     //Edit 
     $scope.edit = function () {
@@ -38,7 +50,7 @@ function nhanVienController($scope, $http) {
         }).error(function () {
             $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
         });
-    }
+    };
 
     $scope.update = function () {
         $scope.loading = true;
@@ -52,7 +64,7 @@ function nhanVienController($scope, $http) {
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
-    }
+    };
 
     //Delete 
     $scope.delete = function () {
@@ -63,12 +75,12 @@ function nhanVienController($scope, $http) {
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
-    }
+    };
 
     //Cancel 
     $scope.cancel = function () {
         $scope.updateShow = false;
         $scope.addShow = true;
         $scope.newnhanvien = '';
-    }
+    };
 }

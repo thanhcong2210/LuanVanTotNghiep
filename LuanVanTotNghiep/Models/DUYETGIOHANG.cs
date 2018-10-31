@@ -11,13 +11,26 @@ namespace LuanVanTotNghiep.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Xml.Serialization;
+
+    [Table("DUYETGIOHANG")]
     public partial class DUYETGIOHANG
     {
         public int MADUYET { get; set; }
         public int MATAIKHOAN { get; set; }
         public int MAGH { get; set; }
-        public Nullable<System.DateTime> NGAYDUYET { get; set; }
+        [Column(TypeName = "datetime2")]
+        [XmlAttribute]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [Display(Name = "Date Modified")]
+        public DateTime NGAYDUYET
+        {
+            get { return nGAYDUYET; }
+            set { nGAYDUYET = value; }
+        }
+        private DateTime nGAYDUYET = DateTime.Now.ToLocalTime();        
         public Nullable<bool> TRANGTHAIDUYET { get; set; }
     
         public virtual GIOHANG GIOHANG { get; set; }

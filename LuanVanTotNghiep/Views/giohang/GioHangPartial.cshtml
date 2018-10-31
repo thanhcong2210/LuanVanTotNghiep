@@ -1,0 +1,18 @@
+﻿
+<div id="divGioHang" class="cart box_1">
+    <a href="@Url.Action("GioHang","GioHang")">
+        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" style="color:blue"></span>
+        <div class="total">
+            @if (ViewBag.TongTien == null)
+            {
+                <span>0 VND (<span>0 món</span>)</span>
+            }
+            else
+            {
+                <span>@ViewBag.TongTien VND (<span> @ViewBag.TongSoLuong món </span>)</span>
+            }
+        </div>
+        <p><a href="/login" class="simpleCart_empty" style="font-size:15px">Đăng nhập</a></p>
+        <div class="clearfix"> </div>
+    </a>
+</div>

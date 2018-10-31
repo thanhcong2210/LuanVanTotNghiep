@@ -17,11 +17,11 @@ function chucVuController($scope, $http) {
     //Insert 
     $scope.add = function () {
         $scope.loading = true;
-        $http.post('/api/ChucVuAPI/', this.newcv).success(function (data) {
+        $http.post('/api/ChucVuAPI/', this.newchucvu).success(function (data) {
             $scope.chucvus = data;
             $scope.updateShow = false;
             $scope.addShow = true;
-            $scope.newcv = '';
+            $scope.newchucvu = '';
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
@@ -31,7 +31,7 @@ function chucVuController($scope, $http) {
     $scope.edit = function () {
         var Id = this.chucvu.MACV;
         $http.get('/api/ChucVuAPI/' + Id).success(function (data) {
-            $scope.newcv = data;
+            $scope.newchucvu = data;
             $scope.updateShow = true;
             $scope.addShow = false;
         }).error(function () {
@@ -41,12 +41,12 @@ function chucVuController($scope, $http) {
 
     $scope.update = function () {
         $scope.loading = true;
-        console.log(this.newcv);
-        $http.put('/api/ChucVuAPI/', this.newcv).success(function (data) {
+        console.log(this.newchucvu);
+        $http.put('/api/ChucVuAPI/', this.newchucvu).success(function (data) {
             $scope.chucvus = data;
             $scope.updateShow = false;
             $scope.addShow = true;
-            $scope.newcv = '';
+            $scope.newchucvu = '';
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
@@ -67,6 +67,6 @@ function chucVuController($scope, $http) {
     $scope.cancel = function () {
         $scope.updateShow = false;
         $scope.addShow = true;
-        $scope.newcv = '';
+        $scope.newchucvu = '';
     }
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LuanVanTotNghiep.Common;
 using LuanVanTotNghiep.Models;
+using LuanVanTotNghiep.ViewModel;
 
 namespace LuanVanTotNghiep.Controllers
 {
@@ -35,6 +37,23 @@ namespace LuanVanTotNghiep.Controllers
         {
             var model = db.NHAHANGs.Where(x => x.MANHAHANG > 0).ToList();
             return PartialView(model);
+        }
+        [ChildActionOnly]
+        public PartialViewResult _shoppingcart()
+        {
+            var cart = Session[CommonConstantClient.CartSession];
+            var list = new List<CartItem>();
+            if (cart != null)
+            {
+                list = (List<CartItem>)cart;
+            }
+
+            return PartialView(list);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

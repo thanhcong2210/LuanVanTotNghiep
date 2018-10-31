@@ -38,7 +38,8 @@
                         <div class="form-group">
                             <label for="matang" class="col-sm-3 control-label">Tầng</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="matang" placeholder="" ng-model="newban.MATANG" ng-disabled="addban.$valid"/>
+                                <input ng-show="updateShow" ng-disabled="addban.$valid" type="text" class="form-control" id="matang" placeholder="" ng-model="newban.MATANG"  />
+                                <select ng-show="addShow" ng-disabled="addban.$valid" class="form-control" name="matang" ng-init="newban.MATANG=tangs[0].ID" ng-model="newban.MATANG" ng-options="tang.MATANG as tang.TENTANG for tang in tangs track by tang.MATANG"></select>
                             </div>
                         </div>
                         <div class="form-group">

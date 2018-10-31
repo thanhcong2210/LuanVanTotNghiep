@@ -16,13 +16,8 @@ namespace LuanVanTotNghiep
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
-            );
-            routes.MapRoute(
-             name: "About",
-             url: "gioi-thieu",
-             defaults: new { controller = "Home", action = "About", id = UrlParameter.Optional },
-             namespaces: new[] { "LuanVanTotNghiep.Controllers" }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "LuanVanTotNghiep.Controllers" }
             );
 
         }

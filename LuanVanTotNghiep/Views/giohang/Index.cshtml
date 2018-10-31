@@ -1,0 +1,170 @@
+﻿@using LuanVanTotNghiep.ViewModel;
+@model IEnumerable<LuanVanTotNghiep.Models.MONAN>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="check-sec">
+
+        @if (Model == null || ShoppingCart.Cart.Count == 0)
+        {
+            <div class="col-md-3 cart-total">
+                <a class="continue" href="/sanpham">Tiếp tục chọn món</a>
+                <div class="price-details">
+                    <h3>Giá chi tiết</h3>
+                    <span>Tổng cộng</span>
+                    <span class="total1">0 VNĐ</span>
+                    <span>Giảm giá</span>
+                    <span class="total1">0%</span>
+                    @*<span>Delivery Charges</span>
+                    <span class="total1">150.00</span>*@
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="total_price">
+                    <li class="last_price"> <h4>Tổng cộng đơn hàng</h4></li>
+                    <li class="last_price"><span>0 VND</span></li>
+                </ul>
+                <div class="clearfix"></div>
+                <br />
+                <br />
+
+                <br />
+            </div>
+            <div class="col-md-9 cart-items">
+                <h1>Số lượng món đã chọn(0)</h1>
+                <p class="text-info text-center">
+                    Giỏ hàng rỗng! Vui lòng chọn <a style="color:red" href="/sanpham">tiếp tục chọn món</a> để thêm món ăn vào giỏ hàng!
+                </p>
+            </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+        }
+        else
+        {
+            <div class="col-md-3 cart-total">
+                <a class="continue" href="/sanpham">Tiếp tục chọn món</a>
+                <div class="price-details">
+                    <h3>Giá chi tiết</h3>
+                    <span>Tổng cộng</span>
+                    <span class="total1">@ShoppingCart.Cart.Total VNĐ</span>
+                    <span>Giảm giá</span>
+                    <span class="total1">0%</span>
+                    @*<span>Delivery Charges</span>
+                    <span class="total1">150.00</span>*@
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="total_price">
+                    <li class="last_price"> <h4>Tổng cộng</h4></li>
+                    <li class="last_price"><span>@ShoppingCart.Cart.Total VND</span></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="clearfix"></div>
+                <a class="order" href="">Thanh toán</a>
+                <input type="text" class="form-control" placeholder="Địa chỉ nhận..." />
+            </div>
+            <div class="col-md-9 cart-items">
+                <h1>Số lượng món đã chọn(@ShoppingCart.Cart.Count)</h1>
+
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @*<td>Mã món ăn</td>*@
+                            <td>Tên món ăn</td>
+                            <td>Ảnh món ăn</td>
+                            <td>Số lượng</td>
+                            <td>Đơn giá</td>
+                            <td>Thành tiền</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @*<td>@item.product.MAMON</td>*@
+                                <td>@item.TENGOI</td>
+                                <td><img src="@item.HINHANH.DUONGDAN1" width="100" /></td>
+                                <td>
+                                    <input class="quantity" value="@ShoppingCart.Cart.Quantity" data-id="@item.MAMON" size="3">
+                                    @*<form action="@Url.Action("SuaSoLuong")" method="get">
+                                <input type="hidden" name="MonAnID" value="@item.MAMON" />
+                                <input type="number" min="1" step="1" name="soluongmoi" value="@item.Quantity" />
+                                <button type="submit" class="btn btn-primary btn-sm" style="height:30px"><span class="glyphicon glyphicon-refresh"></span></button>
+                            </form>*@
+                                    @*<input type="text" class="txtQuantity" data-id="@item.product.MAMON" value="@item.Quantity" />*@
+                                </td>
+                                <td>@item.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND </td>
+                                <td>@((item.DONGIA.GetValueOrDefault(0) * ShoppingCart.Cart.Quantity).ToString("#,##0").Replace(',', '.')) VND</td>
+                                <td>
+                                    <img class="remove-from-cart" data-id="@item.MAMON" src="~/upload/Trash.png" />
+                                    @*<a href="#" data-id="@item.product.MAMON" class="btn-delete">Xoá</a>*@
+                                    @*<a href="@Url.Action("XoaKhoiGio",new { MonAnID = item.product.MAMON})" onclick="return confirm('Bạn có chắc muốn xóa '+ @item.product.TENGOI +' này?');" class="btn btn-danger btn-sm">Xóa</a>*@
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <form action="/giohang/Clear" method="post">
+                    <button class="btn btn-default">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                        Clear Cart
+                    </button>
+                    <a href="/sanpham" class="btn btn-default">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                        Shopping More
+                    </a>
+                    <a href="/Order/Checkout" class="btn btn-default">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                        Checkout
+                    </a>
+                </form>
+            </div>
+            <div class="clearfix"> </div>
+
+        }
+        
+    </div>
+</div>
+<br />
+@section scripts{
+    <script>
+        $(function () {
+            // Xóa khỏi giỏ
+            $(".remove-from-cart").click(function () {
+                pid = $(this).attr("data-id");
+                tr = $(this).parents("tr");// tim <tr> chua <img> bi click
+                $.ajax({
+                    url: "/giohang/Remove",
+                    data: { id: pid },
+                    success: function (response) {
+                        $("#nn-cart-count").html(response.Count);
+                        $("#nn-cart-total").html(response.Total);
+                        tr.hide(500);
+                    }
+                });
+            });
+            // Cập nhật số lượng
+            $(".quantity").keyup(function () {
+                pid = $(this).attr("data-id");
+                qty = $(this).val();
+                $.ajax({
+                    url: "/giohang/Update",
+                    method: "GET",
+                    data: { id: pid, quantity: qty },
+                    success: function (response) {
+                        $("#nn-cart-count").html(response.Count);
+                        $("#nn-cart-total").html(response.Total);
+                    }
+                });
+            });
+        });
+    </script>
+}

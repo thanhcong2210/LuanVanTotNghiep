@@ -12,6 +12,27 @@ function monAnController($scope, $http) {
         $scope.monans = data;
     }).error(function () {
         $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+        });
+
+    //get loai mon an
+    $http.get('/api/MonAnAPI/loaimonan').success(function (data) {
+        $scope.loaimonans = data;
+    }).error(function () {
+        $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+        });
+
+    //get hinh anh
+    $http.get('/api/MonAnAPI/hinhanh').success(function (data) {
+        $scope.hinhanhs = data;
+    }).error(function () {
+        $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+        });
+
+    //get dvtinh 
+    $http.get('/api/MonAnAPI/donvitinh').success(function (data) {
+        $scope.dvtinhs = data;
+    }).error(function () {
+        $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
     });
 
     //Insert 

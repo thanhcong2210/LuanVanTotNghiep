@@ -1,0 +1,124 @@
+﻿@using LuanVanTotNghiep.ViewModel;
+@model List<LuanVanTotNghiep.ViewModel.GioHang>
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="check-sec">
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <div class="col-md-3 cart-total">
+                <a class="continue" href="/sanpham">Tiếp tục chọn món</a>
+                <div class="price-details">
+                    <h3>Giá chi tiết</h3>
+                    <span>Tổng cộng</span>
+                    <span class="total1">0 VNĐ</span>
+                    <span>Giảm giá</span>
+                    <span class="total1">0%</span>
+                    @*<span>Delivery Charges</span>
+                    <span class="total1">150.00</span>*@
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="total_price">
+                    <li class="last_price"> <h4>Tổng cộng đơn hàng</h4></li>
+                    <li class="last_price"><span>0 VND</span></li>
+                </ul>
+                <div class="clearfix"></div>
+                <br />
+                <br />
+
+                <br />
+            </div>
+            <div class="col-md-9 cart-items">
+                <h1>Số lượng món đã chọn(0)</h1>
+                <p class="text-info text-center">
+                    Giỏ hàng rỗng! Vui lòng chọn <a style="color:red" href="/sanpham">tiếp tục chọn món</a> để thêm món ăn vào giỏ hàng!
+                </p>
+            </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+        }
+        else
+        {
+
+            <div class="col-md-9 cart-items">
+                <h1>Số lượng món đã chọn(@Model.Count)</h1>
+
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @*<td>Mã món ăn</td>*@
+                            <td>Tên món ăn</td>
+                            <td>Ảnh món ăn</td>
+                            <td style="width:100px">Số lượng</td>
+                            <td>Đơn giá</td>
+                            <td></td>
+                            <td>Thành tiền</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            @*<td>@item.product.MAMON</td>*@
+                            <td>@item.sTen</td>
+                            <td><img src="@item.sAnh" width="50" /></td>
+                            @*Chỉnh sửa giỏ hàng gọi về action CapNhatGioHang*@
+                            @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @iproductID = item.iMa }))
+                            {
+                                <td style="width:100px">@Html.TextBox("txtSoLuong", item.iSoLuong, new { @class = "form-control", @type = "number", @min = "1", @step = "1" }) </td>
+                                <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+                                <td>
+                                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+
+                                </td>
+                                <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+                            }
+                            <td>
+                                @*Xóa giỏ hàng gọi về Action XoaGioHang*@
+                                @Html.ActionLink("Xóa", "XoaGioHang", new { @iproductID = item.iMa })
+                            </td>
+
+                        </tr>
+                            }
+                        <tr></tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-md-3 cart-total">
+                <a class="continue" href="/">Tiếp tục chọn món</a>
+                <div class="price-details">
+                    <h3>Giá chi tiết</h3>
+                    <span>Số tiền tạm tính</span>
+                    <span class="total1">@ViewBag.TongTien VNĐ</span>
+                    <span>Số món ăn tạm tính</span>
+                    <span class="total1">@Model.Count SP</span>
+                    @*<span>Delivery Charges</span>
+                    <span class="total1">150.00</span>*@
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="total_price">
+                    <li class="last_price"> <h4>Tổng cộng</h4></li>
+                    <li class="last_price"><span>@ViewBag.TongTien VND</span></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="clearfix"></div>
+                <a class="order" href="">Thanh toán</a>
+                <input type="text" class="form-control" placeholder="Địa chỉ nhận..." />
+            </div>
+            <div class="clearfix"> </div>
+
+        }
+
+    </div>
+</div>
+<br />
+

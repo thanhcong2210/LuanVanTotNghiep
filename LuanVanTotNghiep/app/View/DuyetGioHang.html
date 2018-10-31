@@ -1,0 +1,116 @@
+﻿<!-- Content Header (Page header) -->
+
+<section class="content-header">
+    <h1>
+        Danh sách duyệt giỏ hàng
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a href="#">Duyệt giỏ hàng</a></li>
+        <li class="active">Danh mục duyệt giỏ hàng</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Danh mục duyệt giỏ hàng</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="thu phóng"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="đóng"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert-danger" style="width: 350px ;line-height: 50px; position:center;transition-delay:initial">
+                        <strong class="error" style="text-align:left">{{error}} </strong>
+                    </div>
+
+                    <form name="addduyetgiohang" class="form-horizontal" style="width: 800px;">
+                        <div class="form-group">
+                            <label for="maduyet" class="col-sm-2 control-label">Mã duyệt</label>
+                            <div class="col-md-10 space space">
+                                <input type="text" class="form-control" id="maduyet" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newduyetgiohang.MADUYET" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mataikhoan" class="col-sm-2 control-label">Tài khoản</label>
+                            <div class="col-md-10 space">
+                                <input type="text" ng-show="addShow" ng-disabled="!addduyetgiohang.$valid" class="form-control" name="mataikhoan" placeholder="" ng-model="newduyetgiohang.MATAIKHOAN" />
+                                <input type="text" ng-show="updateShow" ng-disabled="addduyetgiohang.$valid" class="form-control" name="mataikhoan" placeholder="" ng-model="newduyetgiohang.MATAIKHOAN" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="magh" class="col-sm-2 control-label">Giỏ hàng</label>
+                            <div class="col-md-10 space">
+                                <input type="text" ng-show="addShow" ng-disabled="!addduyetgiohang.$valid" class="form-control" id="magh" placeholder="" ng-model="newduyetgiohang.MAGH" />
+                                <input type="text" ng-show="updateShow" ng-disabled="addduyetgiohang.$valid" class="form-control" id="magh" placeholder="" ng-model="newduyetgiohang.MAGH" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ngayduyet" class="col-sm-2 control-label">Ngày đến</label>
+                            <div class="col-md-10 space">
+                                <input type="date" ng-show="addShow" ng-disabled="!addduyetgiohang.$valid" class="form-control" name="ngayduyet" placeholder="" ng-model="newduyetgiohang.NGAYDUYET" />
+                                <input type="date" ng-show="updateShow" ng-disabled="addduyetgiohang.$valid" class="form-control" name="ngayduyet" placeholder="" ng-model="newduyetgiohang.NGAYDUYET" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="trangthaiduyet" class="col-sm-2 control-label">Trạng thái</label>
+                            <div class="col-md-10 space">
+                                <input type="radio" name="trangthaiduyet" ng-model="newduyetgiohang.TRANGTHAIDUYET" ng-value="true" /> Duyệt
+                                <input type="radio" name="trangthaiduyet" ng-model="newduyetgiohang.TRANGTHAIDUYET" ng-value="false" />  Chờ duyệt
+                            </div>
+                        </div>
+                        <div class="form-group space">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="submit" value="Thêm mới" ng-click="add()" ng-show="addShow" ng-disabled="!addduyetgiohang.$valid" class="btn btn-success" />
+                                <input type="submit" value="Chỉnh sửa" ng-click="update()" ng-show="updateShow" ng-disabled="!addduyetgiohang.$valid" class="btn btn-primary" />
+                                <input type="button" value="Hủy bỏ" ng-click="cancel()" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" style="width: 850px; margin-left: 70px;">
+                            <tr>
+                                <th>Mã đơn duyệt</th>
+                                <th>Tài khoản</th>
+                                <th>Giỏ hàng</th>
+                                <th>Ngày duyệt</th>
+                                <th>Trạng thái</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr ng-repeat="duyetgiohang in duyetgiohangs">
+                                <td>
+                                    <p>{{ duyetgiohang.MADUYET }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ duyetgiohang.MATAIKHOAN }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ duyetgiohang.MAGH }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ duyetgiohang.NGAYDUYET | date : "dd/MM/y"}}</p>
+                                </td>
+                                <td>
+                                <td>
+                                    <p style="color:red">{{ duyetgiohang.TRANGTHAIDUYET ? 'Duyệt' : 'Chờ duyệt'  }}</p>
+                                </td>
+                                <td>
+                                    <p><a class="btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</section><!-- /.content -->

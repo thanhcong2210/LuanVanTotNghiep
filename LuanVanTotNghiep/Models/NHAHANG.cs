@@ -24,6 +24,8 @@ namespace LuanVanTotNghiep.Models
         public int MANHAHANG { get; set; }
         public string TENNHAHANG { get; set; }
         public string SDT { get; set; }
+        public string FAX { get; set; }
+        public string DIACHI { get; set; }
         public string GIOITHIEU { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

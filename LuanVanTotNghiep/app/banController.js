@@ -12,6 +12,12 @@ function banController($scope, $http) {
         $scope.bans = data;
     }).error(function () {
         $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+        });
+
+    $http.get('/api/BanAPI/gettang').success(function (data) {
+        $scope.tangs = data;
+    }).error(function () {
+        $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
     });
 
     //Insert 

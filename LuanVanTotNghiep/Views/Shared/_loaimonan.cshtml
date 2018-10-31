@@ -1,12 +1,20 @@
 ﻿@model List<LuanVanTotNghiep.Models.LOAIMONAN>
-<ul class="nav site-tab-nav nav-pills mb-5" id="pills-tab" role="tablist">
-    @foreach (var item in Model)
-    {
-        <li class="nav-item site-animate">
 
-            <a class="nav-link" id="pills-@item.TENLOAI-tab" data-toggle="pill" href="#pills-@item.TENLOAI" role="tab" aria-controls="pills-@item.TENLOAI" aria-selected="true">@item.TENLOAI</a>
+<div class="col-md-3 rsidebar span_1_of_left">
+    <section class="sky-form">
+        <div class="product_right">
+            <h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>LOẠI MÓN ĂN</h4>
+            @foreach (var item in Model)
+            {
+                var link = "/sanpham/loaimon/" + @item.MALOAI;
+                <div class="tab1" style=" text-align:left; color:white;" >
+                    <ul class="place" style=" text-align:left; color:white;">
+                        <li><a href="@link" style=" text-align:left; color:white;" class="tenloai">@item.TENLOAI</a></li>
+                    </ul>
+                </div>
+            }
 
-
-        </li>
-    }
-</ul>
+        </div>
+    </section>
+    
+</div>

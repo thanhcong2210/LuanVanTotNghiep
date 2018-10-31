@@ -21,6 +21,7 @@ namespace LuanVanTotNghiep.Models
         }
     
         public int MAHINHANH { get; set; }
+        public string TENHINHANH { get; set; }
         public string DUONGDAN1 { get; set; }
         public string DUONGDAN2 { get; set; }
         public string DUONGDAN3 { get; set; }

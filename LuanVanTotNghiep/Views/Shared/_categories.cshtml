@@ -1,0 +1,11 @@
+﻿
+@model List<LuanVanTotNghiep.Models.LOAIMONAN>
+
+@foreach (var item in Model)
+{
+    var link = "/sanpham/loaimon/" + @item.MALOAI;
+    <div class="col1 me-one">
+        <a href="@link">@item.TENLOAI</a>
+    </div>
+}
+    

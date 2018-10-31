@@ -1,4 +1,4 @@
-﻿NhaHangApp.controller('nhaHangController', ['$scope', '$http', nhaHangController]);
+﻿NhaHangApp.controller('NhaHangController', ['$scope', '$http',nhaHangController]);
 
 // Angularjs Controller
 function nhaHangController($scope, $http) {
@@ -6,18 +6,23 @@ function nhaHangController($scope, $http) {
     $scope.loading = true;
     $scope.updateShow = false;
     $scope.addShow = true;
+    $scope.ShowAddForm = false;
 
+    $scope.ShowHide = function () {
+        $scope.ShowAddForm = $scope.ShowAddForm = true;
+    };
+    $scope.page = 1;
     // Get All 
-    $http.get('/api/NhaHangAPI/').success(function (data) {
-        $scope.nhahangs = data;
-    }).error(function () {
-        $scope.error = "An Error has occured while loading posts!";
-    });
-
+        $http.get('/api/NhaHangAPI/').success(function (data) {
+            $scope.nhahangs = data;
+        }).error(function () {
+            $scope.error = "An Error has occured while loading posts!";
+        });
     //Insert 
     $scope.add = function () {
         $scope.loading = true;
         $http.post('/api/NhaHangAPI/', this.newnh).success(function (data) {
+            $scope.ShowAddForm = false;
             $scope.nhahangs = data;
             $scope.updateShow = false;
             $scope.addShow = true;
@@ -25,32 +30,35 @@ function nhaHangController($scope, $http) {
         }).error(function (data) {
             $scope.error = "An Error has occured while Adding employee! " + data;
         });
-    }
+    };
 
     //Edit 
     $scope.edit = function () {
         var Id = this.nhahang.MANHAHANG;
         $http.get('/api/NhaHangAPI/' + Id).success(function (data) {
-            $scope.newnh = data;
+            $scope.newnh = data;    
+            $scope.ShowAddForm = true;
             $scope.updateShow = true;
             $scope.addShow = false;
         }).error(function () {
             $scope.error = "An Error has occured while loading posts!";
         });
-    }
+    };
 
     $scope.update = function () {
         $scope.loading = true;
+        
         console.log(this.newnh);
         $http.put('/api/NhaHangAPI/', this.newnh).success(function (data) {
             $scope.nhahangs = data;
             $scope.updateShow = false;
             $scope.addShow = true;
             $scope.newnh = '';
+            $scope.ShowAddForm = false;
         }).error(function (data) {
             $scope.error = "An Error has occured while Saving employee! " + data;
         });
-    }
+    };
 
     //Delete 
     $scope.delete = function () {
@@ -61,12 +69,13 @@ function nhaHangController($scope, $http) {
         }).error(function (data) {
             $scope.error = "An Error has occured while Saving employee! " + data;
         });
-    }
+    };
 
     //Cancel 
     $scope.cancel = function () {
         $scope.updateShow = false;
         $scope.addShow = true;
         $scope.newnh = '';
-    }
+        $scope.ShowAddForm = false;
+    };
 }

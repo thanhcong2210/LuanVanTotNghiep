@@ -1,0 +1,140 @@
+﻿@using LuanVanTotNghiep.ViewModel;
+@model List<LuanVanTotNghiep.ViewModel.GioHang>
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="check-sec">
+
+        @if (Model == null || Model.Count == 0)
+        {
+
+            <div class="col-md-9 cart-items">
+                <h1>Số lượng món đã chọn(0)</h1>
+                <p class="text-info text-center">
+                    <a style="color:red" href="/"> Giỏ hàng rỗng! Vui lòng chọn tiếp tục chọn món để thêm món ăn vào giỏ hàng! </a>
+                </p>
+            </div>
+            <div class="col-md-3 cart-total">
+                <a class="continue" href="/">Vui lòng chọn món</a>
+                <div class="price-details">
+                    <h3>Giá chi tiết</h3>
+                    <span>Số tiền tạm tính</span>
+                    <span class="total1">0 VNĐ</span>
+                    <span>Số món ăn tạm tính</span>
+                    <span class="total1">0 SP</span>
+                    @*<span>Delivery Charges</span>
+            <span class="total1">150.00</span>*@
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="total_price">
+                    <li class="last_price"> <h4>Tổng cộng</h4></li>
+                    <li class="last_price"><span>0 VND</span></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+        }
+        else
+        {
+
+            <div class="col-md-9 cart-items">
+                <h1>Số lượng món đã chọn(@Model.Count)</h1>
+
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @*<td>Mã món ăn</td>*@
+                            <td>Tên món ăn</td>
+                            <td>Ảnh món ăn</td>
+                            <td>Số lượng</td>
+                            <td>Đơn giá</td>
+                            <td>Thành tiền</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @*<td>@item.product.MAMON</td>*@
+                                <td>@item.sTen</td>
+                                <td><img src="@item.sAnh" width="100" /></td>
+                                <td>
+                                    @item.iSoLuong
+                                    @*<input class="quantity" value="@ShoppingCart.Cart.Quantity" data-id="@item.MAMON" size="3">*@
+                                    @*<form action="@Url.Action("SuaSoLuong")" method="get">
+                                        <input type="hidden" name="MonAnID" value="@item.MAMON" />
+                                        <input type="number" min="1" step="1" name="soluongmoi" value="@item.Quantity" />
+                                        <button type="submit" class="btn btn-primary btn-sm" style="height:30px"><span class="glyphicon glyphicon-refresh"></span></button>
+                                    </form>*@
+                                    @*<input type="text" class="txtQuantity" data-id="@item.product.MAMON" value="@item.Quantity" />*@
+                                </td>
+                                <td>@item.dDonGia.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND </td>
+                                <td>@item.ThanhTien.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND</td>
+                                <td>
+                                    @*<img class="remove-from-cart" data-id="@item.MAMON" src="~/upload/Trash.png" />
+                                    <a href="#" data-id="@item.product.MAMON" class="btn-delete">Xoá</a>*@
+                                </td>
+
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="6" style="text-align:right;color:blue">
+                                <form action="/giohang/XoaTatCa" method="post">
+                                    <button class="btn btn-default">
+                                        <span class="glyphicon glyphicon-th-list"></span>
+                                        Xóa giỏ hàng
+                                    </button>
+                                    <a href="/giohang/Suagiohang" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-th-list"></span>
+                                        Cập nhật giỏ hàng
+                                    </a>
+                                    <a href="/Order/Checkout" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-th-list"></span>
+                                        Checkout
+                                    </a>
+                                </form>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-md-3 cart-total">
+                <a class="continue" href="/">Tiếp tục chọn món</a>
+                <div class="price-details">
+                    <h3>Giá chi tiết</h3>
+                    <span>Số tiền tạm tính</span>
+                    <span class="total1">@ViewBag.TongTien VNĐ</span>
+                    <span>Số món ăn tạm tính</span>
+                    <span class="total1">@Model.Count SP</span>
+                    @*<span>Delivery Charges</span>
+                    <span class="total1">150.00</span>*@
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="total_price">
+                    <li class="last_price"> <h4>Tổng cộng</h4></li>
+                    <li class="last_price"><span>@ViewBag.TongTien VND</span></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="clearfix"></div>
+                <a class="order" href="">Thanh toán</a>
+                <input type="text" class="form-control" placeholder="Địa chỉ nhận..." />
+            </div>
+            <div class="clearfix"> </div>
+
+        }
+
+    </div>
+</div>
+<br />
+

@@ -3,32 +3,129 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>@ViewBag.Title</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/Assets/client/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Custom Theme files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <!--theme style-->
+    <link href="~/Assets/client/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="~/Assets/client/js/jquery.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700|Raleway" rel="stylesheet">
-    <link href="~/Assets/client/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Assets/client/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Assets/client/css/animate.css" rel="stylesheet" />
+    <!--//theme style-->
+    <!--bat loi-->
+    <link href="~/Assets/client/css/template.css" rel="stylesheet" />
+    <link href="~/Assets/client/css/validationEngine.jquery.css" rel="stylesheet" />
+    @*<script src="~/Assets/client/js/jquery-1.8.2.min.js"></script>*@
+    <script src="~/Assets/client/js/jquery.validationEngine-vi.js"></script>
+    <script src="~/Assets/client/js/jquery.validationEngine.js"></script>
+    <!--//end-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-
-    <link rel="stylesheet" href="~/Assets/client/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/Assets/client/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="~/Assets/client/css/magnific-popup.css">
-    <link rel="stylesheet" href="~/Assets/client/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="~/Assets/client/css/jquery.timepicker.css">
-
-    <link rel="stylesheet" href="~/Assets/client/css/icomoon.css">
-    <link rel="stylesheet" href="~/Assets/client/css/style.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Wedding Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- start menu -->
+    <script src="~/Assets/client/js/simpleCart.min.js"></script>
+    <!-- start menu -->
+    <link href="~/Assets/client/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="~/Assets/client/js/memenu.js"></script>
+    <script>
+        $(document).ready(function () { $(".memenu").memenu(); });
+    </script>
+    <!-- /start menu -->
 </head>
-<body data-spy="scroll" data-target="#site-navbar" data-offset="1000">
+<body>
+    <!--header-->
+    <script src="~/Assets/client/js/responsiveslides.min.js"></script>
+    <script>
+
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                pager: false,
+            });
+        });
+    </script>
+    <div class="header-top">
+        <div class="header-bottom">
+            <div class="logo">
+                <h1><a href="/">Thành Công</a></h1>
+            </div>
+            <!---->
+            <div class="top-nav">
+                <ul class="memenu skyblue">
+                    <li class="active"><a href="/">Trang chủ</a></li>
+                    <li class="grid">
+                        <a href="/home/about">Giới thiệu</a>
+                    </li>
+                    <li class="grid">
+                        <a href="/sanpham">Thực đơn</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                @{
+                                    Html.RenderAction("_categories", "sanpham");
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid"><a href="typo.html">Đặt bàn</a></li>
+                </ul>
+            </div>
+            <!--checkout-->
+            @Html.Action("GioHangPartial", "GioHang")
+
+            <div class="clearfix"> </div>
+            <!---->
+        </div>
+        <div class="clearfix"> </div>
+    </div>
     <!-- END nav -->
     <!-- END section -->
     @RenderBody()
 
 
-    @RenderPage("_Footer.cshtml")
+    @*@RenderPage("_Footer.cshtml")*@
+    <!---->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-grids">
+                @{
+                    Html.RenderAction("_nhahang", "home");
+                }
+                <div class="col-md-3 ftr-grid">
+                    <h3>Information</h3>
+                    <ul class="nav-bottom">
+                        <li><a href="#">Login</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="copywrite">
+        <div class="container">
+            <div class="copy">
+                <p>© 2015 Lighting. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+            </div>
+            <div class="social">
+                <a href="#"><i class="facebook"></i></a>
+                <a href="#"><i class="twitter"></i></a>
+                <a href="#"><i class="dribble"></i></a>
+                <a href="#"><i class="google"></i></a>
+                <a href="#"><i class="youtube"></i></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+    <!---->
+</body>
+</html>
+<noembed />

@@ -1,4 +1,4 @@
-﻿NhaHangApp.controller('nhaCungCapController', function ($scope) {
+﻿NhaHangApp.controller('homeController', function ($scope) {
     
 });
 
