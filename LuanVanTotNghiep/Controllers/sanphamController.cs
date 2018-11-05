@@ -29,6 +29,7 @@ namespace LuanVanTotNghiep.Controllers
             ViewBag.Name = db.MONANs.Find(id);
             var idCategory = sp.MALOAI;
             ViewBag.Category = db.LOAIMONANs.Find(idCategory);
+            ViewBag.cateProduct = db.MONANs.Find(idCategory);
             return View(sp);
         }
 

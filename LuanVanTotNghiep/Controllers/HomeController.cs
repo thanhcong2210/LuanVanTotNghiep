@@ -6,17 +6,22 @@ using System.Web.Mvc;
 using LuanVanTotNghiep.Common;
 using LuanVanTotNghiep.Models;
 using LuanVanTotNghiep.ViewModel;
+using PagedList;
 
 namespace LuanVanTotNghiep.Controllers
 {
     public class HomeController : Controller
     {
         QLNhaHangEntities db = new QLNhaHangEntities();
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
            
             var model = db.MONANs.Where(x => x.MAMON > 0).ToList();
-            return View(model);
+            int PageSize = 8;
+            int PageNumber = page ?? 1;
+            var pagemodel = model.OrderBy(n => n.MAMON).ToPagedList(PageNumber, PageSize);
+            //this.AddToastMessage("Thông báo ", "Chào mừng bạn đến với website của Thành Công", ToastType.Success);
+            return View(pagemodel);
         }
 
         public ActionResult About()
@@ -42,10 +47,10 @@ namespace LuanVanTotNghiep.Controllers
         public PartialViewResult _shoppingcart()
         {
             var cart = Session[CommonConstantClient.CartSession];
-            var list = new List<CartItem>();
+            var list = new List<DatBan>();
             if (cart != null)
             {
-                list = (List<CartItem>)cart;
+                list = (List<DatBan>)cart;
             }
 
             return PartialView(list);

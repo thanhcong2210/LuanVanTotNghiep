@@ -325,7 +325,7 @@ h1, h2, h3, h4, h5, h6, label, p {
 }
 
 .feature-grid {
-    position: relative;
+    position: static;
     border-bottom: 3px solid #fff;
     padding: 1em;
 }

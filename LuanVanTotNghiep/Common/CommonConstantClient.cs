@@ -8,5 +8,6 @@ namespace LuanVanTotNghiep.Common
     public class CommonConstantClient
     {
         public static string CartSession = "CartSession";
+        public static string TaiKhoan = "TaiKhoan";
     }
 }

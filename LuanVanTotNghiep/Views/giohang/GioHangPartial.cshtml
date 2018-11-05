@@ -12,7 +12,19 @@
                 <span>@ViewBag.TongTien VND (<span> @ViewBag.TongSoLuong món </span>)</span>
             }
         </div>
-        <p><a href="/login" class="simpleCart_empty" style="font-size:15px">Đăng nhập</a></p>
+        @{
+            var session = (LuanVanTotNghiep.Common.getInfoKhachHang)Session[LuanVanTotNghiep.Common.CommonConstantClient.TaiKhoan];
+        }
+        @if (session == null)
+        {
+            <p><a href="/nguoidung/dangnhap" class="simpleCart_empty" style="font-size:15px">Đăng nhập</a> | <a href="/nguoidung/dangky" class="simpleCart_empty" style="font-size:15px">Đăng Ky</a></p>
+        }
+        else
+        {
+            <p>
+                <a href="/nguoidung/thongtinchitiet/@session.ID" class="simpleCart_empty" style="font-size:15px">Xin chào:@session.Name</a> |<a href="/nguoidung/dangxuat" class="simpleCart_empty" style="font-size:15px">Đăng xuất</a>
+            </p>
+        }
         <div class="clearfix"> </div>
     </a>
 </div>

@@ -57,7 +57,7 @@
             <PropertyRef Name="MADATBAN" />
           </Key>
           <Property Name="MADATBAN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MATAIKHOAN" Type="int" Nullable="false" />
+          <Property Name="MATAIKHOAN" Type="int" />
           <Property Name="MAKH" Type="int" Nullable="false" />
           <Property Name="SOLUONGNGUOI" Type="int" />
           <Property Name="NGAYDEN" Type="datetime" />
@@ -340,7 +340,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DONDATBA_DUYETDATB_TAIKHOAN">
-          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="1" />
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
           <End Role="DONDATBAN" Type="Self.DONDATBAN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TAIKHOAN">
@@ -890,7 +890,7 @@
             <PropertyRef Name="MADATBAN" />
           </Key>
           <Property Name="MADATBAN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MATAIKHOAN" Type="Int32" Nullable="false" />
+          <Property Name="MATAIKHOAN" Type="Int32" />
           <Property Name="MAKH" Type="Int32" Nullable="false" />
           <Property Name="SOLUONGNGUOI" Type="Int32" />
           <Property Name="NGAYDEN" Type="DateTime" Precision="3" />
@@ -1239,7 +1239,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DONDATBA_DUYETDATB_TAIKHOAN">
-          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="1" />
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
           <End Role="DONDATBAN" Type="Self.DONDATBAN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TAIKHOAN">
@@ -1418,7 +1418,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QLNhaHangEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="QlNhaHangql_nhahangthangcongEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BANs" EntityType="Self.BAN" />
           <EntitySet Name="CHITIETGIOHANGs" EntityType="Self.CHITIETGIOHANG" />
           <EntitySet Name="CHITIETHOADONs" EntityType="Self.CHITIETHOADON" />
@@ -1711,7 +1711,7 @@
         </ComplexType>
         <ComplexType Name="sp_InsUpdDelDonDatBan_Result">
           <Property Type="Int32" Name="MADATBAN" Nullable="false" />
-          <Property Type="Int32" Name="MATAIKHOAN" Nullable="false" />
+          <Property Type="Int32" Name="MATAIKHOAN" Nullable="true" />
           <Property Type="Int32" Name="MAKH" Nullable="false" />
           <Property Type="Int32" Name="SOLUONGNGUOI" Nullable="true" />
           <Property Type="DateTime" Name="NGAYDEN" Nullable="true" Precision="23" />
@@ -1830,7 +1830,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="NhaHangModelStoreContainer" CdmEntityContainer="QLNhaHangEntities">
+        <EntityContainerMapping StorageEntityContainer="NhaHangModelStoreContainer" CdmEntityContainer="QlNhaHangql_nhahangthangcongEntities1">
           <EntitySetMapping Name="BANs">
             <EntityTypeMapping TypeName="NhaHangModel.BAN">
               <MappingFragment StoreEntitySet="BAN">

@@ -1,0 +1,86 @@
+﻿
+@using LuanVanTotNghiep.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<LuanVanTotNghiep.Models.GIOHANG>
+@{
+    var session = (LuanVanTotNghiep.Common.getInfoKhachHang)Session[LuanVanTotNghiep.Common.CommonConstantClient.TaiKhoan];
+}
+@{
+    ViewBag.Title = "Thông tin giỏ hàng | " + session.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div id="user-profile-2" class="user-profile">
+    <div class="tabbable">
+        <ul class="nav nav-tabs padding-18">
+            <li>
+                <a data-toggle="tab" href="/nguoidung/thongtinchitiet/@session.ID">
+                    <i class="green ace-icon fa fa-user bigger-120"></i>
+                    Thông tin chi tiết
+                </a>
+            </li>
+
+            <li class="active">
+                <a data-toggle="tab" href="#giohang">
+                    <i class="orange ace-icon glyphicon glyphicon-shopping-cart bigger-120"></i>
+                    Thông tin giỏ hàng
+                </a>
+            </li>
+
+            <li>
+                <a data-toggle="tab" href="/nguoidung/thongtindondatban/@session.ID">
+                    <i class="blue ace-icon fas fa-table bigger-120"></i>
+                    Thông tin đơn đặt bàn
+                </a>
+            </li>
+        </ul>
+        <div id="thongtingiohang" class="tab-pane in active">
+            <div class="profile-feed row">
+                <table class="table" style="width:50%; margin-left:100px;">
+                    <thead style="background-color:springgreen">
+                        <tr>
+                            <th scope="col">Stt</th>
+                            <th scope="col">Ngày đặt</th>
+                            <th scope="col">Địa chỉ nhận</th>
+                            <th scope="col">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var i = 1; }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@item.NGAYDAT</td>
+                                <td>@item.DIACHINHAN</td>
+                                @if (item.TRANGTHAI == true)
+                                {
+                                    <td>Đã duyệt!</td>
+                                }
+                                else
+                                {
+                                    <td>Chờ duyệt trong 15p</td>
+                                }
+
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+                <div class="dlink" style="margin:50px;float: left">
+
+                    @Html.PagedListPager(Model, page => Url.Action("thongtingiohang", "nguoidung", new { @page = page }))
+                    Tổng số trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
+                </div>
+            </div><!-- /.row -->
+
+            <div class="space-12"></div>
+            <br />
+            <br />
+            <br />
+            <br />
+        </div><!-- /#feed -->
+    </div>
+</div>

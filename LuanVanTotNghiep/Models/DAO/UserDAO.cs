@@ -24,5 +24,21 @@ namespace LuanVanTotNghiep.Models.DAO
             db.SaveChanges();
             return entity.MAKH;
         }
+
+        public int Login(string tenDangNhap, string matKhau)
+        {
+            var result = db.KHACHHANGs.SingleOrDefault(t => t.TENDANGNHAP_KH == tenDangNhap);
+            if (result == null)
+            {
+                return -1;
+            }
+            else
+            {
+                if (result.MATKHAU_KH == matKhau)
+                    return 1;
+                else
+                    return 0;
+            }
+        }
     }
 }

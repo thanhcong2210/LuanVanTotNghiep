@@ -513,6 +513,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\GioHangAPIController.cs" />
+    <Compile Include="Api\KhachHangAPIController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\PreflightRequestsHandler.cs" />
@@ -525,33 +526,10 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Common\CommonConstantClient.cs" />
+    <Compile Include="Common\getInfoKhachHang.cs" />
+    <Compile Include="Controllers\datbanController.cs" />
     <Compile Include="Controllers\giohangController.cs" />
     <Compile Include="Controllers\NguoiDungController.cs" />
-    <Compile Include="Models\DAO\CategoryDAO.cs" />
-    <Compile Include="Areas\Admin\Models\DAO\TaiKhoanDAO.cs" />
-    <Compile Include="Areas\Admin\Models\LoginModel.cs" />
-    <Compile Include="Api\BanAPIController.cs" />
-    <Compile Include="Api\ChucVuAPIController.cs" />
-    <Compile Include="Api\DonDatBanAPIController.cs" />
-    <Compile Include="Api\DonViTinhAPIController.cs" />
-    <Compile Include="Api\DuyetGioHangAPIController.cs" />
-    <Compile Include="Api\HinhAnhAPIController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Api\KhachHangAPIController.cs" />
-    <Compile Include="Api\LoaiKhachHangAPIController.cs" />
-    <Compile Include="Api\LoaiMonAnAPIController.cs" />
-    <Compile Include="Api\MonAnAPIController.cs" />
-    <Compile Include="Api\NhaCungCapAPIController.cs" />
-    <Compile Include="Api\NhaHangAPIController.cs" />
-    <Compile Include="Api\NhanVienAPIController.cs" />
-    <Compile Include="Api\PhieuNhapAPIController.cs" />
-    <Compile Include="Controllers\sanphamController.cs" />
-    <Compile Include="Api\TaiKhoanAPIController.cs" />
-    <Compile Include="Api\TangAPIController.cs" />
-    <Compile Include="Api\ThucPhamAPIController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Models\BAN.cs">
       <DependentUpon>NhaHangModel.tt</DependentUpon>
     </Compile>
@@ -567,6 +545,31 @@
     <Compile Include="Models\CHUCVU.cs">
       <DependentUpon>NhaHangModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAO\CategoryDAO.cs" />
+    <Compile Include="Areas\Admin\Models\DAO\TaiKhoanDAO.cs" />
+    <Compile Include="Areas\Admin\Models\LoginModel.cs" />
+    <Compile Include="Api\BanAPIController.cs" />
+    <Compile Include="Api\ChucVuAPIController.cs" />
+    <Compile Include="Api\DonDatBanAPIController.cs" />
+    <Compile Include="Api\DonViTinhAPIController.cs" />
+    <Compile Include="Api\DuyetGioHangAPIController.cs" />
+    <Compile Include="Api\HinhAnhAPIController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Api\LoaiKhachHangAPIController.cs" />
+    <Compile Include="Api\LoaiMonAnAPIController.cs" />
+    <Compile Include="Api\MonAnAPIController.cs" />
+    <Compile Include="Api\NhaCungCapAPIController.cs" />
+    <Compile Include="Api\NhaHangAPIController.cs" />
+    <Compile Include="Api\NhanVienAPIController.cs" />
+    <Compile Include="Api\PhieuNhapAPIController.cs" />
+    <Compile Include="Controllers\sanphamController.cs" />
+    <Compile Include="Api\TaiKhoanAPIController.cs" />
+    <Compile Include="Api\TangAPIController.cs" />
+    <Compile Include="Api\ThucPhamAPIController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAO\DatBanDAO.cs" />
     <Compile Include="Models\DAO\ProductDAO.cs" />
     <Compile Include="Models\DAO\UserDAO.cs" />
     <Compile Include="Models\DONDATBAN.cs">
@@ -611,9 +614,9 @@
       <DependentUpon>NhaHangModel.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NhaHangModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>NhaHangModel.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\NhaHangModel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -690,12 +693,16 @@
       <DependentUpon>NhaHangModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\CartItem.cs" />
+    <Compile Include="ViewModel\ControllerExtensions.cs" />
+    <Compile Include="ViewModel\DatBan.cs" />
     <Compile Include="ViewModel\GioHang.cs" />
     <Compile Include="ViewModel\LoginModel.cs" />
     <Compile Include="ViewModel\MonAnViewModel.cs" />
     <Compile Include="ViewModel\ShoppingCart.cs" />
     <Compile Include="ViewModel\RegisterModel.cs" />
+    <Compile Include="ViewModel\ToastMessage.cs" />
+    <Compile Include="ViewModel\Toastr.cs" />
+    <Compile Include="ViewModel\ToastType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
@@ -718,6 +725,7 @@
     <Content Include="app\phieuNhapController.js" />
     <Content Include="app\View\DuyetGioHang.html" />
     <Content Include="app\View\GioHang.html" />
+    <Content Include="app\View\KhachHang.html" />
     <Content Include="app\View\sideBar.html" />
     <Content Include="app\taiKhoanController.js" />
     <Content Include="app\tangController.js" />
@@ -728,7 +736,6 @@
     <Content Include="app\View\DonViTinh.html" />
     <Content Include="app\View\HinhAnh.html" />
     <Content Include="app\View\homeView.html" />
-    <Content Include="app\View\KhachHang.html" />
     <Content Include="app\View\LoaiKhachHang.html" />
     <Content Include="app\View\LoaiMonAnList.html" />
     <Content Include="app\View\Login.html" />
@@ -1689,6 +1696,8 @@
     <Content Include="Assets\client\js\memenu.js" />
     <Content Include="Assets\client\js\responsiveslides.min.js" />
     <Content Include="Assets\client\js\simpleCart.min.js" />
+    <Content Include="Assets\client\style_login.css" />
+    <Content Include="Assets\client\test.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1705,6 +1714,8 @@
     <Content Include="Content\ng-table.css" />
     <Content Include="Content\ng-table.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1719,10 +1730,13 @@
       <DependentUpon>NhaHangModel.edmx</DependentUpon>
       <LastGenOutput>NhaHangModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\NhaHangModel.edmx.diagram">
+      <DependentUpon>NhaHangModel.edmx</DependentUpon>
+    </Content>
     <Content Include="Models\NhaHangModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NhaHangModel.edmx</DependentUpon>
       <LastGenOutput>NhaHangModel.cs</LastGenOutput>
+      <DependentUpon>NhaHangModel.edmx</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\js\angular-ui-router.js" />
@@ -1732,13 +1746,21 @@
     <Content Include="Scripts\js\ng-table.js" />
     <Content Include="Scripts\js\ng-table.min.js" />
     <Content Include="Scripts\js\ui-bootstrap-tpls-2.5.0.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="upload\18PBC.jpg" />
     <Content Include="upload\admin.jpg" />
     <Content Include="upload\anh1.jpg" />
     <Content Include="upload\anh2.jpg" />
     <Content Include="upload\anh3.jpg" />
     <Content Include="upload\anh4.jpg" />
+    <Content Include="upload\bun-thang-quan-an-ngon-1501062711.jpg" />
+    <Content Include="upload\com-ga-hoi-an-quan-an-ngon-1498466081.jpg" />
+    <Content Include="upload\com-lam-ga-nuong-quan-an-ngon-1498548470.jpg" />
+    <Content Include="upload\com-lam-muoi-vung-quan-an-ngon-1498467961.jpg" />
+    <Content Include="upload\khoai-tay-chien-quan-an-ngon-1498470705.jpg" />
     <Content Include="upload\loading.gif" />
+    <Content Include="upload\nem-cua-be-quan-an-ngon-1498471368.jpg" />
     <Content Include="upload\Trash.png" />
     <Content Include="upload\viewhomepage.jpg" />
     <Content Include="Web.config" />
@@ -1781,13 +1803,6 @@
     <Content Include="Assets\admin\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Assets\admin\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Assets\admin\tinymce\skins\lightgray\fonts\tinymce.woff" />
-    <EntityDeploy Include="Models\NhaHangModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NhaHangModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\NhaHangModel.edmx.diagram">
-      <DependentUpon>NhaHangModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Assets\admin\bootstrap\css\bootstrap.css.map" />
     <Content Include="Assets\admin\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Assets\admin\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
@@ -1821,6 +1836,13 @@
     <Content Include="Assets\client\fonts\Dosis-Medium.ttf" />
     <Content Include="Assets\client\fonts\Dosis-Regular.ttf" />
     <Content Include="Assets\client\fonts\glyphicons-halflings-regular.woff" />
+    <EntityDeploy Include="Models\NhaHangModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NhaHangModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="App_Code\ToastrBuilder.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\sanpham\chitiet.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
@@ -1837,6 +1859,12 @@
     <Content Include="Views\giohang\GioHangPartial.cshtml" />
     <Content Include="Views\giohang\SuaGioHang.cshtml" />
     <Content Include="Views\NguoiDung\DangKy.cshtml" />
+    <Content Include="Views\NguoiDung\DangNhap.cshtml" />
+    <Content Include="Views\NguoiDung\thongtinchitiet.cshtml" />
+    <Content Include="Views\NguoiDung\thongtingiohang.cshtml" />
+    <Content Include="Views\datban\DatBan.cshtml" />
+    <Content Include="Views\NguoiDung\thongtindondatban.cshtml" />
+    <Content Include="Views\Shared\_Toastr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

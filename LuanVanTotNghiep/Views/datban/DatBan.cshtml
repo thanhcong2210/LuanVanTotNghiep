@@ -1,0 +1,67 @@
+﻿@model LuanVanTotNghiep.ViewModel.DatBan
+
+@{
+    ViewBag.Title = "Đặt bàn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("datban", "datban", FormMethod.Post, new { @class = "form-horizontal", @id = "form-validation" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Nhập nội dung đặt bàn</h4>
+        <hr />
+        <div class="form-group">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @if (ViewBag.Success != null)
+            {
+                <div class="alert alert-success">@ViewBag.Success</div>
+            }
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Số lượng người đến</label>
+            <div class="col-lg-8">
+                @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "validate[required,custom[number]] form-control", @type = "text", @name = "SoLuong", @id = "SoLuong" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">Ngày đến</label>
+            <div class="col-lg-8">
+                @Html.EditorFor(model => model.ngayden, new { htmlAttributes = new { @class = "validate[required,custom[date],future[NOW]] form-control", @type = "date", @name = "ngayden", @id = "ngayden" } })
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">Giờ đến</label>
+            <div class="col-lg-8">
+                @Html.EditorFor(model => model.gioden, new { htmlAttributes = new { @class = "validate[required] form-control", @type = "time", @name = "gioden", @id = "gioden" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-8 col-lg-offset-4">
+                <input type="submit" value="Xác nhận" class="item_add items">
+                <input type="reset" value="Reset" class="item_add btn-primary" onclick="notify()">
+            </div>
+        </div>
+    </div>
+}
+@section scripts{
+    <script>
+        jQuery(document).ready(function () {
+            // binds form submission and fields to the validation engine
+            jQuery("#form-validation").validationEngine();
+        });
+
+    </script>  
+    <script type="text/javascript">
+        function notify() {
+            $.notify("Vui lòng điền lại thông tin", "success");
+        }
+    </script>
+}
+

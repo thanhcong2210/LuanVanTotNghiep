@@ -38,7 +38,7 @@
                             <div class="product-info-cust prt_name">
                                 <h4 style="font-size: 30px; color:black">@item.TENGOI</h4>
 
-                                <span class="item_price">@item.DONGIA VND</span>
+                                <span class="item_price">@item.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND</span>
                                 @using (Html.BeginForm("ThemGioHang", "GioHang", new { @productID = item.MAMON, @quantity = 1, @strURL = Request.Url.ToString() }))
                                 {
                                     <input type="submit" style="cursor:pointer" value="Thêm vào giỏ hàng" id="btnGioHang" class="item_add items">

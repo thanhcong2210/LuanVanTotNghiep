@@ -5,6 +5,7 @@ using System.Web;
 
 namespace LuanVanTotNghiep.ViewModel
 {
+    [Serializable]
     public class MonAnViewModel
     {
         public int MAMON { get; set; }

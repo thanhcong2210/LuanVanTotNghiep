@@ -596,7 +596,5 @@ namespace LuanVanTotNghiep.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_insert_order", order_id, order_dateParameter, custom_idParameter, statusParameter, received_addressParameter);
         }
-
-        public System.Data.Entity.DbSet<LuanVanTotNghiep.ViewModel.RegisterModel> RegisterModels { get; set; }
     }
 }

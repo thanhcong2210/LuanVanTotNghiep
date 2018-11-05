@@ -26,7 +26,7 @@
                     <span>Số món ăn tạm tính</span>
                     <span class="total1">0 SP</span>
                     @*<span>Delivery Charges</span>
-            <span class="total1">150.00</span>*@
+                    <span class="total1">150.00</span>*@
                     <div class="clearfix"></div>
                 </div>
                 <ul class="total_price">
@@ -97,7 +97,7 @@
                                         <span class="glyphicon glyphicon-th-list"></span>
                                         Cập nhật giỏ hàng
                                     </a>
-                                    <a href="/Order/Checkout" class="btn btn-default">
+                                    <a href="/giohang/dathang" class="btn btn-default">
                                         <span class="glyphicon glyphicon-th-list"></span>
                                         Checkout
                                     </a>
@@ -118,7 +118,7 @@
                     <span>Số món ăn tạm tính</span>
                     <span class="total1">@Model.Count SP</span>
                     @*<span>Delivery Charges</span>
-                    <span class="total1">150.00</span>*@
+            <span class="total1">150.00</span>*@
                     <div class="clearfix"></div>
                 </div>
                 <ul class="total_price">
@@ -127,9 +127,19 @@
                 </ul>
                 <div class="clearfix"></div>
                 <div class="clearfix"></div>
-                <a class="order" href="">Thanh toán</a>
-                <input type="text" class="form-control" placeholder="Địa chỉ nhận..." />
-            </div>
+                @using (Html.BeginForm("DatHang", "GioHang", FormMethod.Post))
+                {
+                    <a class="order" href="">Vui lòng đăng nhập để thanh toán</a>
+                    <input name="address" type="text" class="form-control" placeholder="Địa chỉ nhận..." />
+
+                    @*<div class="form-group">
+                        <label>Địa chỉ nhận</label>
+                        <input  class="form-control" style="width:500px" />
+                    </div>*@
+                    <button type="submit" class="order">Gửi đơn hàng</button>
+                    <button class="btn"><a href="/GioHang">Hủy đơn hàng</a></button>
+                }
+             </div>
             <div class="clearfix"> </div>
 
         }

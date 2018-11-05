@@ -12,7 +12,6 @@ namespace LuanVanTotNghiep.Api
     [RoutePrefix("api/KhachHangAPI")]
     public class KhachHangAPIController : ApiController
     {
-
         
         QLNhaHangEntities db = new QLNhaHangEntities();
         public KhachHangAPIController()
@@ -26,7 +25,7 @@ namespace LuanVanTotNghiep.Api
         public List<KHACHHANG> Get()
         {
             List<KHACHHANG> list = new List<KHACHHANG>();
-            var results = db.sp_InsUpdDelKhachHang(0, new int(), new int(), "", "", "", "", new DateTime(1492, 10, 12), new bool(),"","", "Get").ToList();
+            var results = db.sp_InsUpdDelKhachHang(0, new int(), new int(), "", "", "", "", new DateTime(1990, 10, 20), new bool(),"","", "Get").ToList();
             foreach (var result in results)
             {
                 var nv = new KHACHHANG()
@@ -41,8 +40,8 @@ namespace LuanVanTotNghiep.Api
                     NGAYSINH_KH = result.NGAYSINH_KH ?? DateTime.Now,
                     GIOITINH_KH = result.GIOITINH_KH,
                     TENDANGNHAP_KH = result.TENDANGNHAP_KH,
-                    MATKHAU_KH = result.MATKHAU_KH
-                 };
+                    MATKHAU_KH  = result.MATKHAU_KH
+                };
                 list.Add(nv);
             }
             return list;
@@ -52,19 +51,20 @@ namespace LuanVanTotNghiep.Api
         public KHACHHANG Get(int id)
         {
 
-            KHACHHANG kh = db.KHACHHANGs.Find(id);
-            if (kh == null)
+            KHACHHANG nv = db.KHACHHANGs.Find(id);
+            if (nv == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
-            return kh;
+            return nv;
         }
+        //chuc vu 
         [HttpGet]
         [Route("getloaikh")]
         [AcceptVerbs("GET", "HEAD")]
         public List<LOAIKHACHHANG> GetLoaiKH()
         {
-            List<LOAIKHACHHANG> lkhlist = new List<LOAIKHACHHANG>();
+            List<LOAIKHACHHANG> lmalist = new List<LOAIKHACHHANG>();
             var results = db.sp_InsUpdDelLoaiKhachHang(0, "", "", "Get").ToList();
             foreach (var result in results)
             {
@@ -74,20 +74,44 @@ namespace LuanVanTotNghiep.Api
                     TENLOAI_KH = result.TENLOAI_KH,
                     MOTALOAI_KH = result.MOTALOAI_KH
                 };
-                lkhlist.Add(lkh);
+                lmalist.Add(lkh);
             }
-            return lkhlist;
+            return lmalist;
         }
+        ////GET NHA HANG
+        //[HttpGet]
+        //[Route("getnhahang")]
+        //[AcceptVerbs("GET", "HEAD")]
+        //public List<NHAHANG> GetnhaHang()
+        //{
+        //    List<NHAHANG> list = new List<NHAHANG>();
+        //    var results = db.sp_InsUpdDelNhaHang(0, "", "", "", "", "", "Get").ToList();
+        //    foreach (var result in results)
+        //    {
+        //        var t = new NHAHANG()
+        //        {
+        //            MANHAHANG = result.MANHAHANG,
+        //            TENNHAHANG = result.TENNHAHANG,
+        //            SDT = result.SDT,
+        //            FAX = result.FAX,
+        //            DIACHI = result.DIACHI,
+        //            GIOITHIEU = result.GIOITHIEU
+        //        };
+        //        list.Add(t);
+        //    }
+        //    return list;
+        //}
+
 
         [HttpPost]
         [Route("")]
         [AcceptVerbs("POST", "HEAD")]
         // Insert 
-        public HttpResponseMessage Post(KHACHHANG kh)
+        public HttpResponseMessage Post(KHACHHANG nv)
         {
             if (ModelState.IsValid)
             {
-                var list = db.sp_InsUpdDelKhachHang(0, kh.MALOAI_KH, kh.MADATBAN, kh.HOTEN_KH, kh.DIACHI_KH, kh.EMAIL_KH, kh.SDT_KH, kh.NGAYSINH_KH, kh.GIOITINH_KH, kh.TENDANGNHAP_KH, kh.MATKHAU_KH, "Ins").ToList();
+                var list = db.sp_InsUpdDelKhachHang(0, nv.MALOAI_KH, nv.MADATBAN, nv.HOTEN_KH, nv.DIACHI_KH, nv.EMAIL_KH,nv.SDT_KH, nv.NGAYSINH_KH, nv.GIOITINH_KH, nv.TENDANGNHAP_KH,nv.MATKHAU_KH, "Ins").ToList();
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, list);
                 return response;
             }
@@ -96,11 +120,12 @@ namespace LuanVanTotNghiep.Api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
         }
+
+        // Update 
         [HttpPut]
         [Route("")]
         [AcceptVerbs("PUT", "HEAD")]
-        // Update 
-        public HttpResponseMessage Put(KHACHHANG kh)
+        public HttpResponseMessage Put(KHACHHANG nv)
         {
             List<sp_InsUpdDelKhachHang_Result> list = new List<sp_InsUpdDelKhachHang_Result>();
             if (!ModelState.IsValid)
@@ -110,7 +135,7 @@ namespace LuanVanTotNghiep.Api
 
             try
             {
-                list = db.sp_InsUpdDelKhachHang(kh.MAKH, kh.MALOAI_KH, kh.MADATBAN, kh.HOTEN_KH, kh.DIACHI_KH, kh.EMAIL_KH, kh.SDT_KH, kh.NGAYSINH_KH, kh.GIOITINH_KH, kh.TENDANGNHAP_KH, kh.MATKHAU_KH, "Upd").ToList();
+                list = db.sp_InsUpdDelKhachHang(nv.MAKH, nv.MALOAI_KH, nv.MADATBAN, nv.HOTEN_KH, nv.DIACHI_KH, nv.EMAIL_KH, nv.SDT_KH, nv.NGAYSINH_KH, nv.GIOITINH_KH, nv.TENDANGNHAP_KH, nv.MATKHAU_KH, "Upd").ToList();
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -130,7 +155,7 @@ namespace LuanVanTotNghiep.Api
             }
             try
             {
-                list = db.sp_InsUpdDelKhachHang(id, id, id, "", "", "", "", new DateTime(), new bool(),"","", "Del").ToList();
+                list = db.sp_InsUpdDelKhachHang(id, id, id, "", "", "", "", new DateTime(), new bool(),"","" , "Del").ToList();
             }
             catch (DbUpdateConcurrencyException ex)
             {

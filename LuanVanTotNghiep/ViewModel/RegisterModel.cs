@@ -6,6 +6,7 @@ using System.Web;
 
 namespace LuanVanTotNghiep.ViewModel
 {
+    [Serializable]
     public class RegisterModel
     {
         [Key]
@@ -21,8 +22,6 @@ namespace LuanVanTotNghiep.ViewModel
         
         public string ConfirmPassword { set; get; }
 
-        
-
         public string Name { set; get; }
 
  
@@ -31,6 +30,7 @@ namespace LuanVanTotNghiep.ViewModel
         public bool Sex { set; get; }
 
         public string Email { set; get; }
+        public DateTime? Birthday { get; set; }
 
         public string Phone { set; get; }
     }

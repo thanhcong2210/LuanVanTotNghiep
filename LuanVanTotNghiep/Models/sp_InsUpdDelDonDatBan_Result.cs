@@ -14,7 +14,7 @@ namespace LuanVanTotNghiep.Models
     public partial class sp_InsUpdDelDonDatBan_Result
     {
         public int MADATBAN { get; set; }
-        public int MATAIKHOAN { get; set; }
+        public Nullable<int> MATAIKHOAN { get; set; }
         public int MAKH { get; set; }
         public Nullable<int> SOLUONGNGUOI { get; set; }
         public Nullable<System.DateTime> NGAYDEN { get; set; }

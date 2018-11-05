@@ -130,7 +130,7 @@
                                 <p id="caption"></p>
                             </div>
 
-                            <div class="row" style="margin-left:200px" >
+                            <div class="row" style="margin-left:200px">
                                 <div class="column">
                                     <img class="demo cursor" src="@Model.HINHANH.DUONGDAN1" style="width:100%" onclick="currentSlide(1)">
                                 </div>
@@ -147,7 +147,7 @@
                 <div class="col-md-6">
                     <div class="single-para ">
                         <h4>@Model.TENGOI</h4>
-                        <h5 class="item_price">@Model.DONGIA VND</h5>
+                        <h5 class="item_price">@Model.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND</h5>
                         <p class="para">
                             Mô tả : @Model.MOTA
                         </p>
@@ -161,62 +161,43 @@
                             @using (Html.BeginForm("ThemGioHang", "GioHang", new { @productID = Model.MAMON, @quantity = 1, @strURL = Request.Url.ToString() }))
                             {
                                 <div class="form-group">
-                                    <input type="number" class="form-control" placeholder="Nhận số lượng" style="width:200px">
+                                    <input type="number" class="form-control" placeholder="Nhận số lượng" name="quantity" value="1" style="width:200px">
                                 </div>
                                 @*<button type="submit" class="btn btn-default">Verify</button>*@
                                 <input type="submit" style="cursor:pointer" value="Thêm vào giỏ hàng" id="btnGioHang" class="btn btn-primary">
                             }
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
         </div>
         <!--san pham cung loai-->
-        <div style="color:red">Sản phẩm tương tự</div>
+        <div style="font-size: 25px">Sản phẩm tương tự</div>
+        @*@{
+            var categoryProducts = (LuanVanTotNghiep.Models.MONAN)ViewBag.cateProduct;
+        }*@
         <div class="bottom-prdt">
             <div class="btm-grid-sec">
-                <div class="col-md-2 btm-grid">
-                    <a href="product.html">
-                        <img src="images/p3.jpg" alt="" />
-                        <h4>Product#1</h4>
-                        <span>$1200</span>
-                    </a>
-                </div>
-                <div class="col-md-2 btm-grid">
-                    <a href="product.html">
-                        <img src="images/p10.jpg" alt="" />
-                        <h4>Product#1</h4>
-                        <span>$700</span>
-                    </a>
-                </div>
-                <div class="col-md-2 btm-grid">
-                    <a href="product.html">
-                        <img src="images/p5.jpg" alt="" />
-                        <h4>Product#1</h4>
-                        <span>$1300</span>
-                    </a>
-                </div>
-                <div class="col-md-2 btm-grid">
-                    <a href="product.html">
-                        <img src="images/p4.jpg" alt="" />
-                        <h4>Product#1</h4>
-                        <span>$9000</span>
-                    </a>
-                </div>
-                <div class="col-md-2 btm-grid">
-                    <a href="product.html">
-                        <img src="images/p2.jpg" alt="" />
-                        <h4>Product#1</h4>
-                        <span>$450</span>
-                    </a>
-                </div>
+                @foreach (var product in Model.LOAIMONAN.MONANs.Skip(1).Take(4))
+                {
+                    var linkCateProduct = "/sanpham/chitiet/" + product.MAMON;
+                    <div class="col-md-2 btm-grid">
+                        <a href="@linkCateProduct">
+                            <img style="width:150px; height:100px" src="@product.HINHANH.DUONGDAN1" alt="" />
+                            <h4 style="font-size:15px" >@product.TENGOI</h4>
+                            <span>@product.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND</span>
+                        </a>
+                    </div>
+                }
                 <div class="clearfix"></div>
             </div>
         </div>
+        <!--//san pham cung loai-->
     </div>
 </div>
+<!--chuyen anh -->
 <script>
     var slideIndex = 1;
     showSlides(slideIndex);
@@ -247,3 +228,4 @@
         captionText.innerHTML = dots[slideIndex - 1].alt;
     }
 </script>
+<!--//chuyen anh -->

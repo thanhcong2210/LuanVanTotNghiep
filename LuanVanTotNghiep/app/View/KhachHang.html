@@ -1,13 +1,13 @@
-﻿ <!-- Content Header (Page header) -->
+﻿<!-- Content Header (Page header) -->
 
 <section class="content-header">
     <h1>
-        Danh sách khách hàng 
+        Danh mục khách hàng
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
         <li><a href="#">Khách hàng</a></li>
-        <li class="active">Danh mục khách hàng</li>
+        <li class="active">Danh sách khách hàng</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -15,7 +15,7 @@
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Danh mục Khách hàng</h3>
+            <h3 class="box-title">Danh sách khách hàng</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="thu phóng"><i class="fa fa-minus"></i></button>
                 <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="đóng"><i class="fa fa-times"></i></button>
@@ -24,87 +24,89 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-12">
-                    <strong class="error">{{error}}</strong>
-                    <form name="addkhachhang" class="form-horizontal" style="width: auto" method="post">
-                        <div class="row">
-                            <div class="column">
-                                <div class="form-group col-xs-6">
-                                    <label for="makh" class="col-sm-2 control-label">Mã khách hàng</label>
-                                    <div class="col-md-10 space">
-                                        <input type="text" class="form-control" id="makh" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newkh.MAKH" disabled />
-                                    </div>
-                                </div>
-                                <div class="form-group col-xs-6">
-                                    <label for="maloaikh" class="col-sm-2 control-label">Loại khách hàng</label>
-                                    <div class="col-md-10 space">
-                                        <select class="form-control" name="maloaikh" ng-init="newkh.MALOAI_KH=loaikhs[0].MALOAI_KH" ng-model="newkh.MALOAI_KH" ng-options="loaikh.MALOAI_KH as loaikh.TENLOAI_KH for loaikh in loaikhs track by loaikh.MALOAI_KH"></select>
-                                    </div>
-                                </div>
-                                <div class="form-group col-xs-6">
-                                    <label for="madatban" class="col-sm-2 control-label">Đặt bàn</label>
-                                    <div class="col-md-10 space">
-                                        <input type="text" class="form-control" id="madatban" placeholder="" ng-model="newkh.MADATBAN" required />
-                                    </div>
-                                </div>
-                                <div class="form-group col-xs-6">
-                                    <label for="hoten" class="col-sm-2 control-label">Họ và tên</label>
-                                    <div class="col-md-10 space">
-                                        <input type="text" class="form-control" id="hoten" placeholder="" ng-model="newkh.HOTEN_KH" required />
-                                    </div>
-                                </div>
-                                <div class="form-group col-xs-6">
-                                    <label for="diachi" class="col-sm-2 control-label">Địa chỉ</label>
-                                    <div class="col-md-10 space">
-                                        <input type="text" class="form-control" id="diachi" placeholder="" ng-model="newkh.DIACHI_KH" required />
-                                    </div>
-                                </div>
+                    <div class="alert-danger" style="width: 350px ;line-height: 50px; position:center;transition-delay:initial">
+                        <strong class="error" style="text-align:left">{{error}} </strong>
+                    </div>
 
-                                <div class="form-group col-xs-6">
-                                    <label for="email" class="col-sm-2 control-label">Email</label>
-                                    <div class="col-md-10 space">
-                                        <input type="email" class="form-control" id="emailnv" placeholder="" ng-model="newkh.EMAIL_KH" required />
-                                    </div>
+                    <form name="addkhachhang" class="form-  " style="width: auto;">
+                        <div class="row">
+                            <div class="form-group col-xs-6">
+                                <label for="makh" class="col-md-2 control-label">Mã khách hàng</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="makh" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newkhachhang.MAKH" disabled />
                                 </div>
                             </div>
-                            <div class="column">
+                            <div class="form-group col-xs-6">
+                                <label for="maloaikh" class="col-md-2 control-label">Loại khách hàng</label>
+                                <div class="col-md-10 space">
+                                    <input ng-show="updateShow" ng-disabled="addkhachhang.$valid" type="text" class="form-control" id="maloaikh" placeholder="" ng-model="newkhachhang.MALOAI_KH" />
+                                    <select ng-show="addShow" ng-disabled="addkhachhang.$valid" class="form-control" name="maloaikh" ng-init="newkhachhang.MALOAI_KH=loaikhachhangs[0].ID" ng-model="newkhachhang.MALOAI_KH" ng-options="loaikhachhang.MALOAI_KH as loaikhachhang.TENLOAI_KH for loaikhachhang in loaikhachhangs track by loaikhachhang.MALOAI_KH"></select>
+                                </div>
+                            </div>
 
-                                <div class="form-group col-xs-6">
-                                    <label for="sdt" class="col-sm-2 control-label">SĐT</label>
-                                    <div class="col-md-10 space">
-                                        <input type="number" class="form-control" id="sdt" placeholder="" ng-model="newkh.SDT_KH" required />
-                                    </div>
+                            <div class="form-group col-xs-6">
+                                <label for="madatban" class="col-md-2 control-label">Đơn đặt bàn</label>
+                                <div class="col-md-10 space">
+                                    <input ng-show="updateShow" ng-disabled="addkhachhang.$valid" type="text" class="form-control" id="madatban" placeholder="" ng-model="newkhachhang.MADATBAN" />
+                                    <!--<input ng-show="addShow" ng-disabled="addkhachhang.$valid" type="text" class="form-control" id="madatban" placeholder="" ng-model="newkhachhang.MADATBAN" />-->
+                                    <!--<select class="form-control" name="madatban" ng-init="newkhachhang.MACV=chucvus[0].ID" ng-model="newkhachhang.MACV" ng-options="chucvu.MACV as chucvu.TENCV for chucvu in chucvus track by chucvu.MACV"></select>-->
                                 </div>
-                                <div class="form-group col-xs-6">
-                                    <label for="ngaysinh" class="col-sm-2 control-label">Ngày sinh</label>
-                                    <div class="col-md-10 space">
-                                        <input type="date" class="form-control" name="ngaysinh" placeholder="" ng-model="newkh.NGAYSINH_KH" />
-                                    </div>
-                                </div>
-                                <div class="form-group col-xs-6">
-                                    <label for="gioitinh" class="col-sm-2 control-label">Giới tính</label>
-                                    <div class="col-md-10 space">
-                                        <input type="radio" name="gioitinh" ng-model="newkh.GIOITINH_KH" ng-value="true" /> Nam
-                                        <input type="radio" name="gioitinh" ng-model="newkh.GIOITINH_KH" ng-value="false" /> Nữ
-                                    </div>
-                                </div>
-                                <div class="form-group col-xs-6">
-                                    <label for="tendangnhap" class="col-sm-2 control-label">Tên đăng nhập</label>
-                                    <div class="col-md-10 space space">
-                                        <input type="text" class="form-control" id="tendangnhap" placeholder="" ng-model="newkh.TENDANGNHAP_KH" />
-                                    </div>
-                                </div>
-                                <div class="form-group col-xs-6">
-                                    <label for="matkhau" class="col-sm-2 control-label">Mật khẩu</label>
-                                    <div class="col-md-10 space">
-                                        <input type="text" class="form-control" id="matkhau" placeholder="" ng-model="newkh.MATKHAU_KH" />
-                                    </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="hoten" class="col-md-2 control-label">Họ tên</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="hoten" ng-model="newkhachhang.HOTEN_KH" required />
                                 </div>
                             </div>
                         </div>
-                        <br />
-                        <br /><br /><br />
-                        <div class="form-group col-xs-6">
-                            <div class="col-sm-offset-2 col-md-10 space">
+                        <div class="row">
+                            <div class="form-group col-xs-6">
+                                <label for="sdt" class="col-md-2 control-label">SDT</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="sdt" placeholder="" ng-model="newkhachhang.SDT_KH" required />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="diachi" class="col-md-2 control-label">Địa chỉ</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="diachi" placeholder="" ng-model="newkhachhang.DIACHI_KH" required />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="mail" class="col-md-2 control-label">Email</label>
+                                <div class="col-md-10 space">
+                                    <input type="email" class="form-control" id="mail" placeholder="" ng-model="newkhachhang.EMAIL_KH" />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="ngaysinh" class="col-md-2 control-label">Ngày sinh</label>
+                                <div class="col-md-10 space">
+                                    <input data-input type="date" class="form-control" name="ngaysinh" placeholder="" ng-model="newkhachhang.NGAYSINH_KH" />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="gioitinh" class="col-md-2 control-label">Giới tính</label>
+                                <div class="col-md-10 space">
+                                    <input type="radio" name="gioitinh" ng-model="newkhachhang.GIOITINH_KH" ng-value="true" /> Nam
+                                    <input type="radio" name="gioitinh" ng-model="newkhachhang.GIOITINH_KH" ng-value="false" />  Nữ
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="tendangnhap" class="col-md-2 control-label">Tên đăng nhập</label>
+                                <div class="col-md-10 space">
+                                    <input type="text" class="form-control" id="tendangnhap" placeholder="" ng-model="newkhachhang.TENDANGNHAP_KH" />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="matkhau" class="col-md-2 control-label">Mật khẩu</label>
+                                <div class="col-md-10 space">
+                                    <input type="password" class="form-control" id="matkhau" placeholder="" ng-model="newkhachhang.MATKHAU_KH" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-6 space">
+                            <div class="col-sm-offset-2 col-sm-10">
                                 <input type="submit" value="Thêm mới" ng-click="add()" ng-show="addShow" ng-disabled="!addkhachhang.$valid" class="btn btn-success" />
                                 <input type="submit" value="Chỉnh sửa" ng-click="update()" ng-show="updateShow" ng-disabled="!addkhachhang.$valid" class="btn btn-primary" />
                                 <input type="button" value="Hủy bỏ" ng-click="cancel()" class="btn btn-default" />
@@ -113,25 +115,21 @@
                     </form>
                 </div>
             </div>
-            <br />
-            <br />
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover" style="width: 850px; margin-left: 70px;">
+                        <table class="table table-bordered table-hover" style="width: auto; margin-left: 70px;">
                             <tr>
                                 <th>Mã nhân viên</th>
-                                <th>Loại khách hàng</th>
-                                <th>Mã đặt bàn</th>
+                                <th>Nhà hàng</th>
+                                <th>Chức vụ</th>
                                 <th>Họ tên</th>
+                                <th>Số điện thoại</th>
                                 <th>Địa chỉ</th>
                                 <th>Email</th>
-                                <th>Số điện thoại</th>
                                 <th>Ngày sinh</th>
                                 <th>Giới tính</th>
-                                <th>Tên đăng nhập</th>
-                                <th>Mật khẩu</th>
                                 <th>Actions</th>
                             </tr>
                             <tr ng-repeat="khachhang in khachhangs">
@@ -148,19 +146,19 @@
                                     <p>{{ khachhang.HOTEN_KH }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ khachhang.DIACHI_NV }}</p>
+                                    <p>{{ khachhang.SDT_KH }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ khachhang.EMAIL_NV }}</p>
+                                    <p>{{ khachhang.DIACHI_KH }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ khachhang.SDT_NV }}</p>
+                                    <p>{{ khachhang.EMAIL_KH }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ khachhang.NGAYSINH_NV | date : "dd/MM/y" }}</p>
+                                    <p>{{ khachhang.NGAYSINH_KH | date:"dd/MM/y"}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ khachhang.GIOITINH_NV ? 'Nam' : 'Nữ'  }}</p>
+                                    <p>{{ khachhang.GIOITINH_KH ? "Nam" : "Nữ" }}</p>
                                 </td>
                                 <td>
                                     <p>{{ khachhang.TENDANGNHAP_KH }}</p>
@@ -168,6 +166,7 @@
                                 <td>
                                     <p>{{ khachhang.MATKHAU_KH }}</p>
                                 </td>
+
                                 <td>
                                     <p><a class="btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a></p>
                                 </td>

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using LuanVanTotNghiep.Models;
+using LuanVanTotNghiep.Common;
 
 namespace LuanVanTotNghiep.Controllers
 {
@@ -45,6 +46,7 @@ namespace LuanVanTotNghiep.Controllers
                 //Add sản phẩm mới thêm vào list
                 sanpham.iSoLuong = quantity;
                 lstGioHang.Add(sanpham);
+                this.AddToastMessage("Thông báo", "Đặt món thành công! Vui lòng kiểm tra giỏ hàng ", ToastType.Info);
                 return Redirect(strURL);
             }
             else
@@ -74,6 +76,7 @@ namespace LuanVanTotNghiep.Controllers
                 sanpham.iSoLuong = int.Parse(f["txtSoLuong"].ToString());
 
             }
+            this.AddToastMessage("Thông báo", "Cập nhật giỏ hàng thành công", ToastType.Info);
             return RedirectToAction("GioHang");
         }
         //Xóa giỏ hàng
@@ -100,6 +103,7 @@ namespace LuanVanTotNghiep.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            this.AddToastMessage("Thông báo", "Xóa bỏ giỏ hàng thành công", ToastType.Warning);
             return RedirectToAction("GioHang");
         }
         //Xây dựng trang giỏ hàng
@@ -194,43 +198,47 @@ namespace LuanVanTotNghiep.Controllers
         }
         #endregion
 
-        //#region Đặt hàng
-        ////Xây dựng chức năng đặt hàng
-        //[HttpPost]
-        //public ActionResult DatHang()
-        //{
-        //    //Kiểm tra đăng đăng nhập
-        //    if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == "")
-        //    {
-        //        return RedirectToAction("DangNhap", "NGuoiDung");
-        //    }
-        //    //Kiểm tra giỏ hàng
-        //    if (Session["GioHang"] == null)
-        //    {
-        //        RedirectToAction("Index", "Home");
-        //    }
-        //    //Thêm đơn hàng
-        //    DonHang ddh = new DonHang();
-        //    KhachHang kh = (KhachHang)Session["TaiKhoan"];
-        //    List<GioHang> gh = LayGioHang();
-        //    ddh.MaKH = kh.MaKH;
-        //    ddh.NgayDat = DateTime.Now;
-        //    db.DonHangs.Add(ddh);
-        //    db.SaveChanges();
-        //    //Thêm chi tiết đơn hàng
-        //    foreach (var item in gh)
-        //    {
-        //        ChiTietDonHang ctDH = new ChiTietDonHang();
-        //        ctDH.MaDonHang = ddh.MaDonHang;
-        //        ctDH.MaSach = item.iMaSach;
-        //        ctDH.SoLuong = item.iSoLuong;
-        //        ctDH.DonGia = (decimal)item.dDonGia;
-        //        db.ChiTietDonHangs.Add(ctDH);
-        //    }
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index", "Home");
-        //}
-        //#endregion
+        #region Đặt hàng
+        //Xây dựng chức năng đặt hàng
+        [HttpPost]
+        public ActionResult DatHang(string address)
+        {
+            //Kiểm tra đăng đăng nhập
+            if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == "")
+            {
+                return RedirectToAction("DangNhap", "NguoiDung");
+            }
+            //Kiểm tra giỏ hàng
+            if (Session["GioHang"] == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+            //Thêm đơn hàng
+            GIOHANG ddh = new GIOHANG();
+            var session = (getInfoKhachHang)Session[CommonConstantClient.TaiKhoan];
+            List<GioHang> gh = LayGioHang();
+            ddh.MAKH = session.ID;
+            ddh.NGAYDAT = DateTime.Now;
+            ddh.DIACHINHAN = address;
+            ddh.TRANGTHAI = false;
+            db.GIOHANGs.Add(ddh);
+            db.SaveChanges();
+            //Thêm chi tiết đơn hàng
+            foreach (var item in gh)
+            {
+                CHITIETGIOHANG ctDH = new CHITIETGIOHANG();
+                ctDH.MAGH = ddh.MAGH;
+                ctDH.MAMON = item.iMa;
+                ctDH.SLUONG = item.iSoLuong;
+                db.CHITIETGIOHANGs.Add(ctDH);
+            }
+            db.SaveChanges();
+            List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
+            lstGioHang.Clear();
+            this.AddToastMessage("Thông báo", "Đặt hàng thành công", ToastType.Info);
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
         //public ActionResult Index()
         //{
         //    var cart = ShoppingCart.Cart;
