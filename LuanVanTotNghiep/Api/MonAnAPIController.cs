@@ -1,4 +1,6 @@
-﻿using LuanVanTotNghiep.Models;
+﻿using LuanVanTotNghiep.Areas.Admin.ViewModelAdmin;
+using LuanVanTotNghiep.Models;
+using LuanVanTotNghiep.Areas.Admin.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -21,27 +23,37 @@ namespace LuanVanTotNghiep.Api
         [HttpGet]
         [Route("")]
         [AcceptVerbs("GET","HEAD")]
-        public List<MONAN> Get()
+        public IEnumerable<MonAnViewModel> Get()
         {
+     
             List<MONAN> list = new List<MONAN>();
-            var results = db.sp_InsUpdDelMonAn(0, 0, 0, 0,"", new float() ,"","", new DateTime(1990, 10, 20), "Get").ToList();
-            foreach (var result in results)
-            {
-                var m = new MONAN()
-                {
-                    MAMON = result.MAMON,
-                    MADVTINH = result.MADVTINH,
-                    MAHINHANH = result.MAHINHANH,
-                    MALOAI = result.MALOAI,
-                    TENGOI = result.TENGOI,
-                    DONGIA =result.DONGIA,
-                    MOTA = result.MOTA,
-                    CACHLAM =result.CACHLAM,
-                    NGAYTAOMOI = result.NGAYTAOMOI ?? DateTime.Now
-                };
-                list.Add(m);
-            }
-            return list;
+            var query = from m in db.MONANs
+                        join dv in db.DONVITINHs
+                        on m.MADVTINH equals dv.MADVTINH
+                        join l in db.LOAIMONANs
+                        on m.MALOAI equals l.MALOAI
+                        join ha in db.HINHANHs
+                        on m.MAHINHANH equals ha.MAHINHANH
+                        select new MonAnViewModel()
+                        {
+                            MAMON = m.MAMON,
+                            MADVTINH = m.MADVTINH,
+                            TENDVTINH = dv.TENDVTINH,
+                            MALOAI = m.MALOAI,
+                            TENLOAI = l.TENLOAI,
+                            MAHINHANH = m.MAHINHANH,
+                            DUONGDANHINHANH = ha.DUONGDAN1,
+                            TENGOI = m.TENGOI,
+                            DONGIA = m.DONGIA,
+                            MOTA = m.MOTA,
+                            CACHLAM = m.CACHLAM,
+                            NGAYTAOMOI = m.NGAYTAOMOI
+                        };
+            
+            
+            return query.OrderByDescending(x=>x.NGAYTAOMOI);
+
+            
         }
 
         // Get by Id

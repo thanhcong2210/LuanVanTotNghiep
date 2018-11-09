@@ -1,4 +1,5 @@
 ﻿using LuanVanTotNghiep.Models;
+using LuanVanTotNghiep.Areas.Admin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using LuanVanTotNghiep.Areas.Admin.ViewModelAdmin;
 
 namespace LuanVanTotNghiep.Api
 {
@@ -14,21 +16,22 @@ namespace LuanVanTotNghiep.Api
         QLNhaHangEntities db = new QLNhaHangEntities();
         // Get All
         [HttpGet]
-        public List<PHIEUNHAP> Get()
+        public IEnumerable<PhieuNhapViewModel> Get()
         {
-            List<PHIEUNHAP> list = new List<PHIEUNHAP>();
-            var results = db.sp_InsUpdDelPhieuNhap(0, 0 , new DateTime(1990,10,20), "Get").ToList();
-            foreach (var result in results)
-            {
-                var pn = new PHIEUNHAP()
-                {
-                    MAPHIEUNHAP = result.MAPHIEUNHAP,
-                    MANCC = result.MANCC,
-                    NGAYNHAP = result.NGAYNHAP ?? DateTime.Now
-                };
-                list.Add(pn);
-            }
-            return list;
+
+            List<PHIEUNHAP> ListpNhap = new List<PHIEUNHAP>();
+            var query = from p in db.PHIEUNHAPs
+                        join n in db.NHACUNGCAPs
+                        on p.MANCC equals n.MANCC
+                        select new PhieuNhapViewModel()
+                        {
+                            MANCC = p.MANCC,
+                            MAPHIEUNHAP = p.MAPHIEUNHAP,
+                            NGAYNHAP = p.NGAYNHAP,
+                            TENNCC = n.TEN_NCC
+                        };
+
+            return query;
         }
 
         // Get by Id

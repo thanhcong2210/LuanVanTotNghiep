@@ -7,11 +7,13 @@ function nhaHangController($scope, $http) {
     $scope.updateShow = false;
     $scope.addShow = true;
     $scope.ShowAddForm = false;
+    $scope.ShowDataTable = true;
+
 
     $scope.ShowHide = function () {
         $scope.ShowAddForm = $scope.ShowAddForm = true;
+        $scope.ShowDataTable = $scope.ShowDataTable =  false;
     };
-    $scope.page = 1;
     // Get All 
         $http.get('/api/NhaHangAPI/').success(function (data) {
             $scope.nhahangs = data;
@@ -22,7 +24,6 @@ function nhaHangController($scope, $http) {
     $scope.add = function () {
         $scope.loading = true;
         $http.post('/api/NhaHangAPI/', this.newnh).success(function (data) {
-            $scope.ShowAddForm = false;
             $scope.nhahangs = data;
             $scope.updateShow = false;
             $scope.addShow = true;

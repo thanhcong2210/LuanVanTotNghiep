@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using LuanVanTotNghiep.Models;
@@ -39,6 +40,46 @@ namespace LuanVanTotNghiep.Models.DAO
                 else
                     return 0;
             }
+        }
+
+        public bool InsertForFacebook(KHACHHANG entity)
+        {
+            try
+            {
+                //var user = db.KHACHHANGs.Find(entity.MAKH);
+                //var user = db.KHACHHANGs.SingleOrDefault(x => x.TENDANGNHAP_KH == entity.TENDANGNHAP_KH);
+                //user.HOTEN_KH = entity.HOTEN_KH;
+                ////if (!string.IsNullOrEmpty(entity.Password))
+                ////{
+                ////    user.Password = entity.Password;
+                ////}
+                ////user.Address = entity.Address;
+                ////user.EMAIL_KH = entity.EMAIL_KH;
+                //user.ModifiedBy = entity.ModifiedBy;
+                //user.ModifiedDate = DateTime.Now;
+                db.KHACHHANGs.Add(entity);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //logging
+                return false;
+            }
+
+            ////some code here
+            //var user = db.KHACHHANGs.SingleOrDefault(x => x.TENDANGNHAP_KH == entity.TENDANGNHAP_KH);
+            //if (user == null)
+            //{
+            //    db.KHACHHANGs.Add(entity);
+            //    db.SaveChanges();
+            //    return entity.MAKH;
+            //}
+            //else
+            //{
+            //    return user.MAKH;
+            //}
+
         }
     }
 }

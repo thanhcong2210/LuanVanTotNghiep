@@ -31,9 +31,6 @@
                     <div class="row form-group">
                         <div class="col-lg-12">
                             <div class="col-md-4">
-                                <input type="text" class="form-control" placeholder="Filter..." >
-                            </div>
-                            <div class="col-md-4">
                                 <button type="submit" class="btn btn-soundcloud">Tìm kiếm</button>
                                 <input type="button" value="Thêm mới" href="javascript:void(0);" ng-click="ShowHide()" class="btn btn-success" />
                             </div>
@@ -83,7 +80,7 @@
                     <div class="form-group space">
                         <div class="col-sm-offset-2 col-md-10 space">
                             <input type="submit" value="Thêm" ng-click="add()" ng-show="addShow" ng-disabled="!addnhahang.$valid" class="btn btn-success" />
-                            <input type="submit" value="Lưu" ng-click="update()" ng-show="updateShow" ng-disabled="!addnhahang.$valid" class="btn btn-primary" />
+                            <input type="submit" value="Lưu" ShowHideng-click="update()" ng-show="updateShow" ng-disabled="!addnhahang.$valid" class="btn btn-primary" />
                             <input type="button" value="Hủy bỏ" ng-click="cancel()" class="btn btn-default" />
                         </div>
                     </div>
@@ -93,7 +90,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" style="width: 800px; margin-left: 50px;" >
+                    <table ng-show="ShowTable" class="table table-bordered table-hover" style="width: 800px; margin-left: 50px;" >
                             <tr ng-repeat="nhahang in nhahangs ">
                                 <td >
                                     <p>{{ nhahang.MANHAHANG }}</p>

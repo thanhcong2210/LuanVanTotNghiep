@@ -1,10 +1,12 @@
-﻿using LuanVanTotNghiep.Models;
+﻿using LuanVanTotNghiep.Areas.Admin.Common;
+using LuanVanTotNghiep.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace LuanVanTotNghiep.Api
@@ -78,7 +80,8 @@ namespace LuanVanTotNghiep.Api
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-
+            var session = (TaiKhoanLogin)HttpContext.Current.Session[CommonConstants.TAIKHOAN_SESSION];
+            b.MAKH = session.TKID;
             try
             {
                 list = db.sp_InsUpdDelGioHang(b.MAGH, b.MAKH, b.NGAYDAT, b.TRANGTHAI, b.DIACHINHAN, "Upd").ToList();

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace LuanVanTotNghiep
             );
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Include;
             config.MessageHandlers.Add(new PreflightRequestsHandler());
+
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+            new DefaultContractResolver { IgnoreSerializableAttribute = true };
         }
     }
 }

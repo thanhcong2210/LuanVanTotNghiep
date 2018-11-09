@@ -9,6 +9,8 @@ using LuanVanTotNghiep.Models.DAO;
 using LuanVanTotNghiep.ViewModel;
 using LuanVanTotNghiep.Common;
 using PagedList;
+using Facebook;
+using System.Configuration;
 
 namespace LuanVanTotNghiep.Controllers
 {
@@ -172,6 +174,77 @@ namespace LuanVanTotNghiep.Controllers
         {
             Session[CommonConstantClient.TaiKhoan] = null;
             this.AddToastMessage("Thông báo ", "Đăng xuất thành công", ToastType.Info);
+            return Redirect("/");
+        }
+
+        //dang nhap facebook
+        private Uri RedirectUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                uriBuilder.Query = null;
+                uriBuilder.Fragment = null;
+                uriBuilder.Path = Url.Action("FacebookCallback");
+                return uriBuilder.Uri;
+            }
+        }
+        [AllowAnonymous]
+        public ActionResult LoginFacebook()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email",
+            });
+
+            return Redirect(loginUrl.AbsoluteUri);
+        }
+
+        public ActionResult FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                code = code
+            });
+
+
+            var accessToken = result.access_token;
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                fb.AccessToken = accessToken;
+                // Get the user's information, like email, first name, middle name etc
+                dynamic me = fb.Get("me?fields=id,email,first_name,middle_name,last_name");
+                string email = me.email;
+                string userName = me.email;
+                //string hotenfb = me.hoten;
+                string firstname = me.first_name;
+                string middlename = me.middle_name;
+                string lastname = me.last_name;
+                var user = new KHACHHANG();
+                user.EMAIL_KH = email;
+                user.TENDANGNHAP_KH = email;
+                user.MALOAI_KH = 2;
+                //user.Status = true;
+                user.HOTEN_KH = firstname + " " + middlename + " " + lastname;
+                //user.CreatedDate = DateTime.Now;
+                var resultInsert = new UserDAO().InsertForFacebook(user);
+                if (resultInsert = true)
+                {
+                    var userSession = new getInfoKhachHang();
+                    userSession.Username = user.TENDANGNHAP_KH;
+                    userSession.ID = user.MAKH;
+                    Session.Add(CommonConstantClient.TaiKhoan, userSession);
+                }
+            }
             return Redirect("/");
         }
 

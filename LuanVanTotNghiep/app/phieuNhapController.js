@@ -25,7 +25,7 @@ function phieuNhapController($scope, $http) {
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin!" + data;
         });
-    }
+    };
 
     //Edit 
     $scope.edit = function () {
@@ -38,7 +38,7 @@ function phieuNhapController($scope, $http) {
         }).error(function () {
             $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
         });
-    }
+    };
 
     $scope.update = function () {
         $scope.loading = true;
@@ -51,8 +51,7 @@ function phieuNhapController($scope, $http) {
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
-    }
-
+    };
     //Delete 
     $scope.delete = function () {
         var Id = this.phieunhap.MAPHIEUNHAP;
@@ -62,12 +61,12 @@ function phieuNhapController($scope, $http) {
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
-    }
+    };
 
     //Cancel 
     $scope.cancel = function () {
         $scope.updateShow = false;
         $scope.addShow = true;
         $scope.newphieunhap = '';
-    }
+    };
 }

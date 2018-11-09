@@ -1,11 +1,11 @@
 ﻿<!-- Content Header (Page header) -->
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     $(function () {
         // This will make every element with the class "date-picker" into a DatePicker element
         $("#datepicker").datepicker().datepicker("setDate", new Date());
     })
-</script>
+</script>-->
 <section class="content-header">
     <h1>
         Danh sách các phiếu nhập
@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label for="ngaynhap" class="col-sm-3 control-label">Ngày nhập</label>
                             <div class="col-sm-9">
-                                <input  class="form-control" id="datepicker" ng-model="newphieunhap.NGAYNHAP" />
+                                <input data-input type="date" class="form-control" name="ngaynhap" placeholder="" ng-model="newphieunhap.NGAYNHAP" />
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
                                     <p>{{ phieunhap.MAPHIEUNHAP }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ phieunhap.MANCC }}</p>
+                                    <p><a href="/api/NhaCungCapAPI/{{ phieunhap.MANCC }}">{{ phieunhap.TENNCC }}</a></p>
                                 </td>
                                 <td>
                                     <p>{{ phieunhap.NGAYNHAP | date : "MM/dd/y"}}</p>
