@@ -9,13 +9,20 @@ p {
 }
 
     .duyet {
-        font-weight: bold;
-        color: blue;
+        border: 1px solid;
+        color: white;
+        text-align: center;
+        padding: 0.1em 10px;
+        background-color: #0ca314 !important;
+        border-radius: 15px;
     }
     .chuaduyet {
-        border: 1px 1px 1px 1px solid orange;
-        color: red;
-        background-color: orange;
+        border: 1px solid;
+        color: white;
+        text-align:center;
+        padding: 0.1em 10px;
+        background-color: #ff0000 !important;
+        border-radius: 15px;
     }
 </style>
 <!-- Content Header (Page header) -->
@@ -41,14 +48,22 @@ p {
                 <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="đóng"><i class="fa fa-times"></i></button>
             </div>
         </div>
+        
         <div class="box-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="alert-danger" style="width: 350px ;line-height: 50px; position:center;transition-delay:initial">
                         <strong class="error" style="text-align:left">{{error}} </strong>
                     </div>
-
-                    <form name="adddondatban" ng-show="updateShow" ng-disabled="!adddondatban.$valid" class="form-horizontal" style="width: 800px;">
+                    <div class="row form-group" ng-disabled="adddondatban.$valid">
+                        <div class="col-lg-12">
+                            <div class="col-md-6">
+                                <input type="text" style="height:34px; width:300px" ng-model="searchText" placeholder="Tìm kiếm : something " />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <form name="adddondatban" ng-show="ShowUpdateForm" class="form-horizontal" style="width: 800px;">
                         <div class="form-group">
                             <label for="madondat" class="col-sm-2 control-label">Mã đơn đặt</label>
                             <div class="col-md-10 space space">
@@ -58,36 +73,35 @@ p {
                         <div class="form-group">
                             <label for="mataikhoan" class="col-sm-2 control-label">Tài khoản</label>
                             <div class="col-md-10 space">
-                                <input type="text" ng-show="addShow" ng-disabled="!adddondatban.$valid" class="form-control" name="mataikhoan" placeholder="" ng-model="newdondatban.MATAIKHOAN" />
-                                <input type="text" ng-show="updateShow" ng-disabled="adddondatban.$valid" class="form-control" name="mataikhoan" placeholder="" ng-model="newdondatban.MATAIKHOAN" />
+                                <input type="text" class="form-control" name="mataikhoan" placeholder="" ng-model="newdondatban.MATAIKHOAN" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="makh" class="col-sm-2 control-label">Khánh hàng</label>
                             <div class="col-md-10 space">
-                                <input type="text" ng-show="addShow" ng-disabled="!adddondatban.$valid" class="form-control" id="makh" placeholder="" ng-model="newdondatban.MAKH"   />
-                                <input type="text" ng-show="updateShow" ng-disabled="adddondatban.$valid" class="form-control" id="makh" placeholder="" ng-model="newdondatban.MAKH"   />
+
+                                <input type="text" class="form-control" id="makh" placeholder="" ng-model="newdondatban.MAKH" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="soluongnguoi" class="col-sm-2 control-label">Sô lượng người</label>
                             <div class="col-md-10 space">
-                                <input type="number" ng-show="addShow" ng-disabled="!adddondatban.$valid" class="form-control" id="soluongnguoi" placeholder="" ng-model="newdondatban.SOLUONGNGUOI"  />
-                                <input type="number" ng-show="updateShow" ng-disabled="adddondatban.$valid" class="form-control" id="soluongnguoi" placeholder="" ng-model="newdondatban.SOLUONGNGUOI"  />
+
+                                <input type="number" class="form-control" id="soluongnguoi" placeholder="" ng-model="newdondatban.SOLUONGNGUOI" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="ngayden" class="col-sm-2 control-label">Ngày đến</label>
                             <div class="col-md-10 space">
-                                <input type="date" ng-show="addShow" ng-disabled="!adddondatban.$valid" class="form-control" name="ngayden" placeholder="" ng-model="newdondatban.NGAYDEN" />
-                                <input type="date" ng-show="updateShow" ng-disabled="adddondatban.$valid" class="form-control" name="ngayden" placeholder="" ng-model="newdondatban.NGAYDEN" />
+
+                                <input type="date" class="form-control" name="ngayden" placeholder="" ng-model="newdondatban.NGAYDEN" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="gioden" class="col-sm-2 control-label">Giờ đến</label>
                             <div class="col-md-10 space">
-                                <input type="time" ng-show="addShow" ng-disabled="!adddondatban.$valid" class="form-control" name="gioden" placeholder="" ng-model="newdondatban.GIODEN"  />
-                                <input type="time" ng-show="updateShow" ng-disabled="adddondatban.$valid" class="form-control" name="gioden" placeholder="" ng-model="newdondatban.GIODEN"  />
+
+                                <input type="time" class="form-control" name="gioden" placeholder="" ng-model="newdondatban.GIODEN" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -106,12 +120,15 @@ p {
                     </form>
                 </div>
             </div>
-
-            <div class="row">
+            <ul class="nav nav-tabs" >
+                <li class="{{activeduyet}}" ><a data-toggle="tab" href="javascript:void(0);" ng-click="ChangeDuyet()">Đơn bặt bàn đã duyệt</a></li>
+                <li class="{{activechuaduyet}}" ><a data-toggle="tab" href="javascript:void(0);" ng-click="ChangeChuaDuyet()">Đơn bặt bàn chưa duyệt</a></li>
+            </ul>
+            <div class="row" ng-show="ShowDataTable" id="daduyet">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover" style="width: 850px; margin-left: 70px;">
-                            <tr>
+                        <table class="table table-bordered table-hover" style="width: 850px; margin-left: 70px; border:1px solid">
+                            <tr style="background-color:lightskyblue">
                                 <th>Mã đơn đặt</th>
                                 <th>Tài khoản</th>
                                 <th>Khách hàng</th>
@@ -121,15 +138,16 @@ p {
                                 <th>Trạng thái</th>
                                 <th>Actions</th>
                             </tr>
-                            <tr ng-repeat="dondatban in dondatbans">
+                            <tr ng-repeat="dondatban in dondatbans.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:searchText ">
                                 <td>
                                     <p>{{ dondatban.MADATBAN }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ dondatban.MATAIKHOAN }}</p>
+
+                                    <p>{{ dondatban.TENTAIKHOAN }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ dondatban.MAKH }}</p>
+                                    <p>{{ dondatban.TENKH }}</p>
                                 </td>
                                 <td>
                                     <p>{{ dondatban.SOLUONGNGUOI }}</p>
@@ -141,16 +159,115 @@ p {
                                     <p>{{ dondatban.GIODEN | date:'hh:mm:ss' }}</p>
                                 </td>
                                 <td>
-                                    <p ng-class="{duyet: dondatban.TRANGTHAIDATBAN == true , chuaduyet: dondatban.TRANGTHAIDATBAN == false}">{{ dondatban.TRANGTHAIDATBAN ? 'Đã duyệt' : 'Chưa duyệt'  }}</p>
+                                    <p ng-class="{duyet: dondatban.TRANGTHAIDATBAN == true , chuaduyet: dondatban.TRANGTHAIDATBAN == false}">
+                                        {{ dondatban.TRANGTHAIDATBAN ? 'Đã duyệt' : 'Chưa duyệt'  }}
+                                    </p>
                                 </td>
                                 <td>
                                     <p><a class="btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a></p>
                                 </td>
                             </tr>
                         </table>
+                        View
+                        <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                        </select>
+                        records at a time.
                     </div>
+                    <pagination total-items="totalItems"
+                                ng-model="currentPage"
+                                max-size="maxSize"
+                                class="pagination-sm"
+                                boundary-links="true"
+                                rotate="false"
+                                num-pages="numPages"
+                                items-per-page="itemsPerPage">
+                    </pagination>
+                    <br />
+                    <span style="font-size: 100%" class="label label-primary">Page: {{currentPage}} / {{numPages}}</span>
+
+                    <hr />
+                </div>
+            </div>
+            <div class="row" ng-show="ShowChuaDuyet" id="chuaduyet">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" style="width: 850px; margin-left: 70px;">
+                            <tr style="background-color:lightskyblue">
+                                <th>Mã đơn đặt</th>
+                                <th>Tài khoản</th>
+                                <th>Khách hàng</th>
+                                <th>Số lượng người</th>
+                                <th>Ngày đến</th>
+                                <th>Giờ đến</th>
+                                <th>Trạng thái</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr ng-repeat="chuaduyet in chuaduyets.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:searchText ">
+                                <td>
+                                    <p>{{ chuaduyet.MADATBAN }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ chuaduyet.TENTAIKHOAN }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ chuaduyet.TENKH }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ chuaduyet.SOLUONGNGUOI }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ chuaduyet.NGAYDEN | date : "dd/MM/y"}}</p>
+                                </td>
+                                <td>
+                                    <p>{{ chuaduyet.GIODEN | date:'hh:mm:ss' }}</p>
+                                </td>
+                                <td>
+                                    <p ng-class="{duyet: chuaduyet.TRANGTHAIDATBAN == true , chuaduyet: chuaduyet.TRANGTHAIDATBAN == false}">
+                                        {{ chuaduyet.TRANGTHAIDATBAN ? 'Đã duyệt' : 'Chưa duyệt'  }}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p><a class="btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a></p>
+                                </td>
+                            </tr>
+                        </table>
+                        View
+                        <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                        </select>
+                        records at a time.
+                    </div>
+                    <pagination total-items="totalItems"
+                                ng-model="currentPage"
+                                max-size="maxSize"
+                                class="pagination-sm"
+                                boundary-links="true"
+                                rotate="false"
+                                num-pages="numPages"
+                                items-per-page="itemsPerPage">
+                    </pagination>
+                    <br />
+                    <span style="font-size: 100%" class="label label-primary">Page: {{currentPage}} / {{numPages}}</span>
+
+                    <hr />
                 </div>
             </div>
         </div><!-- /.box-body -->
+        <script id="template/pagination/pagination.html" type="text/ng-template">
+            <ul class="pagination">
+                <li ng-if="boundaryLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(1)" title="First Page"> <span class="glyphicon glyphicon-fast-backward"></span></a></li>
+                <li ng-if="directionLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(page - 1)" title="Previous Page"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+                <li ng-repeat="page in pages track by $index" ng-class="{active: page.active}"><a href ng-click="selectPage(page.number)">{{page.text}}</a></li>
+                <li ng-if="directionLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(page + 1)" title="Next Page"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+                <li ng-if="boundaryLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(totalPages)" title="Last Page"><span class="glyphicon glyphicon-fast-forward"></span> </a></li>
+            </ul>
+        </script>
     </div><!-- /.box -->
 </section><!-- /.content -->

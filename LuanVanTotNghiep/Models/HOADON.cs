@@ -22,8 +22,8 @@ namespace LuanVanTotNghiep.Models
     
         public int MAHD { get; set; }
         public int MABAN { get; set; }
-        public int MATAIKHOAN { get; set; }
-        public int MAKH { get; set; }
+        public Nullable<int> MATAIKHOAN { get; set; }
+        public Nullable<int> MAKH { get; set; }
         public Nullable<System.DateTime> THOIGIANDEN { get; set; }
         public Nullable<System.DateTime> THOIGIANDI { get; set; }
         public Nullable<System.DateTime> NGAYTHANHTOAN { get; set; }

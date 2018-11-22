@@ -1,4 +1,5 @@
-﻿@using LuanVanTotNghiep.Models;
+﻿
+@using LuanVanTotNghiep.Models;
 @using PagedList.Mvc;
 @model PagedList.IPagedList<LuanVanTotNghiep.Models.MONAN>
 
@@ -14,7 +15,11 @@
             <li><a href="/">Home</a></li>
             <li class="active">@loai.TENLOAI</li>
         </ol>
-        <h2>Our Products</h2>
+        <div class="offers">
+            <div class="container">
+                <h3>Danh sách món ăn</h3>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-9 product-model-sec">
                 @foreach (var item in Model)
@@ -26,7 +31,7 @@
                         <a href="@link">
                             <div class="more-product"><span></span></div>
                             <div class="product-img b-link-stripe b-animate-go  thickbox">
-                                <img src="@item.HINHANH.DUONGDAN1" class="img-responsive" alt="">
+                                <img src="@item.HINHANH.DUONGDAN1" class="img-responsive" alt="" style="width:400px; height:250px">
                                 <div class="b-wrapper">
                                     <h4 class="b-animate b-from-left  b-delay03">
                                         <button><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Xem nhanh</button>
@@ -36,17 +41,17 @@
                         </a>
                         <div class="product-info simpleCart_shelfItem">
                             <div class="product-info-cust prt_name">
-                                <h4 style="font-size: 30px; color:black">@item.TENGOI</h4>
+                                <h4 style="font-size: 15px; color:black">@item.TENGOI</h4>
 
-                                <span class="item_price">@item.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND</span>
+                                <span class="item_price">Giá: @item.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VNĐ</span>
                                 @using (Html.BeginForm("ThemGioHang", "GioHang", new { @productID = item.MAMON, @quantity = 1, @strURL = Request.Url.ToString() }))
                                 {
                                     <input type="submit" style="cursor:pointer" value="Thêm vào giỏ hàng" id="btnGioHang" class="item_add items">
                                 }
                                 @*<p class="item_add items">@Ajax.ActionLink("THÊM VÀO GIỎ HÀNG", "ThemGioHang", "giohang", new { @productID = item.MAMON, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace })<span class="glyphicon glyphicon-shopping-cart"></span></p>*@
                                 @*<button type="button" title="Add to Cart" class="item_add items add-to-cart" data-id="@item.MAMON">
-            <span class="glyphicon glyphicon-shopping-cart"></span>
-        </button>*@
+                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                            </button>*@
                                 @*<a class="item_add items" href="/giohang/AddItem?productId=@item.MAMON&quantity=1"><span class="glyphicon glyphicon-shopping-cart"></span></a>*@
                                 <div class="clearfix"> </div>
                             </div>
@@ -56,59 +61,13 @@
                 }
 
             </div>
-
-            @*@{
-                    Html.RenderAction("_loaimonan", "sanpham");
-                }*@
-            <div class="col-md-3 rsidebar span_1_of_left">
-                <section class="sky-form">
-                    <div class="product_right">
-                        <h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>LOẠI MÓN ĂN</h4>
-
-                        <div class="tab1" style=" text-align:left; color:white;">
-                            <ul class="place" style=" text-align:left; color:white;">
-                                <li>
-                                    <a href="#" style=" text-align:left; color:red;
-                                        display: table;
-                                        margin: 0 100px;
-                                        padding-bottom: 30px;
-                                        border-bottom: none;
-                                        border-radius: 5px;
-    border: 1px solid #950a0f;
-    color: #950a0f;
-    font-family: 'UTM Trajan Pro Bold';
-    font-size: 18px;
-    line-height: 1;
-    margin: 0px 5px;
-    padding: 10px 20px;
-    text-transform: uppercase;
-                                        ">Khai vi</a>
-                                </li>
-                                <li>
-                                    <a href="#" style=" text-align:left; color:red;
-                                         display: table;
-                                        margin: 0 100px;
-                                        padding-bottom: 30px;
-                                        border-bottom: none;
-                                        border-radius: 5px;
-    border: 1px solid #950a0f;
-    color: #950a0f;
-    font-family: 'UTM Trajan Pro Bold';
-    font-size: 18px;
-    line-height: 1;
-    margin: 0px 5px;
-    padding: 10px 20px;
-    text-transform: uppercase;">Mon Chinh</a>
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-
+            <div id="sidebar" class="col-md-3">
+                <div class="widget wid-categories">
+                    <div class="heading"><h4>Thực đơn</h4></div>
+                    <div class="content">
+                        @{ Html.RenderAction("_loaimonan", "sanpham");}
                     </div>
-                </section>
-
+                </div>
             </div>
 
 

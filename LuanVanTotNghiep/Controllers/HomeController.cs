@@ -19,7 +19,7 @@ namespace LuanVanTotNghiep.Controllers
             var model = db.MONANs.Where(x => x.MAMON > 0).ToList();
             int PageSize = 8;
             int PageNumber = page ?? 1;
-            var pagemodel = model.OrderBy(n => n.MAMON).ToPagedList(PageNumber, PageSize);
+            var pagemodel = model.OrderBy(n => n.NGAYTAOMOI).ToPagedList(PageNumber, PageSize);
             //this.AddToastMessage("Thông báo ", "Chào mừng bạn đến với website của Thành Công", ToastType.Success);
             return View(pagemodel);
         }

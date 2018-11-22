@@ -1,0 +1,97 @@
+﻿@using LuanVanTotNghiep.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<LuanVanTotNghiep.Models.MONAN>
+@{
+     
+    ViewBag.Title = ViewBag.Keyword;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!--san pham-->
+<div class="product-model">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/">Kết quả tìm kiếm</a></li>
+            <li class="active">@ViewBag.Keyword</li>
+        </ol>
+        <div class="offers">
+            <div class="container">
+                <h3>Danh sách món ăn</h3>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-9 product-model-sec">
+                @if (ViewBag.Error != null)
+                {
+                    <div style="text-align:center">
+                        @ViewBag.Error
+                    </div>
+
+                }
+                @foreach (var item in Model)
+                {
+
+                    var link = "/sanpham/chitiet/" + item.MAMON;
+                    <a href="@link"></a>
+                    <div class="product-grid">
+                        <a href="@link">
+                            <div class="more-product"><span></span></div>
+                            <div class="product-img b-link-stripe b-animate-go  thickbox">
+                                <img src="@item.HINHANH.DUONGDAN1" class="img-responsive" alt="" style="width:400px; height:250px">
+                                <div class="b-wrapper">
+                                    <h4 style="font-size: 15px; color:black" class="b-animate b-from-left  b-delay03">
+                                        <button><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Xem nhanh</button>
+                                    </h4>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="product-info simpleCart_shelfItem">
+                            <div class="product-info-cust prt_name">
+                                <h4 style="font-size: 30px; color:black">@item.TENGOI</h4>
+
+                                <span class="item_price">@item.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VNĐ</span>
+                                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @productID = item.MAMON, @quantity = 1, @strURL = Request.Url.ToString() }))
+                                {
+                                    <input type="submit" style="cursor:pointer" value="Thêm vào giỏ hàng" id="btnGioHang" class="item_add items">
+                                }
+                                @*<p class="item_add items">@Ajax.ActionLink("THÊM VÀO GIỎ HÀNG", "ThemGioHang", "giohang", new { @productID = item.MAMON, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace })<span class="glyphicon glyphicon-shopping-cart"></span></p>*@
+                                @*<button type="button" title="Add to Cart" class="item_add items add-to-cart" data-id="@item.MAMON">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                </button>*@
+                                @*<a class="item_add items" href="/giohang/AddItem?productId=@item.MAMON&quantity=1"><span class="glyphicon glyphicon-shopping-cart"></span></a>*@
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+
+            <div id="sidebar" class="col-md-3">
+                <div class="widget wid-categories">
+                    <div class="heading"><h4>Thực đơn</h4></div>
+                    <div class="content">
+                        @{ Html.RenderAction("_loaimonan", "sanpham");}
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="dlink" style="float: right">
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("timkiem", "sanpham", new { @page = page }))
+        </div>
+        <br />
+        <br />
+        <br />
+    </div>
+</div>
+

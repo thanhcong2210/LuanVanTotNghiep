@@ -113,32 +113,32 @@
                         <div class="khunganh">
                             <div class="mySlides">
 
-                                <img src="@Model.HINHANH.DUONGDAN1" style="width:100%">
+                                <img src="@Model.HINHANH.DUONGDAN1" style="width:100% ; height:355px">
                             </div>
 
                             <div class="mySlides">
 
-                                <img src="@Model.HINHANH.DUONGDAN2" style="width:100%">
+                                <img src="@Model.HINHANH.DUONGDAN2" style="width:100%;height:355px">
                             </div>
 
                             <div class="mySlides">
 
-                                <img src="@Model.HINHANH.DUONGDAN3" style="width:100%">
+                                <img src="@Model.HINHANH.DUONGDAN3" style="width:100%;height:355px">
                             </div>
 
                             <div class="caption-container">
                                 <p id="caption"></p>
                             </div>
-
-                            <div class="row" style="margin-left:200px">
+                            <br />
+                            <div class="row" style="margin-left:155px">
                                 <div class="column">
-                                    <img class="demo cursor" src="@Model.HINHANH.DUONGDAN1" style="width:100%" onclick="currentSlide(1)">
+                                    <img class="demo cursor" src="@Model.HINHANH.DUONGDAN1" style="width:100%; height:50px" onclick="currentSlide(1)">
                                 </div>
                                 <div class="column">
-                                    <img class="demo cursor" src="@Model.HINHANH.DUONGDAN2" style="width:100%" onclick="currentSlide(2)">
+                                    <img class="demo cursor" src="@Model.HINHANH.DUONGDAN2" style="width:100%; height:50px" onclick="currentSlide(2)">
                                 </div>
                                 <div class="column">
-                                    <img class="demo cursor" src="@Model.HINHANH.DUONGDAN3" style="width:100%" onclick="currentSlide(3)">
+                                    <img class="demo cursor" src="@Model.HINHANH.DUONGDAN3" style="width:100%; height:50px" onclick="currentSlide(3)">
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                 <div class="col-md-6">
                     <div class="single-para ">
                         <h4>@Model.TENGOI</h4>
-                        <h5 class="item_price">@Model.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND</h5>
+                        <h5 class="item_price">Giá: @Model.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VNĐ</h5>
                         <p class="para">
                             Mô tả : @Model.MOTA
                         </p>
@@ -187,7 +187,7 @@
                         <a href="@linkCateProduct">
                             <img style="width:150px; height:100px" src="@product.HINHANH.DUONGDAN1" alt="" />
                             <h4 style="font-size:15px" >@product.TENGOI</h4>
-                            <span>@product.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND</span>
+                            <span>Giá: @product.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VNĐ</span>
                         </a>
                     </div>
                 }

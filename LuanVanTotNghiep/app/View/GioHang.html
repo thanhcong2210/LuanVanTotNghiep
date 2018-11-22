@@ -1,4 +1,31 @@
-﻿<!-- Content Header (Page header) -->
+﻿<style>
+    td {
+        width: 300px;
+    }
+
+    p {
+        margin-top: 0px;
+    }
+
+    .duyet {
+        border: 1px solid;
+        color: white;
+        text-align: center;
+        padding: 0.1em 10px;
+        background-color: #0ca314 !important;
+        border-radius: 15px;
+    }
+
+    .chuaduyet {
+        border: 1px solid;
+        color: white;
+        text-align: center;
+        padding: 0.1em 10px;
+        background-color: #ff0000 !important;
+        border-radius: 15px;
+    }
+</style>
+<!-- Content Header (Page header) -->
 
 <section class="content-header">
     <h1>
@@ -28,36 +55,36 @@
                         <strong class="error" style="text-align:left">{{error}} </strong>
                     </div>
 
-                    <form name="addgiohang" class="form-horizontal" style="width: 800px;">
-                        <div class="form-group" ng-show="updateShow" ng-disabled="!addgiohang.$valid" >
-                            <label for="magh" class="col-sm-3 control-label" >Mã giỏ hàng</label>
+                    <form name="addgiohang" class="form-horizontal" style="width: 800px;" ng-show="ShowUpdate">
+                        <div class="form-group" >
+                            <label for="magh" class="col-sm-3 control-label">Mã giỏ hàng</label>
                             <div class="col-sm-9 space">
                                 <input type="text" class="form-control" id="magiohang" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newgiohang.MAGH" disabled />
                             </div>
                         </div>
-                        <div class="form-group" ng-show="updateShow" ng-disabled="!addgiohang.$valid">
+                        <div class="form-group" >
                             <label for="makh" class="col-sm-3 control-label">Khách hàng</label>
                             <div class="col-sm-9">
-                                <input ng-show="updateShow"  ng-disabled="addgiohang.$valid"  type="text" class="form-control" name="makh" placeholder="" ng-model="newgiohang.MAKH" />
+                                <input n type="text" class="form-control" name="makh" placeholder="" ng-model="newgiohang.MAKH" />
                             </div>
                         </div>
-                        <div class="form-group" ng-show="updateShow" ng-disabled="!addgiohang.$valid">
+                        <div class="form-group" >
                             <label for="tengiohang" class="col-sm-3 control-label">Ngày đặt</label>
                             <div class="col-sm-9">
-                                <input ng-show="updateShow"  ng-disabled="addgiohang.$valid"   data-input type="date" class="form-control" name="ngaydat" ng-model="newgiohang.NGAYDAT" />
+                                <input  data-input type="date" class="form-control" name="ngaydat" ng-model="newgiohang.NGAYDAT" />
                             </div>
                         </div>
-                        <div class="form-group" ng-show="updateShow" ng-disabled="!addgiohang.$valid">
+                        <div class="form-group" >
                             <label for="trangthai" class="col-sm-3 control-label">Trạng thái</label>
                             <div class="col-sm-9">
                                 <input type="radio" name="trangthai" ng-model="newgiohang.TRANGTHAI" ng-value="true" /> Duyệt
                                 <input type="radio" name="trangthai" ng-model="newgiohang.TRANGTHAI" ng-value="false" />  Chờ duyệt
                             </div>
                         </div>
-                        <div class="form-group" ng-show="updateShow" ng-disabled="!addgiohang.$valid">
+                        <div class="form-group" >
                             <label for="diachinhan" class="col-sm-3 control-label">Địa chỉ nhận</label>
                             <div class="col-sm-9">
-                                <input ng-show="updateShow"  ng-disabled="addgiohang.$valid"  data-input type="text" class="form-control" id="diachinhan" placeholder="" ng-model="newgiohang.DIACHINHAN" />
+                                <input  data-input type="text" class="form-control" id="diachinhan" placeholder="" ng-model="newgiohang.DIACHINHAN" />
                             </div>
                         </div>
                         <div class="form-group space">
@@ -72,30 +99,30 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive" ng-show="addShow"  ng-disabled="!addgiohang.$valid" >
+                    <div class="table-responsive" ng-show="ShowDataTable">
                         <table class="table table-bordered table-hover" style="width: 850px; margin-left: 70px;">
                             <tr>
                                 <th>Mã giỏ hàng</th>
                                 <th>Khách hàng</th>
                                 <th>Ngày đặt</th>
                                 <th>Trạng thái</th>
-                                <th>Địa chỉ nhận</th>
+                                <th style="width:250px">Địa chỉ nhận</th>
                                 <th>Actions</th>
                             </tr>
-                            <tr ng-repeat="giohang in giohangs">
+                            <tr ng-repeat="giohang in giohangs.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:searchText ">
                                 <td>
                                     <p>{{ giohang.MAGH }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ giohang.MAKH }}</p>
+                                    <p>{{ giohang.TEN_KH }}</p>
                                 </td>
                                 <td>
                                     <p>{{ giohang.NGAYDAT | date : 'dd/MM/y' }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ giohang.TRANGTHAI ? 'Đã duyệt' : 'Chưa duyệt'  }}</p>
+                                    <p ng-class="{duyet: giohang.TRANGTHAI == true , chuaduyet: giohang.TRANGTHAI == false}">{{ giohang.TRANGTHAI ? 'Đã duyệt' : 'Chưa duyệt'  }}</p>
                                 </td>
-                                <td>
+                                <td style="width:250px">
                                     <p>{{ giohang.DIACHINHAN}}</p>
                                 </td>
                                 <td>
@@ -103,9 +130,39 @@
                                 </td>
                             </tr>
                         </table>
+                        View
+                        <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                        </select>
+                        records at a time.
                     </div>
+                    <pagination total-items="totalItems"
+                                ng-model="currentPage"
+                                max-size="maxSize"
+                                class="pagination-sm"
+                                boundary-links="true"
+                                rotate="false"
+                                num-pages="numPages"
+                                items-per-page="itemsPerPage">
+                    </pagination>
+                    <br />
+                    <span style="font-size: 100%" class="label label-primary">Page: {{currentPage}} / {{numPages}}</span>
+
+                    <hr />
                 </div>
             </div>
         </div><!-- /.box-body -->
+        <script id="template/pagination/pagination.html" type="text/ng-template">
+            <ul class="pagination">
+                <li ng-if="boundaryLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(1)" title="First Page"> <span class="glyphicon glyphicon-fast-backward"></span></a></li>
+                <li ng-if="directionLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(page - 1)" title="Previous Page"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+                <li ng-repeat="page in pages track by $index" ng-class="{active: page.active}"><a href ng-click="selectPage(page.number)">{{page.text}}</a></li>
+                <li ng-if="directionLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(page + 1)" title="Next Page"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+                <li ng-if="boundaryLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(totalPages)" title="Last Page"><span class="glyphicon glyphicon-fast-forward"></span> </a></li>
+            </ul>
+        </script>
     </div><!-- /.box -->
 </section><!-- /.content -->

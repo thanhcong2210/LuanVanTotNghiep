@@ -6,14 +6,37 @@ function gioHangController($scope, $http) {
     $scope.loading = true;
     $scope.updateShow = false;
     $scope.addShow = true;
+    $scope.ShowDataTable = false;
+    $scope.ShowUpdate = false;
+    // PHAN TRANG 
+    $scope.viewby = 10;
+    $scope.totalItems = 0;
+    $scope.currentPage = 4;
+    $scope.itemsPerPage = $scope.viewby;
+    $scope.maxSize = 5; //Number of pager buttons to show
 
     // Get All 
     $http.get('/api/GioHangAPI/').success(function (data) {
+        $scope.ShowDataTable = true;
+        $scope.ShowUpdate = false;
         $scope.giohangs = data;
+        $scope.totalItems = $scope.giohangs.length;
     }).error(function () {
         $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
     });
 
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.pageChanged = function () {
+        console.log('Page changed to: ' + $scope.currentPage);
+    };
+
+    $scope.setItemsPerPage = function (num) {
+        $scope.itemsPerPage = num;
+        $scope.currentPage = 1; //reset to first page
+    };
 
     //Insert 
     $scope.add = function () {
@@ -26,11 +49,13 @@ function gioHangController($scope, $http) {
         }).error(function (data) {
             $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
         });
-    }
+    };
 
     //Edit 
     $scope.edit = function () {
         var Id = this.giohang.MAGH;
+        $scope.ShowUpdate = true;
+        $scope.ShowDataTable = false;
         $http.get('/api/GioHangAPI/' + Id).success(function (data) {
             data.NGAYDAT = new Date(data.NGAYDAT);
             $scope.newgiohang = data;
@@ -39,7 +64,7 @@ function gioHangController($scope, $http) {
         }).error(function () {
             $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
         });
-    }
+    };
 
     $scope.update = function () {
         $scope.loading = true;

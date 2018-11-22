@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using LuanVanTotNghiep.Models;
 using LuanVanTotNghiep.Common;
+using System.Configuration;
 
 namespace LuanVanTotNghiep.Controllers
 {
@@ -46,7 +47,7 @@ namespace LuanVanTotNghiep.Controllers
                 //Add sản phẩm mới thêm vào list
                 sanpham.iSoLuong = quantity;
                 lstGioHang.Add(sanpham);
-                this.AddToastMessage("Thông báo", "Đặt món thành công! Vui lòng kiểm tra giỏ hàng ", ToastType.Info);
+                this.AddToastMessage("Thông báo", "Đã thêm " +sanpham.sTen+ " vào giỏ hàng ! Vui lòng kiểm tra giỏ hàng ", ToastType.Info);
                 return Redirect(strURL);
             }
             else
@@ -215,6 +216,7 @@ namespace LuanVanTotNghiep.Controllers
             }
             //Thêm đơn hàng
             GIOHANG ddh = new GIOHANG();
+            
             var session = (getInfoKhachHang)Session[CommonConstantClient.TaiKhoan];
             List<GioHang> gh = LayGioHang();
             ddh.MAKH = session.ID;
@@ -223,6 +225,7 @@ namespace LuanVanTotNghiep.Controllers
             ddh.TRANGTHAI = false;
             db.GIOHANGs.Add(ddh);
             db.SaveChanges();
+            double? total = 0;
             //Thêm chi tiết đơn hàng
             foreach (var item in gh)
             {
@@ -231,11 +234,22 @@ namespace LuanVanTotNghiep.Controllers
                 ctDH.MAMON = item.iMa;
                 ctDH.SLUONG = item.iSoLuong;
                 db.CHITIETGIOHANGs.Add(ctDH);
+                total += item.iSoLuong * item.dDonGia;
             }
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/client/template/neworder.html"));
+            content = content.Replace("{{CustomerName}}", session.Name);
+            content = content.Replace("{{Phone}}", session.Mobile);
+            content = content.Replace("{{Email}}", session.Email);
+            content = content.Replace("{{Address}}", address);
+            content = content.Replace("{{Total}}", total.Value.ToString("#,##0").Replace(',', '.'));
+            var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+
+            new MailHelper().SendMail(session.Email, "Đơn hàng mới từ Nhà Hàng Thành Công", content);
+            //new MailHelper().SendMail(toEmail, "Đơn hàng mới từ Nhà Hàng Thành Công", content);
             db.SaveChanges();
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
             lstGioHang.Clear();
-            this.AddToastMessage("Thông báo", "Đặt hàng thành công", ToastType.Info);
+            this.AddToastMessage("Thông báo", "Đặt hàng thành công. Vui lòng kiểm tra lại Gmail!", ToastType.Info);
             return RedirectToAction("Index", "Home");
         }
         #endregion

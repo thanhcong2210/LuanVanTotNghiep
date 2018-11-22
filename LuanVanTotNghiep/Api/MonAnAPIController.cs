@@ -136,7 +136,7 @@ namespace LuanVanTotNghiep.Api
         {
             if (ModelState.IsValid)
             {
-                var list = db.sp_InsUpdDelMonAn(0, m.MADVTINH,m.MALOAI, m.MAHINHANH, m.TENGOI, m.DONGIA, m.MOTA, m.CACHLAM, m.NGAYTAOMOI , "Ins").ToList();
+                var list = db.sp_InsUpdDelMonAn(0, m.MADVTINH, m.MALOAI, m.MAHINHANH, m.TENGOI, m.DONGIA, m.MOTA, m.CACHLAM, m.NGAYTAOMOI , "Ins").ToList();
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, list);
                 return response;
             }
@@ -157,7 +157,7 @@ namespace LuanVanTotNghiep.Api
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-
+            
             try
             {
                 list = db.sp_InsUpdDelMonAn(m.MAMON, m.MADVTINH, m.MALOAI, m.MAHINHANH, m.TENGOI, m.DONGIA, m.MOTA, m.CACHLAM, m.NGAYTAOMOI, "Upd").ToList();
@@ -173,14 +173,14 @@ namespace LuanVanTotNghiep.Api
         public HttpResponseMessage Delete(int id)
         {
             List<sp_InsUpdDelMonAn_Result> list = new List<sp_InsUpdDelMonAn_Result>();
-            var results = db.sp_InsUpdDelMonAn(id, id, id, id, "", new float(), "", "", new DateTime(), "GetById").ToList();
+            var results = db.sp_InsUpdDelMonAn(id, 0, 0, 0, "", new float(), "", "", new DateTime(1990,01,01), "GetById").ToList();
             if (results.Count == 0)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
             try
             {
-                list = db.sp_InsUpdDelMonAn(id, id, id, id, "", new float(), "", "", new DateTime(), "Del").ToList();
+                list = db.sp_InsUpdDelMonAn(id, 0, 0, 0, "", new float(), "", "", new DateTime(1990, 01, 01), "Del").ToList();
             }
             catch (DbUpdateConcurrencyException ex)
             {

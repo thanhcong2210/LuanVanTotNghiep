@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using LuanVanTotNghiep.Areas.Admin.ViewModelAdmin;
 
 namespace LuanVanTotNghiep.Api
 {
@@ -15,27 +16,29 @@ namespace LuanVanTotNghiep.Api
     public class GioHangAPIController : ApiController
     {
         QLNhaHangEntities db = new QLNhaHangEntities();
+        public GioHangAPIController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
         // Get All
         [HttpGet]
         [Route("")]
         [AcceptVerbs("GET", "HEAD")]
-        public List<GIOHANG> Get()
+        public IEnumerable<GioHangViewModel> Get()
         {
-            List<GIOHANG> list = new List<GIOHANG>();
-            var results = db.sp_InsUpdDelGioHang(0, new int(),new DateTime(1990,01,01), new bool(),"", "Get").ToList();
-            foreach (var result in results)
-            {
-                var b = new GIOHANG()
-                {
-                    MAGH = result.MAGH,
-                    MAKH = result.MAKH,
-                    NGAYDAT = result.NGAYDAT ?? DateTime.Now,
-                    TRANGTHAI  = result.TRANGTHAI,
-                    DIACHINHAN = result.DIACHINHAN
-                };
-                list.Add(b);
-            }
-            return list;
+            var query = from gh in db.GIOHANGs
+                        join kh in db.KHACHHANGs
+                        on gh.MAKH equals kh.MAKH
+                        select new GioHangViewModel()
+                        {
+                            MAGH = gh.MAGH,
+                            MAKH = kh.MAKH,
+                            TEN_KH = kh.HOTEN_KH,
+                            NGAYDAT = gh.NGAYDAT,
+                            DIACHINHAN = gh.DIACHINHAN,
+                            TRANGTHAI = gh.TRANGTHAI
+                        };
+            return query.ToList();
         }
 
         // Get by Id

@@ -10,10 +10,14 @@
 <div class="product-model">
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
-            <li class="active">Products</li>
+            <li><a href="/">Home</a></li>
+            <li class="active">Thực đơn</li>
         </ol>
-        <h2>Our Products</h2>
+        <div class="offers">
+            <div class="container">
+                <h3>Danh sách món ăn</h3>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-9 product-model-sec">
                 @foreach (var item in Model)
@@ -24,8 +28,8 @@
                     <div class="product-grid">
                         <a href="@link">
                             <div class="more-product"><span></span></div>
-                            <div class="product-img b-link-stripe b-animate-go  thickbox">
-                                <img src="@item.HINHANH.DUONGDAN1" class="img-responsive" alt="">
+                            <div class="product-img b-link-stripe b-animate-go thickbox">
+                                <img src="@item.HINHANH.DUONGDAN1" class="img-responsive" alt="" style="width:auto; height:200px">
                                 <div class="b-wrapper">
                                     <h4 class="b-animate b-from-left  b-delay03">
                                         <button><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Xem nhanh</button>
@@ -35,8 +39,8 @@
                         </a>
                         <div class="product-info simpleCart_shelfItem">
                             <div class="product-info-cust prt_name">
-                                <h4 style="font-size: 30px; color:black">@item.TENGOI</h4>
-                                <span class="item_price">@item.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND</span>
+                                <h4 style="font-size: 15px; color:black">@item.TENGOI</h4>
+                                <span class="item_price">Giá: @item.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VNĐ</span>
 
                                 @using (Html.BeginForm("ThemGioHang", "GioHang", new { @productID = item.MAMON, @quantity = 1, @strURL = Request.Url.ToString() }))
                                 {
@@ -48,13 +52,19 @@
                                 <div class="clearfix"> </div>
                             </div>
                         </div>
-
+                        <div class="clearfix"> </div>
                     </div>
+                    
                 }
             </div>
-            @{
-                Html.RenderAction("_loaimonan", "sanpham");
-            }
+            <div id="sidebar" class="col-md-3">
+                <div class="widget wid-categories">
+                    <div class="heading"><h4>Thực đơn</h4></div>
+                    <div class="content">
+                        @{ Html.RenderAction("_loaimonan", "sanpham");}
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="dlink" style="float: right">
 

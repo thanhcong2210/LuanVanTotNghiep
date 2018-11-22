@@ -12,6 +12,9 @@ namespace LuanVanTotNghiep.ViewModel
         public int id { get; set; }
         public int idTK { get; set; }
         public int idKH { get; set; }
+        public string hoten { get; set; }
+        public string sdt { get; set; }
+        public string email { get; set; }
         public int SoLuong { get; set; }
         public DateTime? ngayden {get; set;}
         public DateTime? gioden { get; set; }

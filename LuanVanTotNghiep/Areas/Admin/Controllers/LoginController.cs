@@ -28,12 +28,26 @@ namespace LuanVanTotNghiep.Areas.Admin.Controllers
                 var result = dao.Login(model.UserName, model.Password);
                 if (result == 1)
                 {
-                    var user = dao.GetByMATAIKHOAN(model.UserName);
-                    var tkSession = new TaiKhoanLogin();
-                    tkSession.Username = user.TENDANGNHAP;
-                    tkSession.TKID = user.MATAIKHOAN;
-                    Session.Add(CommonConstants.TAIKHOAN_SESSION, tkSession);
-                    return RedirectToAction("Index", "Home");
+                    if (model.Rememberme == true)
+                    {
+                        var user = dao.GetByMATAIKHOAN(model.UserName);
+                        var tkSession = new TaiKhoanLogin();
+                        tkSession.Username = user.TENDANGNHAP;
+                        tkSession.TKID = user.MATAIKHOAN;
+
+                        Session.Add(CommonConstants.TAIKHOAN_SESSION, tkSession);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        var user = dao.GetByMATAIKHOAN(model.UserName);
+                        var tkSession = new TaiKhoanLogin();
+                        tkSession.Username = user.TENDANGNHAP;
+                        tkSession.TKID = user.MATAIKHOAN;
+                        tkSession.Name = user.NHANVIEN.HOTEN_NV;
+                        Session.Add(CommonConstants.TAIKHOAN_SESSION, tkSession);
+                        return RedirectToAction("Index", "Home");
+                    }
 
                 }
                 else if (result == -1)

@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using LuanVanTotNghiep.Areas.Admin.ViewModelAdmin;
 
 namespace LuanVanTotNghiep.Api
 {
@@ -15,27 +16,82 @@ namespace LuanVanTotNghiep.Api
     public class DonDatBanAPIController : ApiController
     {
         QLNhaHangEntities db = new QLNhaHangEntities();
+        public DonDatBanAPIController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
         // Get All
         [HttpGet]
         [Route("")]
         [AcceptVerbs("GET", "HEAD")]
-        public List<DONDATBAN> Get()
+        public IEnumerable<DonDatBanViewModel> Get()
         {
-            List<DONDATBAN> list = new List<DONDATBAN>();
-            var results = db.sp_InsUpdDelDonDatBan(0, 0, 0 , 0 , new DateTime(1990,01,01), new DateTime(1990, 01, 01), new bool(), "Get").ToList();
-            foreach (var result in results)
+            //List<DONDATBAN> list = new List<DONDATBAN>();
+
+            var query = from d in db.DONDATBANs
+                        join tk in db.TAIKHOANs
+                        on d.MATAIKHOAN equals tk.MATAIKHOAN
+                        join kh in db.KHACHHANGs
+                        on d.MAKH equals kh.MAKH
+                        select new DonDatBanViewModel()
+                        {
+                            MADATBAN = d.MADATBAN,
+                            MATAIKHOAN = d.MATAIKHOAN,
+                            TENTAIKHOAN = tk.NHANVIEN.HOTEN_NV,
+                            MAKH = d.MAKH,
+                            TENKH = kh.HOTEN_KH,
+                            SOLUONGNGUOI = d.SOLUONGNGUOI,
+                            NGAYDEN = d.NGAYDEN,
+                            GIODEN = d.GIODEN,
+                            TRANGTHAIDATBAN = d.TRANGTHAIDATBAN
+                        };
+            return query.ToList();
+
+            //List<DONDATBAN> list = new List<DONDATBAN>();
+            //var results = db.sp_InsUpdDelDonDatBan(0, 0, 0, 0, new DateTime(1990, 01, 01), new DateTime(1990, 01, 01), new bool(), "Get").ToList();
+            //foreach (var result in results)
+            //{
+            //    var b = new DONDATBAN()
+            //    {
+            //        MADATBAN = result.MADATBAN,
+            //        MATAIKHOAN = result.MATAIKHOAN,
+            //        MAKH = result.MAKH,
+            //        SOLUONGNGUOI = result.SOLUONGNGUOI,
+            //        NGAYDEN = result.NGAYDEN ?? DateTime.Today,
+            //        GIODEN = result.GIODEN ?? DateTime.Now,
+            //        TRANGTHAIDATBAN = result.TRANGTHAIDATBAN
+            //    };
+            //    list.Add(b);
+            //}
+            //return list;
+
+        }
+        [HttpGet]
+        [Route("getchuaduyet")]
+        [AcceptVerbs("GET", "HEAD")]
+        public List<DonDatBanViewModel> GetChuaDuyet()
+        {
+            //List<DONDATBAN> list = new List<DONDATBAN>();
+            var results = db.DONDATBANs.Where(x => x.TRANGTHAIDATBAN == false ).ToList();
+            List<DonDatBanViewModel> list = new List<DonDatBanViewModel>();
+            if (results != null)
             {
-                var b = new DONDATBAN()
+                foreach (var result in results)
                 {
-                    MADATBAN = result.MADATBAN,
-                    MATAIKHOAN = result.MATAIKHOAN,
-                    MAKH = result.MAKH,
-                    SOLUONGNGUOI = result.SOLUONGNGUOI,
-                    NGAYDEN  = result.NGAYDEN ?? DateTime.Today,
-                    GIODEN = result.GIODEN ?? DateTime.Now,
-                    TRANGTHAIDATBAN = result.TRANGTHAIDATBAN
-                };
-                list.Add(b);
+                    var dondat = new DonDatBanViewModel()
+                    {
+                        MADATBAN = result.MADATBAN,
+                        MATAIKHOAN = result.MATAIKHOAN,
+                        TENTAIKHOAN = "",
+                        MAKH = result.MAKH,
+                        TENKH = result.KHACHHANG.HOTEN_KH,
+                        SOLUONGNGUOI = result.SOLUONGNGUOI,
+                        NGAYDEN = result.NGAYDEN ?? DateTime.Now,
+                        GIODEN = result.GIODEN ?? DateTime.Now,
+                        TRANGTHAIDATBAN = result.TRANGTHAIDATBAN
+                    };
+                    list.Add(dondat);
+                }
             }
             return list;
         }

@@ -1,5 +1,5 @@
 ﻿//app.js
-var NhaHangApp = angular.module('NhaHangApp', ['ui.router', 'ui.bootstrap']);
+var NhaHangApp = angular.module('NhaHangApp', ['ui.router', 'ui.bootstrap','angular-growl']);
 
 NhaHangApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /business

@@ -14,6 +14,7 @@
             <div class="col-md-9 cart-items">
                 <h1>Số lượng món đã chọn(0)</h1>
                 <p class="text-info text-center">
+                    <img src="~/Assets/client/images/cartempty.png" />
                     <a style="color:red" href="/"> Giỏ hàng rỗng! Vui lòng chọn tiếp tục chọn món để thêm món ăn vào giỏ hàng! </a>
                 </p>
             </div>
@@ -90,16 +91,12 @@
                             <td colspan="6" style="text-align:right;color:blue">
                                 <form action="/giohang/XoaTatCa" method="post">
                                     <button class="btn btn-default">
-                                        <span class="glyphicon glyphicon-th-list"></span>
+                                        <span class="glyphicon glyphicon-trash"></span>
                                         Xóa giỏ hàng
                                     </button>
                                     <a href="/giohang/Suagiohang" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-th-list"></span>
+                                        <span class="glyphicon glyphicon-edit"></span>
                                         Cập nhật giỏ hàng
-                                    </a>
-                                    <a href="/giohang/dathang" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-th-list"></span>
-                                        Checkout
                                     </a>
                                 </form>
                             </td>
@@ -114,7 +111,7 @@
                 <div class="price-details">
                     <h3>Giá chi tiết</h3>
                     <span>Số tiền tạm tính</span>
-                    <span class="total1">@ViewBag.TongTien VNĐ</span>
+                    <span class="total1">@ViewBag.TongTien.ToString("#,##0").Replace(',', '.') VNĐ</span>
                     <span>Số món ăn tạm tính</span>
                     <span class="total1">@Model.Count SP</span>
                     @*<span>Delivery Charges</span>
@@ -123,7 +120,7 @@
                 </div>
                 <ul class="total_price">
                     <li class="last_price"> <h4>Tổng cộng</h4></li>
-                    <li class="last_price"><span>@ViewBag.TongTien VND</span></li>
+                    <li class="last_price"><span>@ViewBag.TongTien.ToString("#,##0").Replace(',', '.') VND</span></li>
                 </ul>
                 <div class="clearfix"></div>
                 <div class="clearfix"></div>
@@ -131,12 +128,8 @@
                 {
                     <a class="order" href="">Vui lòng đăng nhập để thanh toán</a>
                     <input name="address" type="text" class="form-control" placeholder="Địa chỉ nhận..." />
-
-                    @*<div class="form-group">
-                        <label>Địa chỉ nhận</label>
-                        <input  class="form-control" style="width:500px" />
-                    </div>*@
-                    <button type="submit" class="order">Gửi đơn hàng</button>
+                    <br />
+                    <button type="submit" class="btn">Gửi đơn hàng</button>
                     <button class="btn"><a href="/GioHang">Hủy đơn hàng</a></button>
                 }
              </div>

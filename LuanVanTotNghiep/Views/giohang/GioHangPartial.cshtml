@@ -1,5 +1,10 @@
 ﻿
-<div id="divGioHang" class="cart box_1">
+<div>
+    <form action="/sanpham/timkiem" method="get" style="margin-right: 50px">
+        <input type="text" id="txtKeyword" name="keyword" placeholder="Gõ từ khoá"><button type="submit"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+</div>
+<div id="divGioHang" class="cart box_1" style="margin-right:150px">
     <a href="@Url.Action("GioHang","GioHang")">
         <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" style="color:blue"></span>
         <div class="total">
@@ -9,7 +14,7 @@
             }
             else
             {
-                <span>@ViewBag.TongTien VND (<span> @ViewBag.TongSoLuong món </span>)</span>
+                <span>@ViewBag.TongTien.ToString("#,##0").Replace(',', '.') VNĐ (<span> @ViewBag.TongSoLuong món </span>)</span>
             }
         </div>
         @{
@@ -17,7 +22,9 @@
         }
         @if (session == null)
         {
-            <p><a href="/nguoidung/dangnhap" class="simpleCart_empty" style="font-size:15px">Đăng nhập</a> | <a href="/nguoidung/dangky" class="simpleCart_empty" style="font-size:15px">Đăng Ky</a></p>
+            <p>
+                <a style="cursor:pointer; font-size:15px" href="/nguoidung/dangnhap" class="simpleCart_empty" ><span class="glyphicon glyphicon-user"></span>Đăng nhập</a> | <a href="/nguoidung/dangky" class="simpleCart_empty" style="font-size:15px">Đăng Ký</a>
+            </p>
         }
         else
         {
@@ -28,3 +35,4 @@
         <div class="clearfix"> </div>
     </a>
 </div>
+

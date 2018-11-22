@@ -1,7 +1,7 @@
-﻿NhaHangApp.controller('monAnController', ['$scope', '$http', monAnController]);
+﻿NhaHangApp.controller('monAnController', ['$scope', '$http','growl', monAnController]);
 
 // Angularjs Controller
-function monAnController($scope, $http) {
+function monAnController($scope, $http, growl) {
     // Declare variable
     $scope.loading = true;
     $scope.updateShow = false;
@@ -14,15 +14,13 @@ function monAnController($scope, $http) {
     $scope.currentPage = 4;
     $scope.itemsPerPage = $scope.viewby;
     $scope.maxSize = 5; //Number of pager buttons to show
-    
-
-
+    //button thêm mới 
     $scope.ShowHide = function () {
         $scope.ShowAddForm = $scope.ShowAddForm = true;
         $scope.ShowUpdateForm = $scope.ShowUpdateForm = false;
         $scope.ShowDataTable = $scope.ShowDataTable = false;
     };
-    // Get All 
+    // lấy tất cả thông tin
 
     $http.get('/api/MonAnAPI/').success(function (data) {
             $scope.ShowAddForm = false;
@@ -31,10 +29,10 @@ function monAnController($scope, $http) {
             $scope.monans = data;
             $scope.totalItems = $scope.monans.length;
             
-        }).error(function () {
-                    $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+    }).error(function () {
+        growl.error('Xảy ra lỗi trong quá trình tải dữ liệu lên!', { title: 'Thông báo' });
         });
-
+    //phân trang
     $scope.setPage = function (pageNo) {
         $scope.currentPage = pageNo;
     };
@@ -47,99 +45,110 @@ function monAnController($scope, $http) {
         $scope.itemsPerPage = num;
         $scope.currentPage = 1; //reset to first page
     };
-    //get loai mon an
+    ////phân trang
+    //lấy danh sách loại món ăn
     $http.get('/api/MonAnAPI/loaimonan').success(function (data) {
         $scope.loaimonans = data;
     }).error(function () {
-        $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+        growl.error('Xảy ra lỗi trong quá trình tải dữ liệu loại món ăn!', { title: 'Thông báo' });
         });
 
-    //get hinh anh
+    //lấy danh sách hình ảnh 
     $http.get('/api/MonAnAPI/hinhanh').success(function (data) {
         $scope.hinhanhs = data;
     }).error(function () {
-        $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+        growl.error('Xảy ra lỗi trong quá trình tải dữ liệu hình ảnh!', { title: 'Thông báo' });
         });
 
-    //get dvtinh 
+    //lấy danh sách đơn vị tính
     $http.get('/api/MonAnAPI/donvitinh').success(function (data) {
         $scope.dvtinhs = data;
     }).error(function () {
-        $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+        growl.error('Xảy ra lỗi trong quá trình tải dữ liệu đơn vị tính!', { title: 'Thông báo' });
     });
 
-    //Insert 
+    //thêm mới 
     $scope.add = function () {
         $scope.loading = true;
-        $http.post('/api/MonAnAPI/', this.newmonan).success(function (data) {
+        $http.post('/api/MonAnAPI/', this.newmonanadd).success(function (data) {
             $scope.monans = data;
             $scope.updateShow = false;
             $scope.addShow = true;
-            $scope.newmonan = '';
-            $scope.reload();
+            growl.success('Thêm mới thành công !', { title: 'Thông báo' });
+            location.reload();
+            $scope.newmonanadd = '';
+            
         }).error(function (data) {
-            $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
+            growl.error('Thêm mới không thành công !'+ data +'', { title: 'Lỗi' }); //thông báo
         });
     };
 
-    //Edit 
+    //chỉnh sửa
+    //lấy mã món để chình sửa
     $scope.edit = function () {
         $scope.ShowUpdateForm = true;
         $scope.ShowDataTable = false;
         var Id = this.monan.MAMON;
         $http.get('/api/MonAnAPI/' + Id).success(function (data) {
-            
             data.NGAYTAOMOI = new Date(data.NGAYTAOMOI);
             $scope.newmonan = data;
             $scope.updateShow = true;
             $scope.addShow = false;
         }).error(function () {
-            $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+            growl.error('Xảy ra lỗi trong quá trình tải dữ liệu!', { title: 'Thông báo' });
         });
     };
-
+    //cập nhật vào CSDL
     $scope.update = function () {
         $scope.loading = true;
         $scope.ShowDataTable = true;
         $scope.ShowAddForm = false;
         console.log(this.newmonan);
         $http.put('/api/MonAnAPI/', this.newmonan).success(function (data) {
-            data.NGAYTAOMOI = new Date(data.NGAYTAOMOI);
+            data.NGAYTAOMOI = new Date(data.NGAYTAOMOI).setDate(data.NGAYTAOMOI);
             $scope.monans = data;
             $scope.updateShow = false;
             $scope.addShow = true;
             $scope.newmonan = '';
-            $scope.reload();
-            $interval($scope.reload, 5000);
+            location.reload();
+            $scope.ShowDataTable = false;
+            $scope.ShowAddForm = false;
+            $scope.ShowUpdateForm = false;
+            growl.success('Cập nhật thành công !', { title: 'Thông báo' });
         }).error(function (data) {
-            $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
+            growl.error('Xảy ra lỗi trong quá trình lưu thông tin! ' + data, { title: 'Thông báo' });
         });
     };
 
-    //Delete 
+    //Xóa
     $scope.delete = function () {
         var Id = this.monan.MAMON;
         $scope.loading = true;
         $http.delete('/api/MonAnAPI/' + Id).success(function (data) {
+            growl.success('Xóa thành công !', { title: 'Thông báo' });
             $scope.monans = data;
+            
+            location.reload();
         }).error(function (data) {
-            $scope.error = "Xảy ra lỗi trong quá trình lưu thông tin! " + data;
+            growl.error('Xóa không thành công' + data + ' !', { title: 'Thông báo' });
+            
         });
     };
 
-    //Cancel 
+    //Hủy bỏ
     $scope.cancel = function () {
         $scope.updateShow = false;
         $scope.addShow = true;
         $scope.newmonan = '';
+        $scope.newmonanadd = '';
         $scope.ShowAddForm = false;
         $scope.ShowUpdateForm = false;
         $scope.ShowDataTable = true;
         $scope.error = "";
         $scope.reload();
-        $interval($scope.reload, 5000);
-    };
 
+    };
+    // load lại trang
     $scope.reload = function () {
         $http.get('/api/MonAnAPI/').success(function (data) {
             $scope.ShowAddForm = false;
@@ -147,9 +156,8 @@ function monAnController($scope, $http) {
             $scope.ShowDataTable = true;
             $scope.monans = data;
             $scope.totalItems = $scope.monans.length;
-
         }).error(function () {
-            $scope.error = "Xảy ra lỗi trong quá trình tải dữ liệu lên!";
+            growl.error('Xảy ra lỗi trong quá trình tải dữ liệu hình ảnh!', { title: 'Thông báo' });
         });
     };
     

@@ -42,43 +42,43 @@ namespace LuanVanTotNghiep.Models.DAO
             }
         }
 
-        public bool InsertForFacebook(KHACHHANG entity)
+        public int InsertForFacebook(KHACHHANG entity)
         {
-            try
-            {
-                //var user = db.KHACHHANGs.Find(entity.MAKH);
-                //var user = db.KHACHHANGs.SingleOrDefault(x => x.TENDANGNHAP_KH == entity.TENDANGNHAP_KH);
-                //user.HOTEN_KH = entity.HOTEN_KH;
-                ////if (!string.IsNullOrEmpty(entity.Password))
-                ////{
-                ////    user.Password = entity.Password;
-                ////}
-                ////user.Address = entity.Address;
-                ////user.EMAIL_KH = entity.EMAIL_KH;
-                //user.ModifiedBy = entity.ModifiedBy;
-                //user.ModifiedDate = DateTime.Now;
-                db.KHACHHANGs.Add(entity);
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                //logging
-                return false;
-            }
-
-            ////some code here
-            //var user = db.KHACHHANGs.SingleOrDefault(x => x.TENDANGNHAP_KH == entity.TENDANGNHAP_KH);
-            //if (user == null)
+            //try
             //{
+            //    //var user = db.KHACHHANGs.Find(entity.MAKH);
+            //    //var user = db.KHACHHANGs.SingleOrDefault(x => x.TENDANGNHAP_KH == entity.TENDANGNHAP_KH);
+            //    //user.HOTEN_KH = entity.HOTEN_KH;
+            //    ////if (!string.IsNullOrEmpty(entity.Password))
+            //    ////{
+            //    ////    user.Password = entity.Password;
+            //    ////}
+            //    ////user.Address = entity.Address;
+            //    ////user.EMAIL_KH = entity.EMAIL_KH;
+            //    //user.ModifiedBy = entity.ModifiedBy;
+            //    //user.ModifiedDate = DateTime.Now;
             //    db.KHACHHANGs.Add(entity);
             //    db.SaveChanges();
-            //    return entity.MAKH;
+            //    return true;
             //}
-            //else
+            //catch (Exception ex)
             //{
-            //    return user.MAKH;
+            //    //logging
+            //    return false;
             //}
+
+            ////some code here
+            var user = db.KHACHHANGs.SingleOrDefault(x => x.TENDANGNHAP_KH == entity.TENDANGNHAP_KH);
+            if (user == null)
+            {
+                db.KHACHHANGs.Add(entity);
+                db.SaveChanges();
+                return entity.MAKH;
+            }
+            else
+            {
+                return user.MAKH;
+            }
 
         }
     }

@@ -14,24 +14,24 @@
             <li>
                 <div class="banner1">
                     <div class="banner-info">
-                        <h3>Morbi lacus hendrerit efficitur.</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. consectetur adipiscing elit. consectetur adipiscing elit.</p>
+                        <h3>Chào mừng bạn đến với Thành Công</h3>
+                        <p>Rất vui lòng được phục vụ quá khách!!</p>
                     </div>
                 </div>
             </li>
             <li>
                 <div class="banner2">
                     <div class="banner-info">
-                        <h3>Phasellus elementum tincidunt.</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. consectetur adipiscing elit. consectetur adipiscing elit.</p>
+                        <h3>Chào mừng bạn đến với Thành Công</h3>
+                        <p>Niềm vui của quá khách là động lực của chúng tôi.</p>
                     </div>
                 </div>
             </li>
             <li>
                 <div class="banner3">
                     <div class="banner-info">
-                        <h3>Maecenas interposuere volutpat.</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. consectetur adipiscing elit. consectetur adipiscing elit.</p>
+                        <h3>Chào mừng bạn đến với Thành Công</h3>
+                        <p>Mọi thắc măc vui lòng liên hệ 0965213724</p>
                     </div>
                 </div>
             </li>
@@ -58,10 +58,10 @@
 
                     <a href="@link">
 
-                        <img src="@item.HINHANH.DUONGDAN1" alt="@item.TENGOI" />
+                        <img src="@item.HINHANH.DUONGDAN1" alt="@item.TENGOI" style="width:300px; height:200px" />
                         <div class="arrival-info">
                             <h4 style="color:black">@item.TENGOI</h4>
-                            <p style="color:red">Giá @item.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VND</p>
+                            <p style="color:red">Giá @item.DONGIA.GetValueOrDefault(0).ToString("#,##0").Replace(',', '.') VNĐ</p>
                             @*<p class="item_add items">@Ajax.ActionLink("THÊM VÀO GIỎ HÀNG", "ThemGioHang", "giohang", new { @productID = item.MAMON, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace })</p>*@
                             @using (Html.BeginForm("ThemGioHang", "GioHang", new { @productID = item.MAMON, @quantity = 1, @strURL = Request.Url.ToString() }))
                             {

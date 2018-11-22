@@ -11,5 +11,8 @@ namespace LuanVanTotNghiep.Common
         public int ID { set; get; }
         public string Username { set; get; }
         public string Name { set; get; }
+        public string Mobile { set; get; }
+        public string Email { set; get; }
+        
     }
 }

@@ -17,9 +17,9 @@ namespace LuanVanTotNghiep.Controllers
         public ActionResult Index(int? page)
         {
             var model = db.MONANs.Where(x => x.MAMON > 0).ToList();
-            int PageSize = 3;
+            int PageSize = 9;
             int PageNumber = page ?? 1;
-            var pagemodel =  model.OrderBy(n => n.MAMON).ToPagedList(PageNumber, PageSize);
+            var pagemodel =  model.OrderBy(n => n.NGAYTAOMOI).ToPagedList(PageNumber, PageSize);
             return View(pagemodel);
         }
 
@@ -61,13 +61,31 @@ namespace LuanVanTotNghiep.Controllers
             var category = new CategoryDAO().ViewDetail(id);
             ViewBag.Category = category;
             var listSP = db.MONANs.Where(n => n.MALOAI == id).ToList();
-            int PageSize = 3;
+            int PageSize = 9;
             int PageNumber = page ?? 1;
             return View(listSP.OrderBy(n => n.MALOAI).ToPagedList(PageNumber, PageSize));
         }
+        public ActionResult timkiem(string keyword, string strURL, int? page)
+        {
+            //var category = new CategoryDAO().ViewDetail(id);
+            //ViewBag.Category = category;
+            ViewBag.Keyword = keyword;
+            var listSP = db.MONANs.Where(n => n.TENGOI == keyword || n.DONGIA.ToString() == keyword || n.MOTA == keyword).ToList();
+            var ktra = listSP.Count();
+            if (ktra == 0)
+            {
+                ViewBag.Error = "Không có kết quả!";
+            }
+                int PageSize = 9;
+                int PageNumber = page ?? 1;
+            
+            return View(listSP.OrderBy(n => n.NGAYTAOMOI).ToPagedList(PageNumber, PageSize));
+        }
 
-
-
+        public ActionResult Error()
+        {
+            return View();
+        }
 
 
 

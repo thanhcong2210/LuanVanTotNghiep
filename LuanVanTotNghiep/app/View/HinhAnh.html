@@ -20,94 +20,154 @@
                 <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
             </div>
         </div>
-        <div class="box-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <strong class="error">{{error}}</strong>
-                    <form name="addhinhanh" class="form-horizontal" style="width: auto; margin: 0px auto;">
-                        <div class="form-group">
-                            <label for="mahinhanh" class="col-md-2 control-label">Mã hình ảnh</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="manhahang" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newha.MAHINHANH" disabled />
+        <section id="container">
+            <!--main content start-->
+            <section id="main-content">
+                <section class="wrapper">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label>Images</label>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div style="position:relative;">
+                                            <div class="row">
+                                                <div class="col-lg-6" ng-repeat="image in imagesrc">
+                                                    <div class="thumbnail">
+                                                        <img style="min-height:100px;" src="{{image.DUONGDAN1}}">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div style="position:absolute;bottom:0;display:block;width:100%; color:#fff;background-color:#333;">
+                                                <input id="file" ng-hide="true" type="file" accept="images/*" class="form-control" multiple ng-files="getTheFiles($files)" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer text-center" style="background-color:#337ab7;cursor:pointer;color:#fff;" onclick="document.getElementById('file').click();">
+                                        <span class="h4">Add Images</span>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label>Basic Information</label>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label style="font-size:13px;">Name</label>
+                                                    <input type="text" ng-model="HINHANH.TENHINHANH" class="form-control" placeholder="Enter Deal Name" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-lg-offset-9">
+                                                <div class="form-group" style="padding-top:10px;">
+                                                    <a ng-click="Submit()" class="btn btn-primary btn-block" style="padding:10px;border:none;border-radius:0;font-size:16px;">Add </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
-                        <div class="form-group ">
-                            <label for="ten" class="col-md-2 control-label">Tên hình ảnh</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="ten" placeholder="" ng-model="newha.TENHINHANH" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="anh1" class="col-md-2 control-label">Thêm ảnh:</label>
-                            <div class="col-md-10 space">
-                                <input type="file" class="form-control" name="anh1" ng-model="newha.DUONGDAN1" required />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="anh2" class="col-md-2 control-label">Thêm ảnh:</label>
-                            <div class="col-md-10 space">
-                                <input type="file" class="form-control" name="anh2" ng-model="newha.DUONGDAN2" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="anh3" class="col-md-2 control-label">Thêm ảnh:</label>
-                            <div class="col-md-10 space">
-                                <input type="file" class="form-control" name="anh3" ng-model="newha.DUONGDAN3" />
-                            </div>
-                        </div>
-                        <br />
-                        <br />
-                        <div class="form-group space">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <input type="submit" value="Thêm mới" ng-click="add()" ng-show="addShow" ng-disabled="!addhinhanh.$valid" class="btn btn-success" />
-                                <input type="submit" value="Chỉnh sửa" ng-click="update()" ng-show="updateShow" ng-disabled="!addhinhanh.$valid" class="btn btn-primary" />
-                                <input type="button" value="Hủy bỏ" ng-click="cancel()" class="btn btn-default" />
-                            </div>
-                        </div>
-                        <br />
                     </form>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover" style="width: 800px; margin-left: 170px;">
-                            <tr>
-                                <th>Mã hình ảnh</th>
-                                <th>Tên hình</th>
-                                <th>Ảnh 1</th>
-                                <th>Ảnh 2</th>
-                                <th>Ảnh 3</th>
-                                <th>Actions</th>
-                            </tr>
-                            <tr ng-repeat="hinhanh in hinhanhs">
-                                <td>
-                                    <p>{{ hinhanh.MAHINHANH }}</p>
-                                </td>
-                                <td>
-                                    <p>{{ hinhanh.TENHINHANH }}</p>
-                                </td>
-                                
-                                <td>
-                                    <img ng-src="{{ hinhanh.DUONGDAN1 }} " style="width:80px; height: 80px" />
-                                </td>
-                                <td>
-                                    <img ng-src="{{ hinhanh.DUONGDAN2 }} " style="width:80px; height: 80px" />
-                                </td>
-                                <td>
-                                    <img ng-src="{{ hinhanh.DUONGDAN3 }} " style="width:80px; height: 80px" />
-                                </td>
-                                <td>
-                                    <p>
-                                        <a class="
-                                          btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a>
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
+
+                </section>
+            </section>
+        </section>
+        <!--<div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <strong class="error">{{error}}</strong>
+                <form name="addhinhanh" class="form-horizontal" style="width: auto; margin: 0px auto;">
+                    <div class="form-group">
+                        <label for="mahinhanh" class="col-md-2 control-label">Mã hình ảnh</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="manhahang" placeholder="Tạo tự dộng và không được thay đổi" ng-model="newha.MAHINHANH" disabled />
+                        </div>
                     </div>
+                    <div class="form-group ">
+                        <label for="ten" class="col-md-2 control-label">Tên hình ảnh</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="ten" placeholder="" ng-model="newha.TENHINHANH" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="anh1" class="col-md-2 control-label">Thêm ảnh:</label>
+                        <div class="col-md-10 space">
+                            <input type="file" class="form-control" name="anh1" ng-model="newha.DUONGDAN1" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="anh2" class="col-md-2 control-label">Thêm ảnh:</label>
+                        <div class="col-md-10 space">
+                            <input type="file" class="form-control" name="anh2" ng-model="newha.DUONGDAN2" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="anh3" class="col-md-2 control-label">Thêm ảnh:</label>
+                        <div class="col-md-10 space">
+                            <input type="file" class="form-control" name="anh3" ng-model="newha.DUONGDAN3" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group space">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" value="Thêm mới" ng-click="add()" ng-show="addShow" ng-disabled="!addhinhanh.$valid" class="btn btn-success" />
+                            <input type="submit" value="Chỉnh sửa" ng-click="update()" ng-show="updateShow" ng-disabled="!addhinhanh.$valid" class="btn btn-primary" />
+                            <input type="button" value="Hủy bỏ" ng-click="cancel()" class="btn btn-default" />
+                        </div>
+                    </div>
+                    <br />
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" style="width: 800px; margin-left: 170px;">
+                        <tr>
+                            <th>Mã hình ảnh</th>
+                            <th>Tên hình</th>
+                            <th>Ảnh 1</th>
+                            <th>Ảnh 2</th>
+                            <th>Ảnh 3</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr ng-repeat="hinhanh in hinhanhs">
+                            <td>
+                                <p>{{ hinhanh.MAHINHANH }}</p>
+                            </td>
+                            <td>
+                                <p>{{ hinhanh.TENHINHANH }}</p>
+                            </td>
+
+                            <td>
+                                <img ng-src="{{ hinhanh.DUONGDAN1 }} " style="width:80px; height: 80px" />
+                            </td>
+                            <td>
+                                <img ng-src="{{ hinhanh.DUONGDAN2 }} " style="width:80px; height: 80px" />
+                            </td>
+                            <td>
+                                <img ng-src="{{ hinhanh.DUONGDAN3 }} " style="width:80px; height: 80px" />
+                            </td>
+                            <td>
+                                <p>
+                                    <a class="
+                                      btn btn-primary btn-xs" ng-click="edit()" href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span></a> | <a class="btn btn-danger btn-xs" ng-click="delete()" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-        </div><!-- /.box-body -->
+        </div>
+    </div>-->
+        <!-- /.box-body -->
     </div><!-- /.box -->
 </section><!-- /.content -->

@@ -96,6 +96,8 @@ namespace LuanVanTotNghiep.Controllers
                 tkSession.Name = kh.HOTEN_KH;
                 tkSession.Username = kh.TENDANGNHAP_KH;
                 tkSession.ID = kh.MAKH;
+                tkSession.Mobile = kh.SDT_KH;
+                tkSession.Email = kh.EMAIL_KH;
                 Session.Add(CommonConstantClient.TaiKhoan, tkSession);
                 this.AddToastMessage("Thông báo ", "Đăng nhập thành công", ToastType.Success);
                 //Session["TaiKhoan"] = kh;
@@ -103,11 +105,12 @@ namespace LuanVanTotNghiep.Controllers
             }
             else if (kq == -1)
             {
-                this.AddToastMessage("Lỗi ", "Tên đăng nhập sai!", ToastType.Warning);
+                //this.AddToastMessage("Lỗi ", "Tên đăng nhập sai!", ToastType.Warning);
+                ViewBag.ThongBao = "Tên đăng nhập sai! Vui lòng nhập lại";
             }
             else if (kq == 0)
             {
-                this.AddToastMessage("Lỗi ", "Mật khẩu không đúng! Vui lòng nhập lại", ToastType.Error);
+                //this.AddToastMessage("Lỗi ", "Mật khẩu không đúng! Vui lòng nhập lại", ToastType.Error);
                 ViewBag.ThongBao = "Mật khẩu không đúng! Vui lòng nhập lại";
             }
             return View();
@@ -237,12 +240,15 @@ namespace LuanVanTotNghiep.Controllers
                 user.HOTEN_KH = firstname + " " + middlename + " " + lastname;
                 //user.CreatedDate = DateTime.Now;
                 var resultInsert = new UserDAO().InsertForFacebook(user);
-                if (resultInsert = true)
+                if (resultInsert > 0)
                 {
-                    var userSession = new getInfoKhachHang();
-                    userSession.Username = user.TENDANGNHAP_KH;
-                    userSession.ID = user.MAKH;
-                    Session.Add(CommonConstantClient.TaiKhoan, userSession);
+                    var tkSession = new getInfoKhachHang();
+                    tkSession.Name = user.HOTEN_KH;
+                    tkSession.Username = user.TENDANGNHAP_KH;
+                    tkSession.ID = user.MAKH;
+                    Session.Add(CommonConstantClient.TaiKhoan, tkSession);
+                    this.AddToastMessage("Thông báo ", "Đăng nhập thành công", ToastType.Success);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return Redirect("/");
